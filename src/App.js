@@ -1,4 +1,4 @@
-import { App as GrommetApp, Box, Button, Header, Search, Title } from 'grommet';
+import { App as GrommetApp, Header, Title } from 'grommet';
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import Index from './pages';
@@ -24,12 +24,6 @@ export default withRouter(
             <Title>
               if-eth
             </Title>
-            <Box flex={true} justify='end' direction='row' responsive={false}>
-              <Search inline={true} fill={true} size='medium' placeHolder='Search'
-                      onDOMChange={this.handleChange}
-                      dropAlign={{ 'right': 'right' }}/>
-              <Button label="Create"/>
-            </Box>
           </Header>
 
           <Switch>
