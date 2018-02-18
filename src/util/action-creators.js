@@ -1,50 +1,50 @@
-import { fetchWithAuth, createWithAuth } from './/api/requests';
+import { createWithAuth, fetchWithAuth } from './api/requests';
 
 const syncEntities = (collectionName, collection) => ({
   type: 'SYNC_ENTITIES',
   payload: {
-    [collectionName]: collection,
-  },
-})
+    [ collectionName ]: collection
+  }
+});
 
 const makeHandleCollectionFetch = ({ dispatch, getState, collectionName }) => {
   return (collection) => {
     dispatch(syncEntities(collectionName, collection));
-  }
+  };
 };
 
 const fetchCollection = (collectionName) => {
   return (dispatch, getState) => {
     const handleCollectionFetch = makeHandleCollectionFetch({
-      dispatch, getState, collectionName,
+      dispatch, getState, collectionName
     });
     fetchWithAuth(collectionName)
-    .then(handleCollectionFetch);
+      .then(handleCollectionFetch);
   };
 };
 
 
 const makeHandleRecordCreate = ({ dispatch, getState, collectionName }) => {
   return (record) => {
-    const collection = { [record.id]: record };
+    const collection = { [ record.id ]: record };
     dispatch(syncEntities(collectionName, collection));
     dispatch({
-      type: 'NEW_SUBSCRIPTION_SUCCESS',
-    })
-  }
-}
+      type: 'NEW_SUBSCRIPTION_SUCCESS'
+    });
+  };
+};
 
 const createRecord = (collectionName, data) => {
   return (dispatch, getState) => {
     const handleRecordFetch = makeHandleRecordCreate({
-      dispatch, getState, collectionName,
+      dispatch, getState, collectionName
     });
     createWithAuth(collectionName, data)
-    .then(handleRecordFetch);
+      .then(handleRecordFetch);
   };
-}
+};
 
 export {
   fetchCollection,
-  createRecord,
- };
+  createRecord
+};

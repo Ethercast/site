@@ -55,7 +55,7 @@ export default class Auth {
       return null;
     }
 
-    const { id_token } = JSON.parse(storedAuth);
-    return id_token;
+    const { idToken } = JSON.parse(storedAuth);
+    return idToken;
   };
 }
