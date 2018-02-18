@@ -1,4 +1,5 @@
 import { App as GrommetApp, Box, Button, Header, Title } from 'grommet';
+import { LoginIcon, LogoutIcon } from 'grommet/components/icons/base';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Route, Switch, withRouter } from 'react-router-dom';
@@ -33,8 +34,8 @@ export default withRouter(
               <Box flex={true} justify='end' direction='row' responsive={false}>
                 {
                   !loggedIn ?
-                    <Button label="Log in" onClick={Auth.login}/> :
-                    <Button label="Log out" onClick={logout}/>
+                    <Button label="Log in" icon={<LoginIcon/>} onClick={Auth.login}/> :
+                    <Button label="Log out" icon={<LogoutIcon/>} onClick={logout}/>
                 }
               </Box>
             </Header>
