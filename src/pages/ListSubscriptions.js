@@ -38,12 +38,12 @@ class ListSubscriptions extends React.Component {
 
     return (
       <div>
-        <h2>My Subscriptions</h2>
-        <Box flex={true} justify='end' direction='row' responsive={false}>
-          <Search inline={true} fill={true} size='medium' placeHolder='Search'
+        <h2 style={{paddingLeft: '8px', paddingRight: '8px'}}>My Subscriptions</h2>
+        <Box flex={true} justify='end' direction='row' style={{paddingLeft: '11px', paddingRight: '11px'}} responsive={false}>
+          <Search inline={true} fill={true} size='medium' style={{ width: '100%'}} placeHolder='Search'
                   onDOMChange={this.handleChange}
-                  dropAlign={{ 'right': 'right' }}/>
-          <Button label="Create" icon={<AddIcon/>} onClick={() => {
+                  />
+          <Button label="Create" icon={<AddIcon/>}  onClick={() => {
             history.push(`/subscriptions/new`);
           }}/>
         </Box>
