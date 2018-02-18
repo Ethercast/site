@@ -1,6 +1,5 @@
 import { Button } from 'grommet';
 import Card from 'grommet/components/Card';
-import Paragraph from 'grommet/components/Paragraph';
 import moment from 'moment';
 import React from 'react';
 import { withRouter } from 'react-router-dom';

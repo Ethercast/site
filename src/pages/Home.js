@@ -22,7 +22,7 @@ export default withRouter(
               <BoxWithAppContainer direction='column' justify='center' align='center'>
                 <Box direction='row' justify='center' align='center'>
                   <Box basis='1/2' align='center' pad='medium'>
-                    <img src='/hero.png'/>
+                    <img alt="hero" src='/hero.png'/>
                   </Box>
                   <Box direction='column' justify='left' align='left'>
                     <Heading margin='none'>

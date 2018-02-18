@@ -10,6 +10,15 @@ import Select from 'grommet/components/Select';
 import Toast from 'grommet/components/Toast';
 import React from 'react';
 import { Field, FieldArray, reduxForm } from 'redux-form';
+import _ from 'underscore';
+
+const TYPE_OPTIONS = [
+  { value: 'address', label: 'Address' },
+  { value: 'topic0', label: 'Method Signature' },
+  { value: 'topic1', label: 'First Argument' },
+  { value: 'topic1', label: 'Second Argument' },
+  { value: 'topic1', label: 'Third Argument' }
+];
 
 let NewSubscription = props => {
   const { handleSubmit, style, submitSucceeded } = props;
@@ -40,21 +49,18 @@ let NewSubscription = props => {
 
               const SelectField = ({ input: { value, onChange } }) => {
                 return (
-                  <Select placeHolder='None'
-                          options={[
-                            { value: 'address', label: 'Address' },
-                            { value: 'topic0', label: 'Method Signature' },
-                            { value: 'topic1', label: 'First Argument' },
-                            { value: 'topic1', label: 'Second Argument' },
-                            { value: 'topic1', label: 'Third Argument' }
-                          ]}
-                          value={value}
-                          onChange={(option) => onChange(option.value)}
-                          style={{
-                            background: 'white',
-                            width: '100%',
-                            height: '75px'
-                          }}
+                  <Select
+                    placeHolder='None'
+                    options={TYPE_OPTIONS}
+                    value={_.findWhere(TYPE_OPTIONS, { value })}
+                    onChange={(changeEvent) => {
+                      onChange(changeEvent.value.value);
+                    }}
+                    style={{
+                      background: 'white',
+                      width: '100%',
+                      height: '75px'
+                    }}
                   />
                 );
               };
@@ -74,7 +80,7 @@ let NewSubscription = props => {
                     />
                     <FormField
                       label="Value"
-                      style={{...inputStyle, ...{ position: 'relative' }}}
+                      style={{ ...inputStyle, ...{ position: 'relative' } }}
                     >
                       <Field
                         name={`${condition}.value`}
@@ -86,7 +92,7 @@ let NewSubscription = props => {
                         style={{ position: 'absolute', right: '0px', top: '0px' }}
                         type="button"
                         icon={<CloseIcon/>}
-                        onClick={() => fields.remove(index)}/> : null }
+                        onClick={() => fields.remove(index)}/> : null}
                     </FormField>
 
                   </Box>
@@ -114,7 +120,7 @@ let NewSubscription = props => {
       </Heading>
       {fields.map((logic, index) => {
         return (
-          <div style={{position: 'relative'}}>
+          <div key={`logic-${index}`} style={{ position: 'relative' }}>
             {index > 0 ? <div style={{ marginTop: '10px', ...tagStyle }}>AND</div> : null}
             <Box style={{
               border: '1px solid rgba(0,0,0,.15)',
@@ -127,7 +133,7 @@ let NewSubscription = props => {
                 style={{ position: 'absolute', right: '0px', bottom: '0px' }}
                 type="button"
                 icon={<CloseIcon/>}
-                onClick={() => fields.remove(index)}/> : null }
+                onClick={() => fields.remove(index)}/> : null}
             </Box>
           </div>);
       })}
