@@ -31,7 +31,7 @@ export const ActiveAnchor = ({ path, ...rest }) => (
 
 export default withRouter(
   connect(
-    ({ auth: { loggedIn } }) => ({ loggedIn }),
+    ({ auth: { loggedIn, principal } }) => ({ loggedIn, principal }),
     {
       logout: () => {
         Auth.logout();
@@ -43,7 +43,7 @@ export default withRouter(
   )(
     class App extends Component {
       render() {
-        const { loggedIn, logout } = this.props;
+        const { loggedIn, logout, principal } = this.props;
 
         return (
           <GrommetApp>
@@ -55,7 +55,16 @@ export default withRouter(
                 if-eth
               </Title>
 
-              <Box flex={true} justify='end' direction='row' responsive={false}>
+              <Box flex={true} justify='end' direction='row' responsive={false}
+                   alignContent="center">
+                <small style={{ alignSelf: 'center' }}>
+                  {
+                    loggedIn && principal ?
+                      `logged in as ${principal.idTokenPayload.sub.split('|')[ 1 ]}` :
+                      'logged out'
+                  }
+                </small>
+
                 <Menu icon={<ActionsIcon/>}
                       dropAlign={{ 'right': 'right' }}>
                   <ActiveAnchor path="/">Home</ActiveAnchor>
