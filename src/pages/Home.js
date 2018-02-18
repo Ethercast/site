@@ -84,7 +84,7 @@ export default withRouter(
             </Section>
             <Section>
               <BoxWithAppContainer basis='1/2' direction='row' justify='start' align='start' pad='medium' >
-                <img alt="hero" src='/laptop.png' style={{ height: '300px', width: 'auto' }}/>
+                <img alt="hero" src='/laptop.png' style={{ maxHeight: '300px', width: 'auto' }}/>
                 <Box basis='1/2' direction='column' justify='start' align='start' pad='medium' >
                   <Heading style={{ marginLeft: '25px', marginRight: '25px', marginBottom: '25px' }}
                            tag="h2">
