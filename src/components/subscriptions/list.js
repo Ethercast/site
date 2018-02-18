@@ -5,11 +5,17 @@ import _ from 'underscore';
 import SubscriptionItem from './item';
 
 export default ({ items, style }) => {
+  const groupedByStatus = _.groupBy(items, 'status');
+  const sortByTime = ({ timestamp, status  }) => timestamp * -1;
+
+  const activeItems = _.sortBy(groupedByStatus['active'], sortByTime);
+  const inactiveItems = _.sortBy(groupedByStatus['deactivated'], sortByTime);
+
   return (
     <Tiles responsive={true} style={{ display:'flex' }}>
       {
-        _.sortBy(items, ({ timestamp }) => timestamp * -1)
-          .map(
+
+          activeItems.concat(inactiveItems).map(
             subscription => {
               return (
                 <Tile key={subscription.id} pad='small' basis='1/3'>

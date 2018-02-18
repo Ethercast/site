@@ -1,4 +1,4 @@
-import { Button } from 'grommet';
+import { Button, Label } from 'grommet';
 import Card from 'grommet/components/Card';
 import moment from 'moment';
 import React from 'react';
@@ -13,11 +13,17 @@ export default withRouter(
       position: 'relative',
       alignContent: 'center',
       paddingBottom: '50px',
+      opacity: subscription.status === 'active' ? '1.0' : '0.4',
    }
+
+   const labelStyle = {
+     color: subscription.status === 'active' ? '#8cc800' : '#a8a8a8'
+   };
+
     return (
       <Card
         heading={subscription.name}
-        label={subscription.status}
+        label={<Label margin='none' style={labelStyle}>{subscription.status.toUpperCase()}</Label>}
         style={cardStyle}
         description={moment(subscription.timestamp).format('l LT')}
       >
