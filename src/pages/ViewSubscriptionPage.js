@@ -1,6 +1,7 @@
 import React from 'react';
+import withAppContainer from '../util/withAppContainer';
 
-export default class ViewSubscriptionPage extends React.Component {
+export default withAppContainer(class ViewSubscriptionPage extends React.Component {
   render() {
     return (
       <div>
@@ -16,4 +17,4 @@ export default class ViewSubscriptionPage extends React.Component {
       </div>
     );
   }
-}
+});

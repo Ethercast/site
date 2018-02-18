@@ -1,4 +1,4 @@
-import { Anchor, App as GrommetApp, Box, Header, Menu, Title } from 'grommet';
+import { Anchor, Box, Header, Menu, Title, Paragraph, Footer } from 'grommet';
 import { ActionsIcon } from 'grommet/components/icons/base';
 import TriggerIcon from 'grommet/components/icons/base/Trigger';
 import React, { Component } from 'react';
@@ -8,8 +8,8 @@ import CreateSubscription from './pages/CreateSubscription';
 import Home from './pages/Home';
 import ListSubscriptions from './pages/ListSubscriptions';
 import NotFound from './pages/NotFound';
-import ViewSubscriptionPage from './pages/ViewSubscriptionPage';
 import Auth from './util/auth';
+import withAppContainer from './util/withAppContainer';
 
 export const ActiveAnchor = ({ path, ...rest }) => (
   <Route path={path} exact>
@@ -44,10 +44,11 @@ export default withRouter(
     class App extends Component {
       render() {
         const { loggedIn, logout } = this.props;
-
+        const HeaderWithAppContainer = withAppContainer(Header);
+        const FooterWithAppContainer = withAppContainer(Footer);
         return (
-          <GrommetApp>
-            <Header>
+          <div>
+            <HeaderWithAppContainer>
               <Title>
                 <Link to="/">
                   <TriggerIcon/>
@@ -68,16 +69,29 @@ export default withRouter(
                 </Menu>
 
               </Box>
-            </Header>
+            </HeaderWithAppContainer>
 
             <Switch>
               <Route path="/" exact component={Home}/>
               <Route path="/subscriptions/new" exact component={CreateSubscription}/>
               <Route path="/subscriptions" exact component={ListSubscriptions}/>
-              <Route path="/subscriptions/:id" exact component={ViewSubscriptionPage}/>
               <Route path="*" component={NotFound}/>
             </Switch>
-          </GrommetApp>
+            <FooterWithAppContainer justify='between'>
+              <Title>
+                <s />
+                 if-eth
+              </Title>
+              <Box direction='row'
+                align='center'
+                pad={{"between": "medium"}}>
+                <Paragraph margin='none'>
+                  © 2018 if-eth
+                </Paragraph>
+
+              </Box>
+            </FooterWithAppContainer>
+          </div>
         );
       }
     }

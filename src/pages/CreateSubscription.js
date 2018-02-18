@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import NewSubscription from '../components/subscriptions/new';
 import { createRecord } from '../util/action-creators';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
+import withAppContainer from '../util/withAppContainer';
 
 class NewPage extends Component {
   render() {
@@ -33,4 +34,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 let SubscriptionsNew = mustBeLoggedIn(connect(mapStateToProps, mapDispatchToProps)(NewPage));
 
-export default SubscriptionsNew;
+export default withAppContainer(SubscriptionsNew);

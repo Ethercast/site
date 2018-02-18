@@ -1,6 +1,7 @@
 import React from 'react';
+import withAppContainer from '../util/withAppContainer';
 
-export default function NotFound(props) {
+export default withAppContainer(function NotFound(props) {
   return (
     <div>
       <h2>404</h2>
@@ -9,4 +10,4 @@ export default function NotFound(props) {
       </p>
     </div>
   )
-}
+});

@@ -98,8 +98,11 @@ let NewSubscription = props => {
     return renderConditionFields;
   };
 
-  const renderLogicFields = ({ fields, meta: { error, submitFailed } }) => (
-    <div>
+  const renderLogicFields = ({ fields, meta: { error, submitFailed } }) => {
+    if (fields.length === 0) {
+      fields.push({});
+    }
+    return (<div>
       <Heading tag="h3" style={{ marginTop: '10px' }}>
         {fields.length > 0 ? 'Filters' : null}
       </Heading>
@@ -122,8 +125,8 @@ let NewSubscription = props => {
         label='Add Filter'
         style={{ marginTop: '10px' }}
       />
-    </div>
-  );
+    </div>);
+  };
 
   return (
     <Box flex={true} align='center' direction='column' responsive={true} pad='small'>

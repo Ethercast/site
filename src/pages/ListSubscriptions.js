@@ -7,6 +7,7 @@ import SubscriptionList from '../components/subscriptions/list';
 import { fetchCollection } from '../util/action-creators';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 import objectToArray from '../util/objectToArray';
+import withAppContainer from '../util/withAppContainer';
 
 
 class ListSubscriptions extends React.Component {
@@ -68,4 +69,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 const SubscriptionsIndex = connect(mapStateToProps, mapDispatchToProps)(ListSubscriptions);
 
-export default withRouter(mustBeLoggedIn(SubscriptionsIndex));
+export default withAppContainer(withRouter(mustBeLoggedIn(SubscriptionsIndex)));
