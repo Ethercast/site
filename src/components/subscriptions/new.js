@@ -16,22 +16,32 @@ const TYPE_OPTIONS = [
   { value: 'address', label: 'Address' },
   { value: 'topic0', label: 'Method Signature' },
   { value: 'topic1', label: 'First Argument' },
-  { value: 'topic1', label: 'Second Argument' },
-  { value: 'topic1', label: 'Third Argument' }
+  { value: 'topic2', label: 'Second Argument' },
+  { value: 'topic3', label: 'Third Argument' }
 ];
+
+const TAG_STYLE = {
+  borderRadius: 5,
+  background: 'lightgray',
+  padding: 10,
+  color: 'white',
+  width: 70,
+  margin: 5,
+  textAlign: 'center',
+  display: 'inline-block'
+};
+
+function Separator({ style, ...props }) {
+  return (
+    <div style={{ textAlign: 'center' }}>
+      <div style={{ ...TAG_STYLE, ...style }} {...props}/>
+    </div>
+  );
+}
 
 let NewSubscription = props => {
   const { handleSubmit, style, submitSucceeded } = props;
 
-  const tagStyle = {
-    borderRadius: '5px',
-    background: 'lightgray',
-    padding: '10px',
-    color: 'white',
-    width: '70px',
-    margin: '5px',
-    textAlign: 'center'
-  };
 
   const makeRenderConditionFields = (parentIndex) => {
     const renderConditionFields = ({ fields, meta: { error, submitFailed } }) => {
@@ -67,7 +77,9 @@ let NewSubscription = props => {
 
               return (<div key={index}>
                 <FormFields>
-                  {index > 0 ? <div style={{ padding: '7.5px', ...tagStyle }}>OR</div> : null}
+                  {index > 0 ? <div style={{ textAlign: 'center' }}>
+                    <div style={{ padding: '7.5px', ...TAG_STYLE }}>OR</div>
+                  </div> : null}
                   <Box direction="row">
                     <Field
                       name={`${condition}.type`}
@@ -101,7 +113,7 @@ let NewSubscription = props => {
                   icon={<AddIcon/>}
                   onClick={() => fields.push({})}
                   plain={false}
-                >Add Condition</Button> : null}
+                >Add 'OR' condition</Button> : null}
               </div>);
             })}
           </Box>
@@ -121,7 +133,7 @@ let NewSubscription = props => {
       {fields.map((logic, index) => {
         return (
           <div key={`logic-${index}`} style={{ position: 'relative' }}>
-            {index > 0 ? <div style={{ marginTop: '10px', ...tagStyle }}>AND</div> : null}
+            {index > 0 ? <Separator>AND</Separator> : null}
             <Box style={{
               border: '1px solid rgba(0,0,0,.15)',
               borderRadius: '2px',
@@ -139,7 +151,7 @@ let NewSubscription = props => {
       })}
       <Button
         onClick={() => fields.push({})}
-        label='Add Filter'
+        label="Add 'AND' condition"
         style={{ marginTop: '10px' }}
       />
     </div>);

@@ -21,6 +21,7 @@
     "axios": "^0.17.1",
     "gh-pages": "^1.1.0",
     "grommet": "^1.10.1",
+    "qs": "^6.5.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",

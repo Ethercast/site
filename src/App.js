@@ -65,7 +65,7 @@ export default withRouter(
                 <small style={{ alignSelf: 'center' }}>
                   {
                     loggedIn && principal ?
-                      `logged in as ${principal.idTokenPayload.sub.split('|')[ 1 ]}` :
+                      `logged in as ${principal.idTokenPayload.sub}` :
                       'logged out'
                   }
                 </small>
