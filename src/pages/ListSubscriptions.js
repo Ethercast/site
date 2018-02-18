@@ -1,13 +1,13 @@
+import { Box, Button, Search } from 'grommet';
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Box, Search, Button } from 'grommet';
-import SubscriptionList from '../../components/subscriptions/list';
-import { fetchCollection } from '../../util/action-creators';
-import mustBeLoggedIn from '../../util/mustBeLoggedIn';
-import objectToArray from '../../util/objectToArray';
+import SubscriptionList from '../components/subscriptions/list';
+import { fetchCollection } from '../util/action-creators';
+import mustBeLoggedIn from '../util/mustBeLoggedIn';
+import objectToArray from '../util/objectToArray';
 
-class IndexPage extends React.Component {
+class ListSubscriptions extends React.Component {
   componentDidMount() {
     this.props.fetchSubscriptions();
   }
@@ -48,6 +48,6 @@ const mapDispatchToProps = (dispatch) => ({
   fetchSubscriptions: () => dispatch(fetchCollection('subscriptions'))
 });
 
-let SubscriptionsIndex = connect(mapStateToProps, mapDispatchToProps)(IndexPage);
+const SubscriptionsIndex = connect(mapStateToProps, mapDispatchToProps)(ListSubscriptions);
 
 export default withRouter(mustBeLoggedIn(SubscriptionsIndex));

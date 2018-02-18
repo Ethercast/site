@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { Link, Route, Switch, withRouter } from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
-import SubscriptionsIndex from './pages/subscriptions';
-import SubscriptionsNew from './pages/subscriptions/new';
+import ListSubscriptions from './pages/ListSubscriptions';
+import CreateSubscription from './pages/CreateSubscription';
 import Auth from './util/auth';
 
 export default withRouter(
@@ -43,8 +43,8 @@ export default withRouter(
 
             <Switch>
               <Route path="/" exact component={Home}/>
-              <Route path="/subscriptions/new" exact component={SubscriptionsNew}/>
-              <Route path="/subscriptions" exact component={SubscriptionsIndex}/>
+              <Route path="/subscriptions/new" exact component={CreateSubscription}/>
+              <Route path="/subscriptions" exact component={ListSubscriptions}/>
               <Route path="*" component={NotFound}/>
             </Switch>
           </GrommetApp>
