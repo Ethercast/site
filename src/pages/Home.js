@@ -5,8 +5,14 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-        <Link to="/subscriptions">My subscriptions</Link>
-        <Link to="/subscriptions/new">Create subscription</Link>
+        <ul>
+          <li>
+            <Link to="/subscriptions">My subscriptions</Link>
+          </li>
+          <li>
+            <Link to="/subscriptions/new">Create subscription</Link>
+          </li>
+        </ul>
       </div>
     );
   }

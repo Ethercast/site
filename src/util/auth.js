@@ -3,50 +3,50 @@ import auth0 from 'auth0-js';
 const auth = new auth0.WebAuth({
   domain: 'if-eth.auth0.com',
   clientID: '6HXoI5ljFO6IMsMttUAQbcjn7JGtDg9T',
-  redirectUri: `${window.location.host}/auth/callback`,
+  redirectUri: `${window.location.protocol}//${window.location.host}/auth/callback`,
   audience: 'https://if-eth.auth0.com/userinfo',
-  responseType: 'token id_token',
+  responseType: 'id_token',
   scope: 'openid'
 });
 
+const AUTH_RESULT = 'auth_result';
+
 function setSession(authResult) {
-  const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-  localStorage.setItem('access_token', authResult.accessToken);
-  localStorage.setItem('id_token', authResult.idToken);
-  localStorage.setItem('expires_at', expiresAt);
+  localStorage.setItem(AUTH_RESULT, JSON.stringify(authResult));
 }
 
 function removeSession() {
-  localStorage.removeItem('access_token');
-  localStorage.removeItem('id_token');
-  localStorage.removeItem('expires_at');
+  localStorage.removeItem(AUTH_RESULT);
 }
 
-class Auth {
-  login = () => {
+export default class Auth {
+  static login() {
     auth.authorize();
-  };
+  }
 
-  handleAuthentication() {
+  static handleAuthentication() {
     return new Promise((resolve, reject) => {
-      auth.parseHash(
-        (err, authResult) => {
-          if (authResult && authResult.accessToken && authResult.idToken) {
-            setSession(authResult);
-            resolve(authResult);
-          } else if (err) {
-            removeSession();
-            console.error(err);
-            reject(err);
+      if (localStorage.getItem(AUTH_RESULT)) {
+        resolve(localStorage.getItem(AUTH_RESULT));
+      } else {
+        auth.parseHash(
+          (err, authResult) => {
+            if (authResult && authResult.idToken) {
+              setSession(authResult);
+              resolve(authResult);
+            } else if (err) {
+              removeSession();
+              console.error(err);
+              reject(err);
+            }
           }
-        }
-      );
+        );
+      }
     });
   };
 
-  getAccessToken = () => {
-    return localStorage.getItem('id_token');
+  static getIdToken = () => {
+    const { id_token } = JSON.parse(localStorage.getItem(AUTH_RESULT));
+    return id_token;
   };
 }
-
-export default new Auth();
