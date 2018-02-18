@@ -62,18 +62,22 @@ class ListSubscriptions extends React.Component {
 
     return (
       <div>
-        <h2 style={{paddingLeft: '8px', paddingRight: '8px'}}>My Subscriptions</h2>
-        <Box flex={true} justify='end' direction='row' style={{paddingLeft: '11px', paddingRight: '11px'}} responsive={false}>
-          <Search inline={true} fill={true} size='medium' style={{ width: '100%'}} placeHolder='Search'
+        <h2 style={{ paddingLeft: '8px', paddingRight: '8px' }}>My Subscriptions</h2>
+        <Box flex={true} justify='end' direction='row'
+             style={{ paddingLeft: '11px', paddingRight: '11px' }} responsive={false}>
+          <Search inline={true} fill={true} size='medium' style={{ width: '100%' }}
+                  placeHolder='Search'
                   onDOMChange={this.handleChange}
-                  />
-          <Button label="Create" icon={<AddIcon/>}  onClick={() => {
+          />
+          <Button label="Create" icon={<AddIcon/>} onClick={() => {
             history.push(`/subscriptions/new`);
           }}/>
         </Box>
         {
           promise ? (
-            <Spinning/>
+            <div style={{ textAlign: 'center', padding: 20 }}>
+              <Spinning/>
+            </div>
           ) : (
             subscriptions && subscriptions.length === 0 ? (
               <Notification
