@@ -14,6 +14,9 @@ export default class Home extends React.Component {
             </Heading>
           </Box>
         </Box>
+        <Box direction='row' justify='center' align='bottom'>
+          Contact hello@if-eth.com to learn more
+        </Box>
       </Hero>
     );
   }
