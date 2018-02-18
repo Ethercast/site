@@ -1,8 +1,8 @@
 import { Button, Notification } from 'grommet';
 import Spinning from 'grommet/components/icons/Spinning';
 import React from 'react';
-import withAppContainer from '../util/withAppContainer';
 import { deleteWithAuth, fetchWithAuth } from '../util/api/requests';
+import withAppContainer from '../util/withAppContainer';
 
 export default withAppContainer(class ViewSubscriptionPage extends React.Component {
   state = {
@@ -76,7 +76,8 @@ export default withAppContainer(class ViewSubscriptionPage extends React.Compone
       );
     }
 
-    const { name, status, description } = subscription;
+    const { name, status, description, webhookUrl } = subscription;
+
     return (
       <div>
         <h2 style={{ display: 'flex' }}>
@@ -92,10 +93,15 @@ export default withAppContainer(class ViewSubscriptionPage extends React.Compone
           </div>
         </h2>
         <p>
-          {description}
+          {
+            description ? description : <em>No description</em>
+          }
         </p>
 
         <h3>Webhook receipts</h3>
+        <p>
+          Endpoint: <a href={webhookUrl} target="_blank">{webhookUrl}</a>
+        </p>
         <p>
           Coming soon...
         </p>
