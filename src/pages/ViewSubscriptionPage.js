@@ -54,6 +54,11 @@ export default class ViewSubscriptionPage extends React.Component {
             });
           }
         )
+        .catch(
+          error => {
+            this.setState({ promise: null });
+          }
+        )
     });
   };
 
