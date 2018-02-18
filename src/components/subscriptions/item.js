@@ -9,7 +9,7 @@ export default ({ subscription }) => {
     <Link to={`/subscriptions/${subscription.id}`}>
       <Card
         heading={subscription.name}
-        description={`Created At: ${moment(subscription.timestamp).format('l LT')}`}
+        description={`Created at: ${moment(subscription.timestamp).format('l LT')}`}
       >
         <Paragraph>{subscription.description}</Paragraph>
       </Card>
