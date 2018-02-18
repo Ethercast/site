@@ -12,6 +12,7 @@ export default withRouter(
     ({ auth: { loggedIn } }) => ({ loggedIn }),
     {
       logout: () => {
+        Auth.logout();
         return {
           type: 'LOGGED_OUT'
         };

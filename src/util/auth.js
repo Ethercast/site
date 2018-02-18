@@ -24,6 +24,10 @@ export default class Auth {
     auth.authorize();
   }
 
+  static logout() {
+    removeSession();
+  }
+
   static handleAuthentication() {
     return new Promise((resolve, reject) => {
       if (localStorage.getItem(AUTH_RESULT)) {
@@ -46,7 +50,12 @@ export default class Auth {
   };
 
   static getIdToken = () => {
-    const { id_token } = JSON.parse(localStorage.getItem(AUTH_RESULT));
+    const storedAuth = localStorage.getItem(AUTH_RESULT);
+    if (!storedAuth) {
+      return null;
+    }
+
+    const { id_token } = JSON.parse(storedAuth);
     return id_token;
   };
 }
