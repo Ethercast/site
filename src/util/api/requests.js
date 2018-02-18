@@ -5,7 +5,7 @@ const makeBaseRequest = () => {
   return axios.create({
     baseURL: 'https://api.if-eth.com/',
     headers: {
-      'Authorization': `Bearer ${auth.getAccessToken()}`
+      'Authorization': `Bearer ${auth.getIdToken()}`
     }
   });
 };

@@ -4,7 +4,7 @@ import React from 'react';
 import _ from 'underscore';
 import SubscriptionItem from './item';
 
-export default ({ items, style }) => {
+export default ({ items }) => {
   return (
     <Tiles>
       {

@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Box, Search, Button } from 'grommet';
 import SubscriptionList from '../../components/subscriptions/list';
 import { fetchCollection } from '../../util/action-creators';
+import mustBeLoggedIn from '../../util/mustBeLoggedIn';
 import objectToArray from '../../util/objectToArray';
 
 class IndexPage extends React.Component {
@@ -49,4 +50,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 let SubscriptionsIndex = connect(mapStateToProps, mapDispatchToProps)(IndexPage);
 
-export default withRouter(SubscriptionsIndex);
+export default withRouter(mustBeLoggedIn(SubscriptionsIndex));
