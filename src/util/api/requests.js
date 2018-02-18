@@ -19,5 +19,9 @@ const createWithAuth = (path, data) => {
     .post(path, data)
     .then(response => response.data);
 };
+const deleteWithAuth = (path) => {
+  return makeBaseRequest()
+    .delete(path);
+};
 
-export { fetchWithAuth, createWithAuth };
+export { fetchWithAuth, createWithAuth, deleteWithAuth };
