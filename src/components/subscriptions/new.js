@@ -5,6 +5,7 @@ import FormField from 'grommet/components/FormField';
 import FormFields from 'grommet/components/FormFields';
 import Heading from 'grommet/components/Heading';
 import AddIcon from 'grommet/components/icons/base/Add';
+import CloseIcon from 'grommet/components/icons/base/Close';
 import Select from 'grommet/components/Select';
 import Toast from 'grommet/components/Toast';
 import React from 'react';
@@ -73,7 +74,7 @@ let NewSubscription = props => {
                     />
                     <FormField
                       label="Value"
-                      style={inputStyle}
+                      style={{...inputStyle, ...{ position: 'relative' }}}
                     >
                       <Field
                         name={`${condition}.value`}
@@ -81,6 +82,11 @@ let NewSubscription = props => {
                         component="input"
                         placeholder="0x0000000000000000000000000000000000000000"
                       />
+                      {fields.length > 1 && index !== 0 ? <Button
+                        style={{ position: 'absolute', right: '0px', top: '0px' }}
+                        type="button"
+                        icon={<CloseIcon/>}
+                        onClick={() => fields.remove(index)}/> : null }
                     </FormField>
 
                   </Box>
@@ -108,7 +114,7 @@ let NewSubscription = props => {
       </Heading>
       {fields.map((logic, index) => {
         return (
-          <div>
+          <div style={{position: 'relative'}}>
             {index > 0 ? <div style={{ marginTop: '10px', ...tagStyle }}>AND</div> : null}
             <Box style={{
               border: '1px solid rgba(0,0,0,.15)',
@@ -117,6 +123,11 @@ let NewSubscription = props => {
             }} key={index}>
               <FieldArray name={`${logic}.conditions`}
                           component={makeRenderConditionFields(index)}/>
+              {fields.length > 1 && index !== 0 ? <Button
+                style={{ position: 'absolute', right: '0px', bottom: '0px' }}
+                type="button"
+                icon={<CloseIcon/>}
+                onClick={() => fields.remove(index)}/> : null }
             </Box>
           </div>);
       })}
