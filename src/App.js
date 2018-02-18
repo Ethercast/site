@@ -1,8 +1,7 @@
 import { App as GrommetApp, Header, Title } from 'grommet';
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
-import Index from './pages';
-import Callback from './pages/auth/callback';
+import { Link, Route, Switch, withRouter } from 'react-router-dom';
+import Home from './pages/Home';
 import SubscriptionsIndex from './pages/subscriptions';
 import SubscriptionsNew from './pages/subscriptions/new';
 
@@ -22,15 +21,14 @@ export default withRouter(
         <GrommetApp>
           <Header>
             <Title>
-              if-eth
+              <Link to="/">if-eth</Link>
             </Title>
           </Header>
 
           <Switch>
-            <Route path="/" exact component={Index}/>
+            <Route path="/" exact component={Home}/>
             <Route path="/subscriptions/new" exact component={SubscriptionsNew}/>
             <Route path="/subscriptions" exact component={SubscriptionsIndex}/>
-            <Route path="/auth/callback" exact component={Callback}/>
           </Switch>
         </GrommetApp>
       );
