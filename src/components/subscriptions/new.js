@@ -16,8 +16,8 @@ const TYPE_OPTIONS = [
   { value: 'address', label: 'Address' },
   { value: 'topic0', label: 'Method Signature' },
   { value: 'topic1', label: 'First Argument' },
-  { value: 'topic1', label: 'Second Argument' },
-  { value: 'topic1', label: 'Third Argument' }
+  { value: 'topic2', label: 'Second Argument' },
+  { value: 'topic3', label: 'Third Argument' }
 ];
 
 let NewSubscription = props => {
