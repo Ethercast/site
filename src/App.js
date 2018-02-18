@@ -1,13 +1,32 @@
-import { App as GrommetApp, Box, Button, Header, Title } from 'grommet';
-import { LoginIcon, LogoutIcon } from 'grommet/components/icons/base';
+import { Anchor, App as GrommetApp, Box, Button, Header, Menu, Title } from 'grommet';
+import { ActionsIcon, LoginIcon, LogoutIcon } from 'grommet/components/icons/base';
+import TriggerIcon from 'grommet/components/icons/base/Trigger';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Route, Switch, withRouter } from 'react-router-dom';
-import Home from './pages/Home';
-import NotFound from './pages/NotFound';
-import ListSubscriptions from './pages/ListSubscriptions';
 import CreateSubscription from './pages/CreateSubscription';
+import Home from './pages/Home';
+import ListSubscriptions from './pages/ListSubscriptions';
+import NotFound from './pages/NotFound';
 import Auth from './util/auth';
+
+const ActiveAnchor = ({ path, ...rest }) => (
+  <Route path={path} exact>
+    {
+      ({ match, history }) => (
+        <Anchor
+          onClick={e => {
+            e.preventDefault();
+            history.push(path);
+          }}
+          href={path}
+          className={match ? 'active' : ''}
+          {...rest}
+        />
+      )
+    }
+  </Route>
+);
 
 export default withRouter(
   connect(
@@ -29,10 +48,19 @@ export default withRouter(
           <GrommetApp>
             <Header>
               <Title>
-                <Link to="/">if-eth</Link>
+                <Link to="/">
+                  <TriggerIcon/>
+                </Link>
+                if-eth
               </Title>
 
               <Box flex={true} justify='end' direction='row' responsive={false}>
+                <Menu icon={<ActionsIcon/>}
+                      dropAlign={{ 'right': 'right' }}>
+                  <ActiveAnchor path="/">Home</ActiveAnchor>
+                  <ActiveAnchor path="/subscriptions">My Subscriptions</ActiveAnchor>
+                </Menu>
+
                 {
                   !loggedIn ?
                     <Button label="Log in" icon={<LoginIcon/>} onClick={Auth.login}/> :
