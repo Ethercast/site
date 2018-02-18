@@ -113,6 +113,7 @@ let NewSubscription = props => {
                   icon={<AddIcon/>}
                   onClick={() => fields.push({})}
                   plain={false}
+                  style={{ marginLeft: '10px' }}
                 >Add 'OR' condition</Button> : null}
               </div>);
             })}
@@ -150,6 +151,7 @@ let NewSubscription = props => {
           </div>);
       })}
       <Button
+        icon={<AddIcon/>}
         onClick={() => fields.push({})}
         label="Add 'AND' condition"
         style={{ marginTop: '10px' }}

@@ -76,7 +76,7 @@ export default withAppContainer(class ViewSubscriptionPage extends React.Compone
       );
     }
 
-    const { name, status, description, webhookUrl } = subscription;
+    const { name, status, description, webhookUrl, logic } = subscription;
 
     return (
       <div>
@@ -92,11 +92,31 @@ export default withAppContainer(class ViewSubscriptionPage extends React.Compone
             }
           </div>
         </h2>
+
         <p>
           {
             description ? description : <em>No description</em>
           }
         </p>
+
+
+        <h3>Logic</h3>
+        <p>Receiving logs with all of the following attributes:</p>
+        <ul>
+          {
+            logic.map(
+              (ors, orIx) => (
+                <li key={orIx}>
+                  {
+                    ors.map(
+                      ({ type, value }, ix) => <strong key={ix}>{type}: <em>{value}</em></strong>
+                    )
+                  }
+                </li>
+              )
+            )
+          }
+        </ul>
 
         <h3>Webhook receipts</h3>
         <p>

@@ -98,7 +98,7 @@ export default withRouter(
                 align='center'
                 pad={{"between": "medium"}}>
                 <Paragraph>
-                  © 2018 if-eth
+                  Say <a href="mailto:hello@if-eth.com">hello@if-eth.com</a>&emsp;© 2018 if-eth
                 </Paragraph>
               </Box>
             </FooterWithAppContainer>
