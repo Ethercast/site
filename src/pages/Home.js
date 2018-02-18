@@ -92,7 +92,7 @@ export default withRouter(
                   </Heading>
                   <ul>
                     <li><Heading tag='h4'>Simple custom filtering of events by address, method signature, and arguments</Heading></li>
-                    <li><Heading tag='h4'>Webhook-based integration for quick integration with services like <Anchor href='https://zapier.com' >Zapier</Anchor> and <Anchor href='https://zapier.com' >Zapier</Anchor></Heading></li>
+                    <li><Heading tag='h4'>Webhook-based setup for quick integration with services like <Anchor href='https://zapier.com' >Zapier</Anchor> and <Anchor href='https://slack.com' >Slack</Anchor></Heading></li>
                   </ul>
                   <CtaButton style={{ marginLeft: '25px', marginRight: '25px', marginBottom: '25px' }} />
                 </Box>
