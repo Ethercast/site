@@ -1,23 +1,23 @@
 import axios from 'axios';
-import auth from '../auth';
+import Auth from '../auth';
 
-const makeBaseRequest = () => {
-  return axios.create({
+const makeBaseRequest = () =>
+  axios.create({
     baseURL: 'https://api.if-eth.com/',
     headers: {
-      'Authorization': `Bearer ${auth.getIdToken()}`
+      'Authorization': `Bearer ${Auth.getIdToken()}`
     }
   });
-};
 
 const fetchWithAuth = (path) => {
-  const baseRequest = makeBaseRequest();
-  return baseRequest.get(path).then(response => (response.data));
+  return makeBaseRequest().get(path)
+    .then(response => response.data);
 };
 
 const createWithAuth = (path, data) => {
-  const baseRequest = makeBaseRequest();
-  return baseRequest.post(path, data).then(response => (response.data));
+  return makeBaseRequest()
+    .post(path, data)
+    .then(response => response.data);
 };
 
 export { fetchWithAuth, createWithAuth };

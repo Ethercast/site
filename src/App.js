@@ -1,5 +1,5 @@
-import { Anchor, App as GrommetApp, Box, Button, Header, Menu, Title } from 'grommet';
-import { ActionsIcon, LoginIcon, LogoutIcon } from 'grommet/components/icons/base';
+import { Anchor, App as GrommetApp, Box, Header, Menu, Title } from 'grommet';
+import { ActionsIcon } from 'grommet/components/icons/base';
 import TriggerIcon from 'grommet/components/icons/base/Trigger';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -8,9 +8,10 @@ import CreateSubscription from './pages/CreateSubscription';
 import Home from './pages/Home';
 import ListSubscriptions from './pages/ListSubscriptions';
 import NotFound from './pages/NotFound';
+import ViewSubscriptionPage from './pages/ViewSubscriptionPage';
 import Auth from './util/auth';
 
-const ActiveAnchor = ({ path, ...rest }) => (
+export const ActiveAnchor = ({ path, ...rest }) => (
   <Route path={path} exact>
     {
       ({ match, history }) => (
@@ -59,13 +60,13 @@ export default withRouter(
                       dropAlign={{ 'right': 'right' }}>
                   <ActiveAnchor path="/">Home</ActiveAnchor>
                   <ActiveAnchor path="/subscriptions">My Subscriptions</ActiveAnchor>
+                  {
+                    !loggedIn ?
+                      <Anchor href="#" onClick={Auth.login}>Log in</Anchor> :
+                      <Anchor href="#" onClick={logout}>Log out</Anchor>
+                  }
                 </Menu>
 
-                {
-                  !loggedIn ?
-                    <Button label="Log in" icon={<LoginIcon/>} onClick={Auth.login}/> :
-                    <Button label="Log out" icon={<LogoutIcon/>} onClick={logout}/>
-                }
               </Box>
             </Header>
 
@@ -73,6 +74,7 @@ export default withRouter(
               <Route path="/" exact component={Home}/>
               <Route path="/subscriptions/new" exact component={CreateSubscription}/>
               <Route path="/subscriptions" exact component={ListSubscriptions}/>
+              <Route path="/subscriptions/:id" exact component={ViewSubscriptionPage}/>
               <Route path="*" component={NotFound}/>
             </Switch>
           </GrommetApp>
