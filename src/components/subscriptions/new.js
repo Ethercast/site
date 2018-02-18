@@ -3,6 +3,7 @@ import Footer from 'grommet/components/Footer';
 import Form from 'grommet/components/Form';
 import FormField from 'grommet/components/FormField';
 import Heading from 'grommet/components/Heading';
+import Box from 'grommet/components/Box';
 import AddIcon from 'grommet/components/icons/base/Add';
 import CloseIcon from 'grommet/components/icons/base/Close';
 import Toast from 'grommet/components/Toast';
@@ -61,19 +62,16 @@ let NewSubscription = props => {
 
   const renderLogicFields = ({ fields, meta: { error, submitFailed } }) => (
     <div>
-      <Heading tag="h2">
-        Filters
-        <Button
-          icon={<AddIcon/>}
-          onClick={() => fields.push({})}
-          primary={false}
-        />
-      </Heading>
       {fields.map((logic, index) => {
         return (
           <div>
             <Heading tag="h3">
               {index > 0 ? 'AND' : null}
+              <Button
+                onClick={() => fields.push({})}
+                primary={false}
+                label='Add Filter'
+              />
             </Heading>
             <div style={{
               border: '1px solid gray',
@@ -99,11 +97,12 @@ let NewSubscription = props => {
   );
 
   return (
+    <Box flex={true} align='center' direction='column' responsive={true} pad='small'>
     <Form style={style} onSubmit={handleSubmit}>
       <div>
         {submitSucceeded ? <Toast status='ok'>Subscription successfully created. </Toast> : null}
         <Heading tag="h2">
-          General
+          Create Subscription
         </Heading>
         <FormField label="Name">
           <Field name="name" component="input" type="text"/>
@@ -120,6 +119,7 @@ let NewSubscription = props => {
                 onClick={handleSubmit}/>
       </Footer>
     </Form>
+    </Box>
   );
 };
 
