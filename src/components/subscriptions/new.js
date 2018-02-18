@@ -3,6 +3,7 @@ import Footer from 'grommet/components/Footer';
 import Form from 'grommet/components/Form';
 import FormField from 'grommet/components/FormField';
 import FormFields from 'grommet/components/FormFields';
+import Select from 'grommet/components/Select';
 import Heading from 'grommet/components/Heading';
 import Box from 'grommet/components/Box';
 import AddIcon from 'grommet/components/icons/base/Add';
@@ -38,44 +39,34 @@ let NewSubscription = props => {
             const inputStyle = {
               marginBottom: '0px',
             };
+
+            const SelectField = () => {
+              
+            }
             return (<div key={index}>
                 <FormFields>
                   {index > 0 ? <div style={{padding: '7.5px', ...tagStyle }}>OR</div> : null}
                   <Box direction="row">
-                    <FormField
-                      label="Type"
-                      style={inputStyle}
-                    >
-                      <Field
-                        name={`${condition}.type`}
-                        type="text"
-                        component="input"
-                      />
-                    </FormField>
-                    <FormField
-                      label="Value"
-                      style={{
-                        ...inputStyle,
-                        position: 'relative',
-                      }}
-                    >
                       <Field
                         name={`${condition}.value`}
                         type="text"
-                        component="input"
-                      />
-                      { fields.length > 1 && index > 0 ? <Button
-                        icon={<CloseIcon/>}
-                        onClick={() => fields.remove(index)}
-                        primary={false}
-                        box={true}
+                        component=
                         style={{
-                          position: 'absolute',
-                          right: '0px',
-                          top: '10px',
+                          ...inputStyle,
+                          position: 'relative',
                         }}
-                      /> : null }
-                    </FormField>
+                      >
+                      <FormField
+                        label="Value"
+                        style={inputStyle}
+                      >
+                        <Field
+                          name={`${condition}.value`}
+                          type="text"
+                          component="input"
+                        />
+                      </FormField>
+
                   </Box>
                 </FormFields>
               {index === fields.length - 1 ? <Button
