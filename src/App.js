@@ -1,5 +1,5 @@
-import { Anchor, App as GrommetApp, Box, Button, Header, Menu, Title } from 'grommet';
-import { ActionsIcon, LoginIcon, LogoutIcon } from 'grommet/components/icons/base';
+import { Anchor, App as GrommetApp, Box, Header, Menu, Title } from 'grommet';
+import { ActionsIcon } from 'grommet/components/icons/base';
 import TriggerIcon from 'grommet/components/icons/base/Trigger';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -59,13 +59,13 @@ export default withRouter(
                       dropAlign={{ 'right': 'right' }}>
                   <ActiveAnchor path="/">Home</ActiveAnchor>
                   <ActiveAnchor path="/subscriptions">My Subscriptions</ActiveAnchor>
+                  {
+                    !loggedIn ?
+                      <Anchor href="#" onClick={Auth.login}>Log in</Anchor> :
+                      <Anchor href="#" onClick={logout}>Log out</Anchor>
+                  }
                 </Menu>
 
-                {
-                  !loggedIn ?
-                    <Button label="Log in" icon={<LoginIcon/>} onClick={Auth.login}/> :
-                    <Button label="Log out" icon={<LogoutIcon/>} onClick={logout}/>
-                }
               </Box>
             </Header>
 

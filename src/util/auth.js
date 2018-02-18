@@ -31,7 +31,7 @@ export default class Auth {
   static handleAuthentication() {
     return new Promise((resolve, reject) => {
       if (localStorage.getItem(AUTH_RESULT)) {
-        resolve(localStorage.getItem(AUTH_RESULT));
+        resolve(JSON.parse(localStorage.getItem(AUTH_RESULT)));
       } else {
         auth.parseHash(
           (err, authResult) => {
@@ -55,7 +55,7 @@ export default class Auth {
       return null;
     }
 
-    const { id_token } = JSON.parse(storedAuth);
-    return id_token;
+    const { idToken } = JSON.parse(storedAuth);
+    return idToken;
   };
 }
