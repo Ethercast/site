@@ -4,7 +4,7 @@ import React from 'react';
 import _ from 'underscore';
 import SubscriptionItem from './item';
 
-export default ({ items }) => {
+export default ({ items, style }) => {
   return (
     <Tiles>
       {
@@ -12,10 +12,10 @@ export default ({ items }) => {
           .map(
             subscription => {
               return (
-                <Tile key={subscription.id} pad='small' basis='1/3'>
+                <Tile key={subscription.id} pad='small' style={{paddingLeft: '0px'}} basis='1/3'>
                   <SubscriptionItem key={subscription.id} subscription={subscription}/>
                 </Tile>
-              );
+              )
             }
           )
       }
