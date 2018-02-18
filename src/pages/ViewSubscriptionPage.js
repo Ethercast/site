@@ -1,6 +1,7 @@
 import { Button, Notification } from 'grommet';
 import Spinning from 'grommet/components/icons/Spinning';
 import React from 'react';
+import ReceiptTable from '../components/ReceiptTable';
 import { deleteWithAuth, fetchWithAuth } from '../util/api/requests';
 import withAppContainer from '../util/withAppContainer';
 
@@ -76,7 +77,7 @@ export default withAppContainer(class ViewSubscriptionPage extends React.Compone
       );
     }
 
-    const { name, status, description, webhookUrl, logic } = subscription;
+    const { id, name, status, description, webhookUrl, logic } = subscription;
 
     return (
       <div>
@@ -99,8 +100,11 @@ export default withAppContainer(class ViewSubscriptionPage extends React.Compone
           }
         </p>
 
+        <p>
+          Endpoint: <a href={webhookUrl} target="_blank">{webhookUrl}</a>
+        </p>
 
-        <h3>Logic</h3>
+        <h3>Filters</h3>
         <p>Receiving logs with all of the following attributes:</p>
         <ul>
           {
@@ -120,10 +124,7 @@ export default withAppContainer(class ViewSubscriptionPage extends React.Compone
 
         <h3>Webhook receipts</h3>
         <p>
-          Endpoint: <a href={webhookUrl} target="_blank">{webhookUrl}</a>
-        </p>
-        <p>
-          Coming soon...
+          <ReceiptTable subscriptionId={id}/>
         </p>
       </div>
     );
