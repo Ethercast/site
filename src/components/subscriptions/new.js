@@ -40,22 +40,40 @@ let NewSubscription = props => {
               marginBottom: '0px',
             };
 
-            const SelectField = () => {
-              
+            const SelectField = ({ input: { value, onChange } }) => {
+              return (
+                <Select placeHolder='None'
+                options={[
+                  { value: 'address', label: 'Address'},
+                  { value: 'topic0', label: 'Method Signature' },
+                  { value: 'topic1', label: 'First Argument' },
+                  { value: 'topic1', label: 'Second Argument' },
+                  { value: 'topic1', label: 'Third Argument' },
+                ]}
+                value={value}
+                onChange={(option) => onChange(option.value)}
+                style={{
+                  background: 'white',
+                  width: '100%',
+                  height: '75px',
+                }}
+                />
+              );
             }
+
             return (<div key={index}>
                 <FormFields>
                   {index > 0 ? <div style={{padding: '7.5px', ...tagStyle }}>OR</div> : null}
                   <Box direction="row">
                       <Field
-                        name={`${condition}.value`}
+                        name={`${condition}.type`}
                         type="text"
-                        component=
+                        component={SelectField}
                         style={{
                           ...inputStyle,
                           position: 'relative',
                         }}
-                      >
+                      />
                       <FormField
                         label="Value"
                         style={inputStyle}
