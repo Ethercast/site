@@ -1,15 +1,17 @@
-import React from 'react';
 import Card from 'grommet/components/Card';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 export default ({ subscription }) => {
   return (
     <div>
       <Card
         label={subscription.webhookUrl}
-        heading={subscription.name}
-        description={`Created At: ${subscription.timestamp}`}
+        heading={<Link to={`/subscriptions/${subscription.id}`}>{subscription.name}</Link>}
+        description={`Created At: ${moment(subscription.timestamp).format('l LT')}`}
       >
-        content
+        {subscription.description}
       </Card>
     </div>
   );
