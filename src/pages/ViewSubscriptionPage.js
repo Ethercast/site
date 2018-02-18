@@ -99,8 +99,11 @@ export default withAppContainer(class ViewSubscriptionPage extends React.Compone
           }
         </p>
 
+        <p>
+          Endpoint: <a href={webhookUrl} target="_blank">{webhookUrl}</a>
+        </p>
 
-        <h3>Logic</h3>
+        <h3>Filters</h3>
         <p>Receiving logs with all of the following attributes:</p>
         <ul>
           {
@@ -119,9 +122,6 @@ export default withAppContainer(class ViewSubscriptionPage extends React.Compone
         </ul>
 
         <h3>Webhook receipts</h3>
-        <p>
-          Endpoint: <a href={webhookUrl} target="_blank">{webhookUrl}</a>
-        </p>
         <p>
           Coming soon...
         </p>
