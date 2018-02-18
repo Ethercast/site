@@ -1,19 +1,40 @@
 import { Box, Button, Notification, Search } from 'grommet';
 import AddIcon from 'grommet/components/icons/base/Add';
+import Spinning from 'grommet/components/icons/Spinning';
+import qs from 'qs';
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import _ from 'underscore';
 import SubscriptionList from '../components/subscriptions/list';
 import { fetchCollection } from '../util/action-creators';
+import { fetchWithAuth } from '../util/api/requests';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 import objectToArray from '../util/objectToArray';
 import withAppContainer from '../util/withAppContainer';
 
-
 class ListSubscriptions extends React.Component {
+  state = {
+    subscriptions: null,
+    promise: null
+  };
+
   componentDidMount() {
-    this.props.fetchSubscriptions();
+    this.fetchSubs();
   }
+
+  fetchSubs = () => {
+    const { promise } = this.state;
+    if (promise) {
+      return;
+    }
+
+    this.setState({
+      promise: fetchWithAuth(`/subscriptions`)
+        .then(subscriptions => this.setState({ subscriptions, promise: null }))
+        .catch(error => this.setState({ promise: null }))
+    });
+  };
 
   handleChange = ({ target: { value: search } }) => {
     const { history } = this.props;
@@ -25,16 +46,19 @@ class ListSubscriptions extends React.Component {
   };
 
   render() {
-    const { subscriptions, history } = this.props;
+    const { history } = this.props;
+    const { subscriptions, promise } = this.state;
+
     const { search } = history.location;
 
-    const filteredSubscriptions = search.indexOf('search') > -1 ?
-      subscriptions.filter((subscription) => {
-        const downcasedTerm = search.slice('?search?='.length - 1, search.length - 1).toLowerCase();
-        return subscription.name.toLowerCase().indexOf(downcasedTerm) > -1;
-      }) :
-      subscriptions;
+    const { search: searchString } = search && search.length > 1 ? qs.parse(search.substr(1)) : {};
 
+    const filteredSubs = _.filter(
+      subscriptions,
+      ({ name, description }) => !searchString ||
+        name.toLowerCase().indexOf(searchString) !== -1 ||
+        description.toLowerCase().indexOf(searchString) !== -1
+    );
 
     return (
       <div>
@@ -47,15 +71,24 @@ class ListSubscriptions extends React.Component {
             history.push(`/subscriptions/new`);
           }}/>
         </Box>
-        <SubscriptionList items={filteredSubscriptions}/>
         {
-          subscriptions.length === 0 ? (
-            <Notification
-              style={{ marginTop: 20 }}
-              message="You do not have any contract subscriptions"
-              status="Warning"
-            />
-          ) : null
+          promise ? (
+            <Spinning/>
+          ) : (
+            subscriptions && subscriptions.length === 0 ? (
+              <Notification
+                style={{ marginTop: 20 }}
+                message="You do not have any contract subscriptions"
+                status="Warning"
+              />
+            ) : filteredSubs.length > 0 ? <SubscriptionList items={filteredSubs}/> : (
+              <Notification
+                style={{ marginTop: 20 }}
+                message="No subscriptions matching the search terms"
+                status="Warning"
+              />
+            )
+          )
         }
       </div>
     );
