@@ -14,7 +14,7 @@ export default class Home extends React.Component {
           </Box>
         </Box>
         <Box direction='row' justify='center' align='bottom'>
-          Contact hello@if-eth.com to learn more
+          Contact&nbsp;<a href="mailto:hello@if-eth.com">hello@if-eth.com</a>&nbsp;to learn more
         </Box>
       </Hero>
     );
