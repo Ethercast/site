@@ -8,6 +8,7 @@ import CreateSubscription from './pages/CreateSubscription';
 import Home from './pages/Home';
 import ListSubscriptions from './pages/ListSubscriptions';
 import NotFound from './pages/NotFound';
+import ViewSubscriptionPage from './pages/ViewSubscriptionPage';
 import Auth from './util/auth';
 
 export const ActiveAnchor = ({ path, ...rest }) => (
@@ -73,6 +74,7 @@ export default withRouter(
               <Route path="/" exact component={Home}/>
               <Route path="/subscriptions/new" exact component={CreateSubscription}/>
               <Route path="/subscriptions" exact component={ListSubscriptions}/>
+              <Route path="/subscriptions/:id" exact component={ViewSubscriptionPage}/>
               <Route path="*" component={NotFound}/>
             </Switch>
           </GrommetApp>
