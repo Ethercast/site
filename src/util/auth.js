@@ -31,7 +31,7 @@ export default class Auth {
   static handleAuthentication() {
     return new Promise((resolve, reject) => {
       if (localStorage.getItem(AUTH_RESULT)) {
-        resolve(localStorage.getItem(AUTH_RESULT));
+        resolve(JSON.parse(localStorage.getItem(AUTH_RESULT)));
       } else {
         auth.parseHash(
           (err, authResult) => {

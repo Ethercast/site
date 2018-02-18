@@ -20,7 +20,6 @@ let NewSubscription = props => {
     background: 'lightgray',
     padding: '10px',
     color: 'white',
-    margin: '0 auto',
     width: '70px',
     margin: '5px',
     textAlign: 'center',
