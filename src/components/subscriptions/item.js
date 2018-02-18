@@ -10,7 +10,9 @@ export default withRouter(
     return (
       <Card
         heading={subscription.name}
-        description={`Created at: ${moment(subscription.timestamp).format('l LT')}`}>
+        style={{ boxShadow: '0px 0px 1px 1px rgba(0,0,0,0.2)' }}
+        description={moment(subscription.timestamp).format('l LT')}
+      >
         <Paragraph>{subscription.description}</Paragraph>
         <Button label="View subscription" onClick={e => {
           history.push(`/subscriptions/${subscription.id}`);

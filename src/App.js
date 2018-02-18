@@ -10,7 +10,7 @@ import ListSubscriptions from './pages/ListSubscriptions';
 import NotFound from './pages/NotFound';
 import Auth from './util/auth';
 
-const ActiveAnchor = ({ path, ...rest }) => (
+export const ActiveAnchor = ({ path, ...rest }) => (
   <Route path={path} exact>
     {
       ({ match, history }) => (
