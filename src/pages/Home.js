@@ -1,19 +1,20 @@
+import { Hero, Box, Heading } from 'grommet';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default class Home extends React.Component {
   render() {
     return (
-      <div>
-        <ul>
-          <li>
-            <Link to="/subscriptions">My subscriptions</Link>
-          </li>
-          <li>
-            <Link to="/subscriptions/new">Create subscription</Link>
-          </li>
-        </ul>
-      </div>
+      <Hero>
+        <Box direction='row' justify='center' align='center'>
+          <Box basis='1/2' align='center' pad='medium'>
+            <img src='/hero.png' />
+            <Heading margin='none'>
+              Get notified when your smart contracts emit events.
+            </Heading>
+          </Box>
+        </Box>
+      </Hero>
     );
   }
 }
