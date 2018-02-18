@@ -8,11 +8,23 @@ import Box from 'grommet/components/Box';
 import AddIcon from 'grommet/components/icons/base/Add';
 import CloseIcon from 'grommet/components/icons/base/Close';
 import Toast from 'grommet/components/Toast';
+import Label from 'grommet/components/Label';
 import React from 'react';
 import { Field, FieldArray, reduxForm } from 'redux-form';
 
 let NewSubscription = props => {
   const { handleSubmit, style, submitSucceeded } = props;
+
+  const tagStyle = {
+    borderRadius: '5px',
+    background: 'lightgray',
+    padding: '10px',
+    color: 'white',
+    margin: '0 auto',
+    width: '70px',
+    margin: '5px',
+    textAlign: 'center',
+  }
 
   const makeRenderConditionFields = (parentIndex) => {
     const renderConditionFields = ({ fields, meta: { error, submitFailed } }) => {
@@ -27,8 +39,8 @@ let NewSubscription = props => {
               marginBottom: '0px',
             };
             return (<div key={index}>
-                {index > 0 ? <h4>OR</h4> : null}
                 <FormFields>
+                  {index > 0 ? <div style={{padding: '7.5px', ...tagStyle }}>OR</div> : null}
                   <Box direction="row">
                     <FormField
                       label="Type"
@@ -42,26 +54,35 @@ let NewSubscription = props => {
                     </FormField>
                     <FormField
                       label="Value"
-                      style={inputStyle}
+                      style={{
+                        ...inputStyle,
+                        position: 'relative',
+                      }}
                     >
                       <Field
                         name={`${condition}.value`}
                         type="text"
                         component="input"
                       />
+                      { fields.length > 1 && index > 0 ? <Button
+                        icon={<CloseIcon/>}
+                        onClick={() => fields.remove(index)}
+                        primary={false}
+                        box={true}
+                        style={{
+                          position: 'absolute',
+                          right: '0px',
+                          top: '10px',
+                        }}
+                      /> : null }
                     </FormField>
                   </Box>
                 </FormFields>
               {index === fields.length - 1 ? <Button
                 icon={<AddIcon/>}
                 onClick={() => fields.push({})}
-                primary={false}
-              /> : null}
-              { fields.length > 0 ? <Button
-                icon={<CloseIcon/>}
-                onClick={() => fields.remove(index)}
-                primary={false}
-              /> : null } 
+                plain={false}
+              >Add Condition</Button> : null}
             </div>);
           })}
           </Box>
@@ -72,15 +93,15 @@ let NewSubscription = props => {
 
   const renderLogicFields = ({ fields, meta: { error, submitFailed } }) => (
     <div>
-      <Heading tag="h3">
+      <Heading tag="h3" style={{marginTop: '10px'}}>
         {fields.length > 0 ? 'Filters' : null}
       </Heading>
       {fields.map((logic, index) => {
         return (
           <div>
-            <Heading tag="h3">
-              {index > 0 ? 'AND' : null}
-            </Heading>
+            {index > 0 ?<div style={{ marginTop: '10px', ...tagStyle }}>
+               AND
+            </div> : null}
             <Box style={{
               border: '1px solid rgba(0,0,0,.15)',
               borderRadius: '2px',
@@ -95,6 +116,8 @@ let NewSubscription = props => {
         onClick={() => fields.push({})}
         primary={false}
         label='Add Filter'
+        box={true}
+        style={{ marginTop: '10px' }}
       />
     </div>
   );
@@ -108,10 +131,10 @@ let NewSubscription = props => {
           Create Subscription
         </Heading>
         <FormField label="Name">
-          <Field name="name" component="input" type="text"/>
+          <Field name="name" component="input" type="text" placeholder="My First Subscription"/>
         </FormField>
         <FormField label="Webhook URL">
-          <Field name="webhookUrl" component="input" type="text"/>
+          <Field name="webhookUrl" component="input" type="text" placeholder="https://my-domain.com/accept-webhook"/>
         </FormField>
         <FieldArray name="logic" component={renderLogicFields}/>
       </div>

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import NewSubscription from '../../components/subscriptions/new';
-import { createRecord } from '../../util/action-creators';
+import NewSubscription from '../components/subscriptions/new';
+import { createRecord } from '../util/action-creators';
+import mustBeLoggedIn from '../util/mustBeLoggedIn';
 
 class NewPage extends Component {
   render() {
@@ -30,6 +31,6 @@ const mapDispatchToProps = (dispatch) => ({
   createSubscription: (data) => dispatch(createRecord('subscriptions', formDataToParams(data)))
 });
 
-let SubscriptionsNew = connect(mapStateToProps, mapDispatchToProps)(NewPage);
+let SubscriptionsNew = mustBeLoggedIn(connect(mapStateToProps, mapDispatchToProps)(NewPage));
 
 export default SubscriptionsNew;
