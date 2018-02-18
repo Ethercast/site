@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SubscriptionList from '../../components/subscriptions/list';
-import { fetchCollection } from '../../utilities/action-creators';
-import objectToArray from '../../utilities/objectToArray';
+import { fetchCollection } from '../../util/action-creators';
+import objectToArray from '../../util/objectToArray';
 
 class IndexPage extends React.Component {
   componentDidMount() {

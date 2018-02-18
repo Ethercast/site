@@ -1,6 +1,6 @@
 import auth0 from 'auth0-js';
 
-export default class Auth {
+class Auth {
   constructor() {
     this.auth0 = new auth0.WebAuth({
       domain: 'if-eth.auth0.com',
@@ -20,7 +20,6 @@ export default class Auth {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-
       } else if (err) {
         console.log(err);
       }
@@ -56,6 +55,4 @@ export default class Auth {
   };
 }
 
-const auth = new Auth();
-
-export { auth };
+export default new Auth();

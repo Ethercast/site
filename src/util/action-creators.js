@@ -1,4 +1,4 @@
-import { fetchWithAuth, createWithAuth } from '../utilities/api/requests';
+import { fetchWithAuth, createWithAuth } from './/api/requests';
 
 const syncEntities = (collectionName, collection) => ({
   type: 'SYNC_ENTITIES',

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import NewSubscription from '../../components/subscriptions/new';
-import { createRecord } from '../../utilities/action-creators';
+import { createRecord } from '../../util/action-creators';
 
 class NewPage extends Component {
   render() {
