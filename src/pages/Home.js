@@ -1,18 +1,26 @@
+import { Box, Heading, Hero } from 'grommet';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export default class Home extends React.Component {
   render() {
     return (
       <div>
-        <ul>
-          <li>
-            <Link to="/subscriptions">My subscriptions</Link>
-          </li>
-          <li>
-            <Link to="/subscriptions/new">Create subscription</Link>
-          </li>
-        </ul>
+        <Hero>
+          <Box direction='row'
+               justify='center'
+               align='center'>
+            <Box basis='1/2'
+                 align='end'
+                 pad='medium'/>
+            <Box basis='1/2'
+                 align='start'
+                 pad='medium'>
+              <Heading margin='none'>
+                if-eth
+              </Heading>
+            </Box>
+          </Box>
+        </Hero>
       </div>
     );
   }
