@@ -3,7 +3,7 @@ import auth0 from 'auth0-js';
 const auth = new auth0.WebAuth({
   domain: 'if-eth.auth0.com',
   clientID: '6HXoI5ljFO6IMsMttUAQbcjn7JGtDg9T',
-  redirectUri: `${window.location.protocol}//${window.location.host}/auth/callback`,
+  redirectUri: `${window.location.protocol}//${window.location.host}/`,
   audience: 'https://if-eth.auth0.com/userinfo',
   responseType: 'id_token',
   scope: 'openid'

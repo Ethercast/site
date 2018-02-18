@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Route, Switch, withRouter } from 'react-router-dom';
 import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 import SubscriptionsIndex from './pages/subscriptions';
 import SubscriptionsNew from './pages/subscriptions/new';
 import Auth from './util/auth';
@@ -44,6 +45,7 @@ export default withRouter(
               <Route path="/" exact component={Home}/>
               <Route path="/subscriptions/new" exact component={SubscriptionsNew}/>
               <Route path="/subscriptions" exact component={SubscriptionsIndex}/>
+              <Route path="*" component={NotFound}/>
             </Switch>
           </GrommetApp>
         );
