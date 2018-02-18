@@ -131,10 +131,10 @@ let NewSubscription = props => {
           Create Subscription
         </Heading>
         <FormField label="Name">
-          <Field name="name" component="input" type="text"/>
+          <Field name="name" component="input" type="text" placeholder="My First Subscription"/>
         </FormField>
         <FormField label="Webhook URL">
-          <Field name="webhookUrl" component="input" type="text"/>
+          <Field name="webhookUrl" component="input" type="text" placeholder="https://my-domain.com/accept-webhook"/>
         </FormField>
         <FieldArray name="logic" component={renderLogicFields}/>
       </div>
