@@ -12,7 +12,7 @@ export default ({ items, style }) => {
           .map(
             subscription => {
               return (
-                <Tile>
+                <Tile key={subscription.id}>
                   <SubscriptionItem key={subscription.id} subscription={subscription}/>
                 </Tile>
               );
