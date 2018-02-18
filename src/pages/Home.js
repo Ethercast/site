@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Hero, Section, Tile, Tiles } from 'grommet';
+import { Box, Button, Heading, Hero, Section, Tile, Tiles, Anchor } from 'grommet';
 import Value from 'grommet/components/Value';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -15,6 +15,20 @@ export default withRouter(
         const { loggedIn, history } = this.props;
 
         const BoxWithAppContainer = withAppContainer(Box);
+
+        const CtaButton = (props) => (<Button
+          label={loggedIn ? 'Get started' : 'Sign up'}
+          primary={true}
+          style={{ width: '200px' }}
+          onClick={() => {
+            if (!loggedIn) {
+              Auth.login();
+            } else {
+              history.push(`/subscriptions/`);
+            }
+          }}
+          {...props}
+        />)
 
         return (
           <div>
@@ -33,18 +47,7 @@ export default withRouter(
                     </Heading>
                     <Box basis='xsmall' align='left' pad='small' alignContent='start'
                          style={{ paddingLeft: '0px' }}>
-                      <Button
-                        label={loggedIn ? 'Get started' : 'Sign up'}
-                        primary={true}
-                        style={{ width: '200px' }}
-                        onClick={() => {
-                          if (!loggedIn) {
-                            Auth.login();
-                          } else {
-                            history.push(`/subscriptions/`);
-                          }
-                        }}
-                      />
+                      <CtaButton />
                     </Box>
                   </Box>
                 </Box>
@@ -78,7 +81,22 @@ export default withRouter(
                   />
                 </Tile>
               </Tiles>
-
+            </Section>
+            <Section>
+              <BoxWithAppContainer basis='1/2' direction='row' justify='start' align='start' pad='medium' >
+                <img alt="hero" src='/laptop.png' style={{ height: '300px', width: 'auto' }}/>
+                <Box basis='1/2' direction='column' justify='start' align='start' pad='medium' >
+                  <Heading style={{ marginLeft: '25px', marginRight: '25px', marginBottom: '25px' }}
+                           tag="h2">
+                           Highlighted Features
+                  </Heading>
+                  <ul>
+                    <li><Heading tag='h4'>Simple custom filtering of events by address, method signature, and arguments</Heading></li>
+                    <li><Heading tag='h4'>Webhook-based integration for quick integration with services like <Anchor href='https://zapier.com' >Zapier</Anchor> and <Anchor href='https://zapier.com' >Zapier</Anchor></Heading></li>
+                  </ul>
+                  <CtaButton style={{ marginLeft: '25px', marginRight: '25px', marginBottom: '25px' }} />
+                </Box>
+              </BoxWithAppContainer>
             </Section>
           </div>
         );
