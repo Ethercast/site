@@ -30,7 +30,6 @@ export default class SubscriptionForm extends React.Component<SubscriptionFormPr
             <label>Name</label>
             <Input
               name="name" type="text" placeholder="My First Subscription" onChange={oc('name')}
-              required
             />
           </Form.Field>
           <Form.Field>

@@ -3,6 +3,7 @@ import { Condition, CONDITION_NAMES, ConditionType } from '../../util/model';
 import * as _ from 'underscore';
 import { Form } from 'semantic-ui-react';
 import Select from 'semantic-ui-react/dist/commonjs/addons/Select/Select';
+import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
 
 export interface ConditionInputProps {
   value: Partial<Condition>;
@@ -28,7 +29,7 @@ export default class ConditionInput extends React.Component<ConditionInputProps>
           <Form.Field>
             <label>Type</label>
             <Select
-              onChange={(e,data) => onChange({ ...value, type: data.value as ConditionType })}
+              onChange={(e, data) => onChange({ ...value, type: data.value as ConditionType })}
               value={value.type}
               options={CONDITION_TYPE_OPTIONS}
               required
@@ -38,10 +39,10 @@ export default class ConditionInput extends React.Component<ConditionInputProps>
         <div style={{ flexGrow: 1, marginLeft: 8 }}>
           <Form.Field>
             <label>{CONDITION_NAMES[value.type || ConditionType.address]} value</label>
-            <input
+            <Input
               style={{ width: '100%' }}
               type="text"
-              onChange={e => onChange({ ...value, value: e.target.value })}
+              onChange={(e,data) => onChange({ ...value, value: data.value })}
               placeholder={value.type === ConditionType.address ? ZERO_ADDRESS : ZERO_TOPIC}
               pattern={`0x[a-fA-F0-9]{${value.type === ConditionType.address ? 40 : 64}}`}
               required
