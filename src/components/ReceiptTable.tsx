@@ -1,16 +1,19 @@
 import { Table, TableRow } from 'grommet';
-import moment from 'moment';
-import React from 'react';
-import _ from 'underscore';
-import { fetchWithAuth } from '../util/api/requests';
+import * as moment from 'moment';
+import * as React from 'react';
+import * as _ from 'underscore';
+import { listReceipts } from '../util/api';
+import { Receipt } from '../util/model';
 
-export default class ReceiptTable extends React.Component {
-  state = { receipts: [] };
+export default class ReceiptTable extends React.Component<{ subscriptionId: string }, { receipts: Receipt[] }> {
+  state = {
+    receipts: []
+  };
 
   componentDidMount() {
-    fetchWithAuth(`/subscriptions/${this.props.subscriptionId}/receipts`)
+    listReceipts(this.props.subscriptionId)
       .then(
-        receipts => this.setState({ receipts })
+        (receipts: Receipt[]) => this.setState({ receipts })
       );
   }
 
@@ -28,7 +31,9 @@ export default class ReceiptTable extends React.Component {
         </thead>
         <tbody>
         {
-          _.sortBy(receipts, ({ timestamp }) => timestamp * -1)
+          _.sortBy(
+            receipts,
+            ({ timestamp }: Receipt) => timestamp * -1)
             .map(
               ({ id, timestamp, successful }) => (
                 <TableRow key={id}>

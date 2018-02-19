@@ -1,11 +1,12 @@
 import { Button, Notification } from 'grommet';
 import Spinning from 'grommet/components/icons/Spinning';
-import React from 'react';
+import * as React from 'react';
 import ReceiptTable from '../components/ReceiptTable';
-import { deleteWithAuth, fetchWithAuth } from '../util/api/requests';
-import withAppContainer from '../util/withAppContainer';
+import { deactivateSubscription, getSubscription } from '../util/api';
+import { RouteComponentProps } from 'react-router';
+import { Subscription } from '../util/model';
 
-export default withAppContainer(class ViewSubscriptionPage extends React.Component {
+export default class ViewSubscriptionPage extends React.Component<RouteComponentProps<{ id: string }>, { subscription: Subscription | null, promise: Promise<any> | null }> {
   state = {
     subscription: null,
     promise: null
@@ -17,9 +18,9 @@ export default withAppContainer(class ViewSubscriptionPage extends React.Compone
     this.fetchSubId(id);
   }
 
-  fetchSubId = id => {
+  fetchSubId = (id: string) => {
     this.setState({
-      promise: fetchWithAuth(`/subscriptions/${id}`)
+      promise: getSubscription(id)
         .then(
           subscription => {
             this.setState({ subscription, promise: null });
@@ -43,12 +44,14 @@ export default withAppContainer(class ViewSubscriptionPage extends React.Compone
       return;
     }
 
-    if (!window.confirm(`Delete subscription: ${subscription.name}`)) {
+    const { name, id } = subscription as Subscription;
+
+    if (!window.confirm(`Delete subscription: ${name}`)) {
       return;
     }
 
     this.setState({
-      promise: deleteWithAuth(`/subscriptions/${subscription.id}`)
+      promise: deactivateSubscription(id)
         .then(
           () => {
             this.setState({ promise: null }, () => {
@@ -77,7 +80,7 @@ export default withAppContainer(class ViewSubscriptionPage extends React.Compone
       );
     }
 
-    const { id, name, status, description, webhookUrl, logic } = subscription;
+    const { id, name, status, description, webhookUrl, logic } = subscription as Subscription;
 
     return (
       <div>
@@ -105,7 +108,7 @@ export default withAppContainer(class ViewSubscriptionPage extends React.Compone
         </p>
 
         <h3>Filters</h3>
-        <p>Receiving logs with all of the following attributes:</p>
+        <p>This subscription is receiving logs with all of the following attributes:</p>
         <ul>
           {
             logic.map(
@@ -123,10 +126,9 @@ export default withAppContainer(class ViewSubscriptionPage extends React.Compone
         </ul>
 
         <h3>Webhook receipts</h3>
-        <p>
-          <ReceiptTable subscriptionId={id}/>
-        </p>
+        <p>This is the log of incidents of webhooks that have been reported to the endpoint.</p>
+        <ReceiptTable subscriptionId={id}/>
       </div>
     );
   }
-});
+}

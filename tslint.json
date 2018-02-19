@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "no-redundant-jsdoc": true,
+    "typeof-compare": true,
+    "semicolon": false
+  }
+}

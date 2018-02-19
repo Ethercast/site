@@ -2,7 +2,8 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import appReducer from '../reducers';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers: typeof compose = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
+  compose;
 
 const middlewares = composeEnhancers(
   applyMiddleware(
@@ -10,6 +11,6 @@ const middlewares = composeEnhancers(
   )
 );
 
-export default function makeStore(initialState) {
+export default function makeStore(initialState?: object) {
   return createStore(appReducer, initialState, middlewares);
 };

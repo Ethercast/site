@@ -1,12 +1,13 @@
 import { Notification } from 'grommet';
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
+import { AppState } from '../reducers';
 
-export default function mustBeLoggedIn(Component) {
+export default function mustBeLoggedIn(Component: React.ComponentType<any>): any {
   return connect(
-    ({ auth: { loggedIn } }) => ({ loggedIn })
+    ({ auth: { loggedIn } }: AppState) => ({ loggedIn })
   )(
-    class extends React.Component {
+    class extends React.Component<{ loggedIn: boolean }> {
       render() {
         const { loggedIn, ...rest } = this.props;
 
