@@ -1,6 +1,5 @@
 import { Anchor, App as GrommetApp, Box, Footer, Header, Menu, Paragraph, Title } from 'grommet';
-import { ActionsIcon } from 'grommet/components/icons/base';
-import TriggerIcon from 'grommet/components/icons/base/Trigger';
+import { ActionsIcon, TriggerIcon } from 'grommet/components/icons/base';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, Route, Switch, withRouter } from 'react-router-dom';
