@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Spinning from 'grommet/components/icons/Spinning';
 import { ChangeEventHandler } from 'react';
 import { Subscription } from '../../util/model';
 import { Button, FormField, FormFields } from 'grommet';
@@ -8,11 +9,12 @@ export interface SubscriptionFormProps {
   value: Partial<Subscription>;
   onChange: (subscription: Partial<Subscription>) => void;
   onSubmit: () => void;
+  loading: boolean;
 }
 
 export default class SubscriptionForm extends React.Component<SubscriptionFormProps> {
   public render() {
-    const { onChange, value } = this.props;
+    const { onChange, value, loading } = this.props;
     const changed = (more: object) => onChange({ ...value, ...more });
     const oc = (name: string): ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> => e => changed({ [name]: e.target.value });
 
@@ -31,12 +33,14 @@ export default class SubscriptionForm extends React.Component<SubscriptionFormPr
           <FormField label="Webhook URL">
             <input type="url" placeholder="https://my-domain.com/accept-webhook" onChange={oc('webhookUrl')} required/>
           </FormField>
-          <hr />
+          <hr/>
           <h3>Subscription filters</h3>
           <LogicInput logic={value.logic} onChange={logic => changed({ logic })}/>
         </FormFields>
         <div style={{ padding: 10, textAlign: 'right' }}>
-          <Button label="Submit" type="submit" primary={true}/>
+          {
+            loading ? <Spinning/> : <Button loading={loading} label="Submit" type="submit" primary={true}/>
+          }
         </div>
       </form>
     );
