@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ChangeEventHandler } from 'react';
-import { Subscription } from '../util/model';
+import { Subscription } from '../../util/model';
 import { Button, FormField, FormFields } from 'grommet';
 import LogicInput from './LogicInput';
 
@@ -31,9 +31,9 @@ export default class SubscriptionForm extends React.Component<SubscriptionFormPr
           <FormField label="Webhook URL">
             <input type="url" placeholder="https://my-domain.com/accept-webhook" onChange={oc('webhookUrl')} required/>
           </FormField>
-          <FormField label="Logic">
-            <LogicInput value={value.logic} onChange={logic => changed({ logic })}/>
-          </FormField>
+          <hr />
+          <h3>Subscription filters</h3>
+          <LogicInput logic={value.logic} onChange={logic => changed({ logic })}/>
         </FormFields>
         <div style={{ padding: 10, textAlign: 'right' }}>
           <Button label="Submit" type="submit" primary={true}/>

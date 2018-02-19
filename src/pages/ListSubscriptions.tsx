@@ -6,7 +6,7 @@ import * as React from 'react';
 import { ChangeEvent } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as _ from 'underscore';
-import SubscriptionList from '../components/subscriptions/list';
+import SubscriptionList from '../components/subscriptions/SubscriptionList';
 import { listSubscriptions } from '../util/api';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 import { RouteComponentProps } from 'react-router';

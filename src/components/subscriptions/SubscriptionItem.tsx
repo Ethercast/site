@@ -20,11 +20,11 @@ export default withRouter(
       const { subscription, history } = this.props;
 
       const styleOverrides = {
-        opacity: subscription.status === 'active' ? '1.0' : '0.4',
+        opacity: subscription.status === 'active' ? 1.0 : 0.4,
       };
 
       const labelStyle = {
-        color: subscription.status === 'active' ? '#8cc800' : '#a8a8a8'
+        color: subscription.status === 'active' ? '#8cc800' : null
       };
 
       return (
@@ -38,15 +38,18 @@ export default withRouter(
           <p>{subscription.description}</p>
           <div style={{
             position: 'absolute',
-            bottom: '10px',
-            left: '0px',
-            right: '0px',
+            bottom: 10,
+            left: 0,
+            right: 0,
             paddingLeft: '5%'
           }}>
-            <Button style={{ width: '90%', alignContent: 'center' }} label="View subscription"
-                    onClick={(e: any) => {
-                      history.push(`/subscriptions/${subscription.id}`);
-                    }}/>
+            <Button
+              style={{ width: '90%', alignContent: 'center' }}
+              label="View subscription"
+              onClick={(e: any) => {
+                history.push(`/subscriptions/${subscription.id}`);
+              }}
+            />
           </div>
         </Card>
       );
