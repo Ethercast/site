@@ -30,8 +30,17 @@ function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: o
     async response => {
       const json = await response.json();
 
+      if (response.status === 422) {
+        throw new Error(
+          `Validation errors: ${json.details.map(({ message }: any) => message).join(';')}`
+        );
+      }
+
       if (response.status > 300) {
-        throw new Error(json);
+        if (json.message) {
+          throw new Error(json.message);
+        }
+        throw new Error(JSON.stringify(json));
       }
 
       return json;
