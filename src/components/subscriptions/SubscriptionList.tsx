@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as _ from 'underscore';
 import SubscriptionItem from './SubscriptionItem';
 import { Subscription } from '../../util/model';
-import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid/Grid';
+import { Card } from 'semantic-ui-react';
 
 export default ({ items }: { items: Subscription[] }) => {
   const groupedSorted = _.chain(items)
@@ -14,18 +14,16 @@ export default ({ items }: { items: Subscription[] }) => {
   const inactive = groupedSorted['deactivated'] || [];
 
   return (
-    <Grid stackable columns={4}>
+    <Card.Group itemsPerRow={4}>
       {
 
         active.concat(inactive)
           .map(
             (subscription: Subscription) => (
-              <Grid.Column key={subscription.id}>
-                <SubscriptionItem key={subscription.id} subscription={subscription}/>
-              </Grid.Column>
+              <SubscriptionItem key={subscription.id} subscription={subscription}/>
             )
           )
       }
-    </Grid>
+    </Card.Group>
   );
 }
