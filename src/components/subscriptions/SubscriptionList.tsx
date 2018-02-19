@@ -14,7 +14,7 @@ export default ({ items }: { items: Subscription[] }) => {
   const inactive = groupedSorted['deactivated'] || [];
 
   return (
-    <Card.Group itemsPerRow={4}>
+    <Card.Group itemsPerRow={4} stackable>
       {
 
         active.concat(inactive)

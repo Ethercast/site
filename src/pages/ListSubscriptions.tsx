@@ -56,13 +56,13 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
 
     let filteredSubs: Subscription[] = subscriptions || [];
     if (search && search.length > 1) {
-      const { q: searchString } = qs.parse(search.substr(1));
+      const { q } = qs.parse(search.substr(1));
 
       filteredSubs = _.filter(
         filteredSubs,
-        ({ name, description }) => !searchString ||
-          name.toLowerCase().indexOf(searchString) !== -1 ||
-          description.toLowerCase().indexOf(searchString) !== -1
+        ({ name, description }) => !q ||
+          name.toLowerCase().indexOf(q) !== -1 ||
+          description.toLowerCase().indexOf(q) !== -1
       );
     }
 
