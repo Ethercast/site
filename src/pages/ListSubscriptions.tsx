@@ -2,19 +2,18 @@ import * as qs from 'qs';
 import * as React from 'react';
 import { ChangeEvent } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import * as _ from 'underscore';
 import SubscriptionList from '../components/subscriptions/SubscriptionList';
 import { listSubscriptions } from '../util/api';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 import { RouteComponentProps } from 'react-router';
 import { Subscription } from '../util/model';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
-import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Container';
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer/Dimmer';
 import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
+import Breadcrumb from 'semantic-ui-react/dist/commonjs/collections/Breadcrumb/Breadcrumb';
+import * as _ from 'underscore';
 
 class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subscriptions: Subscription[] | null, promise: Promise<any> | null }> {
   state = {
@@ -55,34 +54,39 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
     const { search } = history.location;
 
     let filteredSubs: Subscription[] = subscriptions || [];
+
+    let q = '';
     if (search && search.length > 1) {
-      const { q } = qs.parse(search.substr(1));
+      q = qs.parse(search.substr(1)).q || '';
 
       filteredSubs = _.filter(
         filteredSubs,
-        ({ name, description }) => !q ||
-          name.toLowerCase().indexOf(q) !== -1 ||
-          description.toLowerCase().indexOf(q) !== -1
+        ({ name }: Subscription) => !q || name.toLowerCase().indexOf(q) !== -1
       );
     }
 
     return (
       <Container>
-        <Header as="h2">My Subscriptions</Header>
+        <Breadcrumb>
+          <Breadcrumb.Section active>Subscriptions</Breadcrumb.Section>
+        </Breadcrumb>
+
         <div>
-          <Input fluid placeholder="Search" onChange={this.handleChange}/>
+          <input placeholder="Search" onChange={this.handleChange} value={q}/>
           <Button as={Link} to="/subscriptions/new"><Icon name="add"/> Create</Button>
         </div>
 
-        <Dimmer.Dimmable dimmed={promise !== null}>
-          <Dimmer active={promise !== null}>
-            <Loader>
-              Loading...
-            </Loader>
-          </Dimmer>
+        <div style={{ marginTop: 20 }}>
+          <Dimmer.Dimmable dimmed={promise !== null}>
+            <Dimmer active={promise !== null}>
+              <Loader>
+                Loading...
+              </Loader>
+            </Dimmer>
 
-          <SubscriptionList items={filteredSubs}/>
-        </Dimmer.Dimmable>
+            <SubscriptionList items={filteredSubs}/>
+          </Dimmer.Dimmable>
+        </div>
       </Container>
     );
   }

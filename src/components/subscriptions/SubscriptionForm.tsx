@@ -3,9 +3,9 @@ import { Subscription } from '../../util/model';
 import LogicInput from './LogicInput';
 import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
-import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
 import TextArea from 'semantic-ui-react/dist/commonjs/addons/TextArea/TextArea';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
+import { Link } from 'react-router-dom';
 
 export interface SubscriptionFormProps {
   value: Partial<Subscription>;
@@ -28,7 +28,7 @@ export default class SubscriptionForm extends React.Component<SubscriptionFormPr
         <div>
           <Form.Field>
             <label>Name</label>
-            <Input
+            <input
               name="name" type="text" placeholder="My First Subscription" onChange={oc('name')}
             />
           </Form.Field>
@@ -39,7 +39,7 @@ export default class SubscriptionForm extends React.Component<SubscriptionFormPr
           </Form.Field>
           <Form.Field>
             <label>Webhook URL</label>
-            <Input
+            <input
               type="url" placeholder="https://my-domain.com/accept-webhook"
               onChange={oc('webhookUrl')} required/>
           </Form.Field>
@@ -48,6 +48,7 @@ export default class SubscriptionForm extends React.Component<SubscriptionFormPr
           <LogicInput logic={value.logic} onChange={logic => changed({ logic })}/>
         </div>
         <div style={{ padding: 10, textAlign: 'right' }}>
+          <Button as={Link} to="/subscriptions">Cancel</Button>
           <Button loading={loading} type="submit" primary={true}>Submit</Button>
         </div>
       </Form>

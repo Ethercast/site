@@ -1,21 +1,11 @@
 import * as React from 'react';
 import { HTMLProps } from 'react';
+import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
 
-const TAG_STYLE = {
-  borderRadius: 5,
-  background: 'lightgray',
-  padding: 10,
-  color: 'white',
-  width: 70,
-  margin: 5,
-  textAlign: 'center',
-  display: 'inline-block'
-};
-
-export default function Separator({ style, ...props }: HTMLProps<HTMLDivElement>) {
+export default function Separator({ children }: HTMLProps<HTMLDivElement>) {
   return (
-    <div style={{ textAlign: 'center' }}>
-      <div style={{ ...TAG_STYLE, ...style }} {...props}/>
+    <div style={{ textAlign: 'center', margin: 8 }}>
+      <Label>{children}</Label>
     </div>
   );
 }
