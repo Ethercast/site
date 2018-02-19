@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { Toast } from 'grommet';
 import { RouteComponentProps } from 'react-router';
 import { createSubscription } from '../util/api';
 import { ConditionType, Subscription } from '../util/model';
 import SubscriptionForm from '../components/subscriptions/SubscriptionForm';
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Container';
+import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
+import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 
 export default class CreateSubscription extends React.Component<RouteComponentProps<{}>, { subscription: Partial<Subscription>; error: Error | null; promise: Promise<any> | null }> {
   createSubscription = () => {
@@ -30,18 +32,18 @@ export default class CreateSubscription extends React.Component<RouteComponentPr
         ]
       ]
     },
-    promise:null,
+    promise: null,
     error: null
   };
 
-  closeToast = () => this.setState({ error: null });
+  removeMessage = () => this.setState({ error: null });
 
   render() {
     const { subscription, error, promise } = this.state;
 
     return (
-      <div>
-        <h2>Create subscription</h2>
+      <Container>
+        <Header as="h2">Create subscription</Header>
         <SubscriptionForm
           loading={!!promise}
           value={subscription}
@@ -49,11 +51,14 @@ export default class CreateSubscription extends React.Component<RouteComponentPr
           onSubmit={this.createSubscription}
         />
         {
-          error !== null ?
-            <Toast status="critical" onClose={this.closeToast}>{(error as any).message}</Toast> :
+          error !== null ? (
+              <Message error onDismiss={this.removeMessage}>
+                {(error as any).message}
+              </Message>
+            ) :
             null
         }
-      </div>
+      </Container>
     );
   }
 }

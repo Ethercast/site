@@ -1,10 +1,10 @@
-import { Button } from 'grommet';
 import * as React from 'react';
 import { Condition, ConditionType } from '../../util/model';
 import * as _ from 'underscore';
 import { ConditionInputArray } from './ConditionInputArray';
 import { AND_SEPARATOR } from './Separator';
 import replaceItem from '../../util/replaceItem';
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 
 export interface LogicInputProps {
   logic?: Partial<Condition>[][];
@@ -56,7 +56,7 @@ export default class LogicInput extends React.Component<LogicInputProps> {
         }
 
         <div style={{ marginTop: 8, textAlign: 'center' }}>
-          <Button label="Add 'AND' condition" onClick={this.addCondition}/>
+          <Button onClick={this.addCondition}>Add 'AND' condition</Button>
         </div>
       </div>
     );

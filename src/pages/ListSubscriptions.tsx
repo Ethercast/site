@@ -1,16 +1,20 @@
-import { Box, Button, Notification, Search } from 'grommet';
-import AddIcon from 'grommet/components/icons/base/Add';
-import Spinning from 'grommet/components/icons/Spinning';
 import * as qs from 'qs';
 import * as React from 'react';
 import { ChangeEvent } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import * as _ from 'underscore';
 import SubscriptionList from '../components/subscriptions/SubscriptionList';
 import { listSubscriptions } from '../util/api';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 import { RouteComponentProps } from 'react-router';
 import { Subscription } from '../util/model';
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
+import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Container';
+import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
+import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer/Dimmer';
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
 
 class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subscriptions: Subscription[] | null, promise: Promise<any> | null }> {
   state = {
@@ -62,43 +66,24 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
       );
     }
 
-    const subs: Subscription[] = this.state.subscriptions || [];
-
     return (
-      <div>
-        <h2 style={{ paddingLeft: '8px', paddingRight: '8px' }}>My Subscriptions</h2>
-        <Box flex={true} justify="end" direction="row"
-             style={{ paddingLeft: '11px', paddingRight: '11px' }} responsive={false}>
-          <Search inline={true} fill={true} size="medium" style={{ width: '100%' }}
-                  placeHolder="Search"
-                  onDOMChange={this.handleChange}
-          />
-          <Button label="Create" icon={<AddIcon/>} onClick={() => {
-            history.push(`/subscriptions/new`);
-          }}/>
-        </Box>
-        {
-          promise ? (
-            <div style={{ textAlign: 'center', padding: 20 }}>
-              <Spinning/>
-            </div>
-          ) : (
-            subs.length === 0 ? (
-              <Notification
-                style={{ marginTop: 20 }}
-                message="You do not have any contract subscriptions"
-                status="Warning"
-              />
-            ) : filteredSubs.length > 0 ? <SubscriptionList items={filteredSubs}/> : (
-              <Notification
-                style={{ marginTop: 20 }}
-                message="No subscriptions matching the search terms"
-                status="Warning"
-              />
-            )
-          )
-        }
-      </div>
+      <Container>
+        <Header as="h2">My Subscriptions</Header>
+        <div>
+          <Input fluid placeholder="Search" onChange={this.handleChange}/>
+          <Button as={Link} to="/subscriptions/new"><Icon name="add"/> Create</Button>
+        </div>
+
+        <Dimmer.Dimmable dimmed={promise !== null}>
+          <Dimmer active={promise !== null}>
+            <Loader>
+              Loading...
+            </Loader>
+          </Dimmer>
+
+          <SubscriptionList items={filteredSubs}/>
+        </Dimmer.Dimmable>
+      </Container>
     );
   }
 }

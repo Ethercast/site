@@ -1,10 +1,9 @@
-import { Button, Notification } from 'grommet';
-import Spinning from 'grommet/components/icons/Spinning';
 import * as React from 'react';
 import ReceiptTable from '../components/ReceiptTable';
 import { deactivateSubscription, getSubscription } from '../util/api';
 import { RouteComponentProps } from 'react-router';
 import { CONDITION_NAMES, Subscription } from '../util/model';
+import { Button, Container, Header, Message } from 'semantic-ui-react';
 
 export default class ViewSubscriptionPage extends React.Component<RouteComponentProps<{ id: string }>, { subscription: Subscription | null, promise: Promise<any> | null }> {
   state = {
@@ -70,32 +69,32 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
   render() {
     const { promise, subscription } = this.state;
 
-    if (promise) {
-      return <Spinning/>;
+    if (promise && !subscription) {
+      return null;
     }
 
     if (!subscription) {
       return (
-        <Notification message="The subscription was not found."/>
+        <Message error>The subscription was not found.</Message>
       );
     }
 
     const { id, name, status, description, webhookUrl, logic } = subscription as Subscription;
 
     return (
-      <div>
-        <h2 style={{ display: 'flex' }}>
+      <Container>
+        <Header as="h2" style={{ display: 'flex' }}>
           <div style={{ flexGrow: 1 }}>
             {name}
           </div>
           <div style={{ flexShrink: 0 }}>
             {
               status === 'active' ? (
-                <Button label="Deactivate" onClick={this.deactivate}/>
+                <Button onClick={this.deactivate}>Deactivate</Button>
               ) : <small>{status}</small>
             }
           </div>
-        </h2>
+        </Header>
 
         <p>
           {
@@ -107,7 +106,7 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
           Endpoint: <a href={webhookUrl} target="_blank">{webhookUrl}</a>
         </p>
 
-        <h3>Filters</h3>
+        <Header as="h3">Filters</Header>
         <p>This subscription is receiving logs with all of the following attributes:</p>
         <ul>
           {
@@ -116,7 +115,8 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
                 <li key={orIx}>
                   {
                     ors.map(
-                      ({ type, value }, ix) => <strong key={ix}>{CONDITION_NAMES[type]}: <em>{value}</em></strong>
+                      ({ type, value }, ix) => <strong
+                        key={ix}>{CONDITION_NAMES[type]}: <em>{value}</em></strong>
                     )
                   }
                 </li>
@@ -125,10 +125,10 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
           }
         </ul>
 
-        <h3>Webhook receipts</h3>
+        <Header as="h3">Webhook receipts</Header>
         <p>This is the log of incidents of webhooks that have been reported to the endpoint.</p>
         <ReceiptTable subscriptionId={id}/>
-      </div>
+      </Container>
     );
   }
 }

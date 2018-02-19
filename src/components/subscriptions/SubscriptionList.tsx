@@ -1,8 +1,8 @@
-import { Tile, Tiles } from 'grommet';
 import * as React from 'react';
 import * as _ from 'underscore';
 import SubscriptionItem from './SubscriptionItem';
 import { Subscription } from '../../util/model';
+import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid/Grid';
 
 export default ({ items }: { items: Subscription[] }) => {
   const groupedSorted = _.chain(items)
@@ -14,18 +14,18 @@ export default ({ items }: { items: Subscription[] }) => {
   const inactive = groupedSorted['deactivated'] || [];
 
   return (
-    <Tiles responsive={true} style={{ display: 'flex' }}>
+    <Grid stackable columns={4}>
       {
 
         active.concat(inactive)
           .map(
             (subscription: Subscription) => (
-              <Tile key={subscription.id} pad='small' basis='1/3'>
+              <Grid.Column key={subscription.id}>
                 <SubscriptionItem key={subscription.id} subscription={subscription}/>
-              </Tile>
+              </Grid.Column>
             )
           )
       }
-    </Tiles>
+    </Grid>
   );
 }

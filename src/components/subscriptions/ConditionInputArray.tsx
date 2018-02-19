@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Button } from 'grommet';
 import { Condition, ConditionType } from '../../util/model';
 import * as _ from 'underscore';
 import ConditionInput from './ConditionInput';
 import { OR_SEPARATOR } from './Separator';
 import replaceItem from '../../util/replaceItem';
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 
 export function ConditionInputArray({ conditions, onChange }: { conditions: Partial<Condition>[], onChange: (conditions: Partial<Condition>[]) => void }) {
   return (
@@ -23,11 +23,10 @@ export function ConditionInputArray({ conditions, onChange }: { conditions: Part
                   />
                 </div>
 
-                <div style={{ flexShrink: 0, marginLeft: 10, alignSelf: 'center' }}>
+                <div style={{ flexShrink: 0, marginLeft: 10, alignSelf: 'flex-end' }}>
                   <Button
-                    label="Remove condition"
                     onClick={() => onChange(_.without(conditions, condition))}
-                  />
+                  >Remove condition</Button>
                 </div>
               </div>
 
@@ -40,10 +39,9 @@ export function ConditionInputArray({ conditions, onChange }: { conditions: Part
       }
 
       <Button
-        label="Add 'OR' condition"
         style={{ marginTop: 8 }}
         onClick={() => onChange(conditions.concat([{ type: ConditionType.address }]))}
-      />
+      >Add 'OR' condition</Button>
     </div>
   );
 }

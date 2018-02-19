@@ -1,9 +1,10 @@
-import { Table, TableRow } from 'grommet';
 import * as moment from 'moment';
 import * as React from 'react';
 import * as _ from 'underscore';
 import { listReceipts } from '../util/api';
 import { Receipt } from '../util/model';
+import Table from 'semantic-ui-react/dist/commonjs/collections/Table/Table';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
 
 export default class ReceiptTable extends React.Component<{ subscriptionId: string }, { receipts: Receipt[] }> {
   state = {
@@ -22,29 +23,35 @@ export default class ReceiptTable extends React.Component<{ subscriptionId: stri
 
     return (
       <Table>
-        <thead>
-        <tr>
-          <th>Id</th>
-          <th>When</th>
-          <th>Successful</th>
-        </tr>
-        </thead>
-        <tbody>
-        {
-          _.sortBy(
-            receipts,
-            ({ timestamp }: Receipt) => timestamp * -1)
-            .map(
-              ({ id, timestamp, successful }) => (
-                <TableRow key={id}>
-                  <td>{id}</td>
-                  <td>{moment(timestamp).format('l LT')}</td>
-                  <td>{successful ? 'Yes' : 'No'}</td>
-                </TableRow>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Id</Table.HeaderCell>
+            <Table.HeaderCell>When</Table.HeaderCell>
+            <Table.HeaderCell>Successful</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {
+            _.sortBy(
+              receipts,
+              ({ timestamp }: Receipt) => timestamp * -1)
+              .map(
+                ({ id, timestamp, successful }) => (
+                  <Table.Row key={id}>
+                    <Table.Cell>{id}</Table.Cell>
+                    <Table.Cell>{moment(timestamp).format('l LT')}</Table.Cell>
+                    <Table.Cell>
+                      {
+                        successful ?
+                          <Icon disabled name="check"/> :
+                          <Icon disabled name="exclamation"/>
+                      }
+                    </Table.Cell>
+                  </Table.Row>
+                )
               )
-            )
-        }
-        </tbody>
+          }
+        </Table.Body>
       </Table>
     );
   }
