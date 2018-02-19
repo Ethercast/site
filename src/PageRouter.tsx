@@ -3,13 +3,12 @@ import CreateSubscription from './pages/CreateSubscription';
 import ListSubscriptions from './pages/ListSubscriptions';
 import ViewSubscriptionPage from './pages/ViewSubscriptionPage';
 import NotFound from './pages/NotFound';
-import { Route, Switch } from 'react-router';
-import HomepageLayout from './pages/HomePage';
+import { Redirect, Route, Switch } from 'react-router';
 
 export default function PageRouter(props: {}) {
   return (
     <Switch>
-      <Route path="/" exact component={HomepageLayout}/>
+      <Route path="/" exact component={() => <Redirect to="/subscriptions"/>}/>
       <Route path="/subscriptions/new" exact component={CreateSubscription}/>
       <Route path="/subscriptions" exact component={ListSubscriptions}/>
       <Route path="/subscriptions/:id" exact component={ViewSubscriptionPage}/>
