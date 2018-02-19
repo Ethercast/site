@@ -10,7 +10,7 @@ export default ({ items }: { items: Subscription[] }) => {
     .mapObject(subs => _.sortBy(subs, ({ timestamp }: Subscription) => timestamp * -1))
     .value();
 
-  const active = groupedSorted['status'] || [];
+  const active = groupedSorted['active'] || [];
   const inactive = groupedSorted['deactivated'] || [];
 
   return (
