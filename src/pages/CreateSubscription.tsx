@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Toast } from 'grommet';
 import { RouteComponentProps } from 'react-router';
 import { createSubscription } from '../util/api';
-import { Subscription } from '../util/model';
+import { ConditionType, Subscription } from '../util/model';
 import SubscriptionForm from '../components/SubscriptionForm';
 
 export default class CreateSubscription extends React.Component<RouteComponentProps<{}>, { subscription: Partial<Subscription>; error: Error | null; }> {
@@ -21,7 +21,11 @@ export default class CreateSubscription extends React.Component<RouteComponentPr
   };
 
   state = {
-    subscription: {},
+    subscription: {
+      logic: [
+        [{ type: ConditionType.address, value: '' }]
+      ]
+    },
     error: null
   };
 

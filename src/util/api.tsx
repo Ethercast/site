@@ -48,7 +48,7 @@ function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: o
   );
 }
 
-export function createSubscription(sub: Partial<Subscription>): Promise<Subscription> {
+export function createSubscription(sub: object): Promise<Subscription> {
   return fetchWithAuth('POST', '/subscriptions', sub);
 }
 

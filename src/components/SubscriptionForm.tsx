@@ -1,39 +1,13 @@
 import * as React from 'react';
-import { ChangeEventHandler, HTMLProps } from 'react';
+import { ChangeEventHandler } from 'react';
 import { Subscription } from '../util/model';
 import { Button, FormField, FormFields } from 'grommet';
+import LogicInput from './LogicInput';
 
 export interface SubscriptionFormProps {
   value: Partial<Subscription>;
   onChange: (subscription: Partial<Subscription>) => void;
   onSubmit: () => void;
-}
-
-export const TYPE_OPTIONS = [
-  { value: 'address', label: 'Address' },
-  { value: 'topic0', label: 'Method Signature' },
-  { value: 'topic1', label: 'First Argument' },
-  { value: 'topic2', label: 'Second Argument' },
-  { value: 'topic3', label: 'Third Argument' }
-];
-
-const TAG_STYLE = {
-  borderRadius: 5,
-  background: 'lightgray',
-  padding: 10,
-  color: 'white',
-  width: 70,
-  margin: 5,
-  textAlign: 'center',
-  display: 'inline-block'
-};
-
-export function Separator({ style, ...props }: HTMLProps<HTMLDivElement>) {
-  return (
-    <div style={{ textAlign: 'center' }}>
-      <div style={{ ...TAG_STYLE, ...style }} {...props}/>
-    </div>
-  );
 }
 
 export default class SubscriptionForm extends React.Component<SubscriptionFormProps> {
@@ -56,6 +30,9 @@ export default class SubscriptionForm extends React.Component<SubscriptionFormPr
           </FormField>
           <FormField label="Webhook URL">
             <input type="url" placeholder="https://my-domain.com/accept-webhook" onChange={oc('webhookUrl')} required/>
+          </FormField>
+          <FormField label="Logic">
+            <LogicInput value={value.logic} onChange={logic => changed({ logic })}/>
           </FormField>
         </FormFields>
         <div style={{ padding: 10, textAlign: 'right' }}>
