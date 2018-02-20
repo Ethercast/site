@@ -53,6 +53,7 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
       promise: deactivateSubscription(id)
         .then(
           () => {
+            alert('subscription deactivated, please wait a moment');
             this.setState({ promise: null }, () => {
               this.fetchSubId(this.props.match.params.id);
             });
@@ -90,7 +91,7 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
           <div style={{ flexShrink: 0 }}>
             {
               status === 'active' ? (
-                <Button onClick={this.deactivate}>Deactivate</Button>
+                <Button loading={promise !== null} onClick={this.deactivate}>Deactivate</Button>
               ) : <small>{status}</small>
             }
           </div>
