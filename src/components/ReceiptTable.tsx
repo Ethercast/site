@@ -43,8 +43,8 @@ export default class ReceiptTable extends React.Component<{ subscriptionId: stri
                     <Table.Cell>
                       {
                         successful ?
-                          <Icon disabled name="check"/> :
-                          <Icon disabled name="exclamation"/>
+                          <Icon disabled name="check" color="green"/> :
+                          <Icon disabled name="exclamation triangle" color="red"/>
                       }
                     </Table.Cell>
                   </Table.Row>
