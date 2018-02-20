@@ -12,8 +12,9 @@ import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Container';
 import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer/Dimmer';
 import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
-import Breadcrumb from 'semantic-ui-react/dist/commonjs/collections/Breadcrumb/Breadcrumb';
 import * as _ from 'underscore';
+import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
+import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 
 class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subscriptions: Subscription[] | null, promise: Promise<any> | null }> {
   state = {
@@ -67,21 +68,26 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
 
     return (
       <Container>
-        <Breadcrumb>
-          <Breadcrumb.Section active>Subscriptions</Breadcrumb.Section>
-        </Breadcrumb>
-
-        <div>
-          <input placeholder="Search" onChange={this.handleChange} value={q}/>
-          <Button as={Link} to="/subscriptions/new"><Icon name="add"/> Create</Button>
+        <Header as="h1">My subscriptions</Header>
+        <div style={{ display: 'flex' }}>
+          <div style={{ flexGrow: 1 }}>
+            <Input
+              icon="search"
+              placeholder="Search subscriptions"
+              fluid
+              onChange={this.handleChange}
+              value={q}
+            />
+          </div>
+          <div style={{ marginLeft: 10 }}>
+            <Button primary as={Link} to="/subscriptions/new"><Icon name="add"/> Create</Button>
+          </div>
         </div>
 
         <div style={{ marginTop: 20 }}>
           <Dimmer.Dimmable dimmed={promise !== null}>
-            <Dimmer active={promise !== null}>
-              <Loader>
-                Loading...
-              </Loader>
+            <Dimmer active={promise !== null} inverted>
+              <Loader>Loading</Loader>
             </Dimmer>
 
             <SubscriptionList items={filteredSubs}/>

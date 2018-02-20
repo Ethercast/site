@@ -6,6 +6,7 @@ import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 import TextArea from 'semantic-ui-react/dist/commonjs/addons/TextArea/TextArea';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 import { Link } from 'react-router-dom';
+import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
 
 export interface SubscriptionFormProps {
   value: Partial<Subscription>;
@@ -28,7 +29,7 @@ export default class SubscriptionForm extends React.Component<SubscriptionFormPr
         <div>
           <Form.Field>
             <label>Name</label>
-            <input
+            <Input
               name="name" type="text" placeholder="My First Subscription" onChange={oc('name')}
             />
           </Form.Field>
@@ -39,7 +40,7 @@ export default class SubscriptionForm extends React.Component<SubscriptionFormPr
           </Form.Field>
           <Form.Field>
             <label>Webhook URL</label>
-            <input
+            <Input
               type="url" placeholder="https://my-domain.com/accept-webhook"
               onChange={oc('webhookUrl')} required/>
           </Form.Field>

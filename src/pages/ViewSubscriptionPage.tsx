@@ -4,8 +4,6 @@ import { deactivateSubscription, getSubscription } from '../util/api';
 import { RouteComponentProps } from 'react-router';
 import { CONDITION_NAMES, Subscription } from '../util/model';
 import { Button, Container, Header, Message } from 'semantic-ui-react';
-import Breadcrumb from 'semantic-ui-react/dist/commonjs/collections/Breadcrumb/Breadcrumb';
-import { Link } from 'react-router-dom';
 
 export default class ViewSubscriptionPage extends React.Component<RouteComponentProps<{ id: string }>, { subscription: Subscription | null, promise: Promise<any> | null }> {
   state = {
@@ -85,12 +83,6 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
 
     return (
       <Container>
-        <Breadcrumb>
-          <Breadcrumb.Section as={Link} to="/subscriptions">Subscriptions</Breadcrumb.Section>
-          <Breadcrumb.Divider/>
-          <Breadcrumb.Section active>View</Breadcrumb.Section>
-        </Breadcrumb>
-
         <Header as="h2" style={{ display: 'flex' }}>
           <div style={{ flexGrow: 1 }}>
             {name}

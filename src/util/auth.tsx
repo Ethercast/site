@@ -1,14 +1,16 @@
 import * as auth0 from 'auth0-js';
 import { Auth0DecodedHash } from 'auth0-js';
 
-const auth = new auth0.WebAuth({
+const AUTH_SETTINGS = {
   domain: 'if-eth.auth0.com',
   clientID: '6HXoI5ljFO6IMsMttUAQbcjn7JGtDg9T',
   redirectUri: `${window.location.protocol}//${window.location.host}/`,
   audience: 'https://if-eth.auth0.com/userinfo',
   responseType: 'id_token',
-  scope: 'openid'
-});
+  scope: 'read_subscriptions create_subscriptions deactivate_subscriptions'
+};
+
+const auth = new auth0.WebAuth(AUTH_SETTINGS);
 
 const AUTH_RESULT = 'auth_result';
 
@@ -22,9 +24,11 @@ function removeSession(): void {
 
 function getSession(): Auth0DecodedHash | null {
   const sessionText = localStorage.getItem(AUTH_RESULT);
+
   if (sessionText) {
     return JSON.parse(sessionText);
   }
+
   return null;
 }
 
