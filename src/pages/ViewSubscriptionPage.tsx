@@ -53,9 +53,14 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
       promise: deactivateSubscription(id)
         .then(
           () => {
-            alert('subscription deactivated, please wait a moment');
-            this.setState({ promise: null }, () => {
-              this.fetchSubId(this.props.match.params.id);
+            alert('subscription deactivated!');
+            this.setState({
+              promise: null,
+              subscription: Object.assign(
+                {},
+                this.state.subscription,
+                { status: 'deactivated' }
+              )
             });
           }
         )
@@ -84,15 +89,15 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
 
     return (
       <Container>
-        <Header as="h2" style={{ display: 'flex' }}>
+        <Header as="h1" style={{ display: 'flex' }}>
           <div style={{ flexGrow: 1 }}>
             {name}
           </div>
           <div style={{ flexShrink: 0 }}>
             {
               status === 'active' ? (
-                <Button loading={promise !== null} onClick={this.deactivate}>Deactivate</Button>
-              ) : <small>{status}</small>
+                <Button loading={promise !== null} negative onClick={this.deactivate}>Deactivate</Button>
+              ) : <small>{status.toUpperCase()}</small>
             }
           </div>
         </Header>
@@ -116,8 +121,17 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
                 <li key={orIx}>
                   {
                     ors.map(
-                      ({ type, value }, ix) => <strong
-                        key={ix}>{CONDITION_NAMES[type]}: <em>{value}</em></strong>
+                      ({ type, value }, ix) => (
+                        <div key={ix} style={{
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap'
+                        }}>
+                          <strong>
+                            {CONDITION_NAMES[type]}: <em>{value}</em>
+                          </strong>
+                        </div>
+                      )
                     )
                   }
                 </li>

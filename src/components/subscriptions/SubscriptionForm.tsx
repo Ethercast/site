@@ -1,12 +1,8 @@
 import * as React from 'react';
 import { Subscription } from '../../util/model';
 import LogicInput from './LogicInput';
-import Form from 'semantic-ui-react/dist/commonjs/collections/Form/Form';
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
-import TextArea from 'semantic-ui-react/dist/commonjs/addons/TextArea/TextArea';
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
+import { Button, Form, Header, Input, TextArea } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
 
 export interface SubscriptionFormProps {
   value: Partial<Subscription>;

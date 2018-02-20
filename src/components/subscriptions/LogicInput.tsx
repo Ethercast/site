@@ -4,7 +4,7 @@ import * as _ from 'underscore';
 import { ConditionInputArray } from './ConditionInputArray';
 import { AND_SEPARATOR } from './Separator';
 import replaceItem from '../../util/replaceItem';
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
+import { Button } from 'semantic-ui-react';
 
 export interface LogicInputProps {
   logic?: Partial<Condition>[][];

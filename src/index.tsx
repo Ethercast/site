@@ -11,6 +11,8 @@ const store = makeStore();
 store.dispatch(async dispatch => {
   console.log('dispatched');
 
+  dispatch({ type: 'AUTH_LOADING' });
+
   try {
     const result = await Auth.getUser();
     console.log('logged in', result);

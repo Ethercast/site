@@ -10,12 +10,13 @@ import NotFound from './pages/NotFound';
 import ViewSubscriptionPage from './pages/ViewSubscriptionPage';
 import CreateSubscription from './pages/CreateSubscription';
 import ListSubscriptions from './pages/ListSubscriptions';
-import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Container';
+import { Container } from 'semantic-ui-react';
+import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer/Dimmer';
 
 
 export default withRouter(
   connect(
-    ({ auth: { loggedIn, principal } }: AppState) => ({ loggedIn, principal }),
+    ({ auth: { loggedIn, principal, loading } }: AppState) => ({ loggedIn, principal, loading }),
     {
       logout: () => {
         Auth.logout();
@@ -25,35 +26,38 @@ export default withRouter(
       }
     }
   )(
-    class App extends React.Component<RouteComponentProps<{}> & { principal: Auth0UserProfile | null, loggedIn: boolean, logout: () => any }> {
+    class App extends React.Component<RouteComponentProps<{}> & { principal: Auth0UserProfile | null, loggedIn: boolean, logout: () => any; loading: boolean }> {
       render() {
-        const { logout, principal } = this.props;
+        const { logout, principal, loading } = this.props;
 
         return (
-          <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
-            <div>
-              <AppHeader principal={principal} onLogOut={logout}/>
-            </div>
+          <Dimmer.Dimmable>
+            <Dimmer inverted active={loading}/>
+            <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
+              <div>
+                <AppHeader principal={principal} onLogOut={logout}/>
+              </div>
 
-            <div style={{ flexGrow: 1 }}>
-              <div style={{ paddingTop: '2em' }}>
-                <Switch>
-                  <Route path="/" exact
-                         component={
-                           () => <Container><h1>Dashboard</h1><p>Coming soon...</p></Container>
-                         }/>
-                  <Route path="/subscriptions/new" exact component={CreateSubscription}/>
-                  <Route path="/subscriptions" exact component={ListSubscriptions}/>
-                  <Route path="/subscriptions/:id" exact component={ViewSubscriptionPage}/>
-                  <Route path="*" component={NotFound}/>
-                </Switch>
+              <div style={{ flexGrow: 1 }}>
+                <div style={{ paddingTop: '2em' }}>
+                  <Switch>
+                    <Route path="/" exact
+                           component={
+                             () => <Container><h1>Dashboard</h1><p>Coming soon...</p></Container>
+                           }/>
+                    <Route path="/subscriptions/new" exact component={CreateSubscription}/>
+                    <Route path="/subscriptions" exact component={ListSubscriptions}/>
+                    <Route path="/subscriptions/:id" exact component={ViewSubscriptionPage}/>
+                    <Route path="*" component={NotFound}/>
+                  </Switch>
+                </div>
+              </div>
+
+              <div style={{ flexShrink: 0 }}>
+                <AppFooter/>
               </div>
             </div>
-
-            <div style={{ flexShrink: 0 }}>
-              <AppFooter/>
-            </div>
-          </div>
+          </Dimmer.Dimmable>
         );
       }
     }

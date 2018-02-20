@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { Condition, CONDITION_NAMES, ConditionType } from '../../util/model';
 import * as _ from 'underscore';
-import { Form } from 'semantic-ui-react';
-import Select from 'semantic-ui-react/dist/commonjs/addons/Select/Select';
-import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
+import { Form, Input, Select } from 'semantic-ui-react';
 
 export interface ConditionInputProps {
   value: Partial<Condition>;

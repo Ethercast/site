@@ -3,9 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import { createSubscription } from '../util/api';
 import { ConditionType, Subscription } from '../util/model';
 import SubscriptionForm from '../components/subscriptions/SubscriptionForm';
-import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Container';
-import Message from 'semantic-ui-react/dist/commonjs/collections/Message/Message';
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
+import { Container, Header, Message } from 'semantic-ui-react';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 
 export default mustBeLoggedIn(

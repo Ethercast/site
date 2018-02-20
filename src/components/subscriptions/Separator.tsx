@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { HTMLProps } from 'react';
-import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
+import { Label } from 'semantic-ui-react';
 
 export default function Separator({ children }: HTMLProps<HTMLDivElement>) {
   return (

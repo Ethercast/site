@@ -7,14 +7,8 @@ import { listSubscriptions } from '../util/api';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 import { RouteComponentProps } from 'react-router';
 import { Subscription } from '../util/model';
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
-import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
-import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Container';
-import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer/Dimmer';
-import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
+import { Button, Container, Dimmer, Header, Icon, Input, Loader } from 'semantic-ui-react';
 import * as _ from 'underscore';
-import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 
 class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subscriptions: Subscription[] | null, promise: Promise<any> | null }> {
   state = {

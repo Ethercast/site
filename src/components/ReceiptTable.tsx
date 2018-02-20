@@ -3,8 +3,7 @@ import * as React from 'react';
 import * as _ from 'underscore';
 import { listReceipts } from '../util/api';
 import { Receipt } from '../util/model';
-import Table from 'semantic-ui-react/dist/commonjs/collections/Table/Table';
-import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
+import { Icon, Table } from 'semantic-ui-react';
 
 export default class ReceiptTable extends React.Component<{ subscriptionId: string }, { receipts: Receipt[] }> {
   state = {

@@ -1,7 +1,5 @@
 import * as React from 'react';
-import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
-import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Container';
-import List from 'semantic-ui-react/dist/commonjs/elements/List/List';
+import { Container, List, Segment } from 'semantic-ui-react';
 
 export default function AppFooter(props: {}) {
   return (

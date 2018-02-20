@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
-import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Container';
+import { Container, Header } from 'semantic-ui-react';
 
 export default function NotFound(props: RouteComponentProps<{}>) {
   return (

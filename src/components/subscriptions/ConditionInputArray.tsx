@@ -4,7 +4,7 @@ import * as _ from 'underscore';
 import ConditionInput from './ConditionInput';
 import { OR_SEPARATOR } from './Separator';
 import replaceItem from '../../util/replaceItem';
-import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
+import { Button } from 'semantic-ui-react';
 
 export function ConditionInputArray({ conditions, onChange }: { conditions: Partial<Condition>[], onChange: (conditions: Partial<Condition>[]) => void }) {
   return (
