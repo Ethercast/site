@@ -9,11 +9,13 @@ export default withRouter(
     render() {
       const { history, subscription: { id, name, status, description, timestamp } } = this.props;
 
+      const active = status !== 'deactivated';
       return (
-        <Card onClick={() => history.push(`/subscriptions/${id}`)}>
+        <Card onClick={() => history.push(`/subscriptions/${id}`)}
+              style={{ opacity: active ? 1 : 0.6 }}>
           <Card.Content>
             <Card.Header>{name}</Card.Header>
-            <Card.Meta>{status.toUpperCase()}</Card.Meta>
+            <Card.Meta style={{ color: active ? 'green' : null }}>{status.toUpperCase()}</Card.Meta>
             <Card.Description>
               {description && description.length > 0 ? description : <em>No description</em>}
             </Card.Description>
