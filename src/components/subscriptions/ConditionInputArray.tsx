@@ -25,6 +25,8 @@ export function ConditionInputArray({ conditions, onChange }: { conditions: Part
 
                 <div style={{ flexShrink: 0, marginLeft: 10, alignSelf: 'flex-end' }}>
                   <Button
+                    negative
+                    icon="delete"
                     onClick={() => onChange(_.without(conditions, condition))}
                   >Remove condition</Button>
                 </div>

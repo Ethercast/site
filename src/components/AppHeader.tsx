@@ -7,7 +7,7 @@ import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 import { Auth0DecodedHash } from 'auth0-js';
 import Auth from '../util/auth';
 
-export default function AppHeader({principal, onLogOut}: { principal: Auth0DecodedHash | null, onLogOut: () => void }) {
+export default function AppHeader({ principal, onLogOut }: { principal: Auth0DecodedHash | null, onLogOut: () => void }) {
   return (
     <Menu fixed="top">
       <Container>
@@ -18,13 +18,18 @@ export default function AppHeader({principal, onLogOut}: { principal: Auth0Decod
         <Menu.Item as={Link} to="/subscriptions">My subscriptions</Menu.Item>
 
         <Menu.Item position="right">
-        {
-          principal ? (
-            <Button onClick={onLogOut}>Logged in as {principal.idTokenPayload.sub}</Button>
-          ) : (
-            <Button onClick={Auth.login}>Log in</Button>
-          )
-        }
+          {
+            principal ? (
+              <div>
+                <small style={{ marginRight: 8 }}>
+                  Logged in as {principal.idTokenPayload.sub}
+                </small>
+                <Button warning onClick={onLogOut}>Log out</Button>
+              </div>
+            ) : (
+              <Button onClick={Auth.login}>Log in</Button>
+            )
+          }
         </Menu.Item>
       </Container>
     </Menu>
