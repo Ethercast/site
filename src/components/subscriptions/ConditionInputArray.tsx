@@ -42,8 +42,9 @@ export function ConditionInputArray({ conditions, onChange }: { conditions: Part
 
       <Button
         style={{ marginTop: 8 }}
-        onClick={() => onChange(conditions.concat([{ type: ConditionType.address }]))}
-      >Add 'OR' condition</Button>
+        onClick={() => onChange(conditions.concat([{ type: ConditionType.address }]))}>
+        Add 'OR' condition
+      </Button>
     </div>
   );
 }

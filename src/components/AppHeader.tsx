@@ -4,28 +4,42 @@ import Menu from 'semantic-ui-react/dist/commonjs/collections/Menu/Menu';
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container/Container';
 import Image from 'semantic-ui-react/dist/commonjs/elements/Image/Image';
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
-import { Auth0DecodedHash } from 'auth0-js';
-import Auth from '../util/auth';
+import { Auth0UserProfile } from 'auth0-js';
+import Auth from '../util/auth-util';
+import { Route } from 'react-router';
 
-export default function AppHeader({ principal, onLogOut }: { principal: Auth0DecodedHash | null, onLogOut: () => void }) {
+function NavLink({ to, ...props }: any) {
   return (
-    <Menu fixed="top">
+    <Route path={to} exact>
+      {
+        ({ match }) => <Menu.Item {...props} active={!!match} as={Link} to={to}/>
+      }
+    </Route>
+  );
+}
+
+export default function AppHeader({ principal, onLogOut }: { principal: Auth0UserProfile | null, onLogOut: () => void }) {
+  return (
+    <Menu stackable>
       <Container>
         <Menu.Item as={Link} to="/" header>
           <Image size="mini" src="/hero.png" style={{ marginRight: '1.5em' }}/>
           if-eth
         </Menu.Item>
-        <Menu.Item as={Link} to="/subscriptions">My subscriptions</Menu.Item>
+        <NavLink to="/subscriptions">My subscriptions</NavLink>
+
+        {
+          principal ? (
+            <Menu.Item position="right">
+              Logged in as <strong style={{ marginLeft: 4 }}>{principal.name}</strong>
+            </Menu.Item>
+          ) : null
+        }
 
         <Menu.Item position="right">
           {
             principal ? (
-              <div>
-                <small style={{ marginRight: 8 }}>
-                  Logged in as {principal.idTokenPayload.sub}
-                </small>
-                <Button onClick={onLogOut}>Log out</Button>
-              </div>
+              <Button onClick={onLogOut}>Log out</Button>
             ) : (
               <Button onClick={Auth.login}>Log in</Button>
             )

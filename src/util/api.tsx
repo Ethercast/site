@@ -1,4 +1,4 @@
-import Auth from './auth';
+import Auth from './auth-util';
 import * as urlJoin from 'url-join';
 import { Receipt, Subscription } from './model';
 

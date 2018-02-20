@@ -3,8 +3,8 @@ import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
 import { connect } from 'react-redux';
 import { AppState } from './reducers';
-import Auth from './util/auth';
-import { Auth0DecodedHash } from 'auth0-js';
+import Auth from './util/auth-util';
+import { Auth0UserProfile } from 'auth0-js';
 import { Route, RouteComponentProps, Switch, withRouter } from 'react-router';
 import NotFound from './pages/NotFound';
 import ViewSubscriptionPage from './pages/ViewSubscriptionPage';
@@ -25,9 +25,10 @@ export default withRouter(
       }
     }
   )(
-    class App extends React.Component<RouteComponentProps<{}> & { principal: Auth0DecodedHash | null, loggedIn: boolean, logout: () => any }> {
+    class App extends React.Component<RouteComponentProps<{}> & { principal: Auth0UserProfile | null, loggedIn: boolean, logout: () => any }> {
       render() {
         const { logout, principal } = this.props;
+
         return (
           <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
             <div>
@@ -35,7 +36,7 @@ export default withRouter(
             </div>
 
             <div style={{ flexGrow: 1 }}>
-              <div style={{ paddingTop: '7em' }}>
+              <div style={{ paddingTop: '2em' }}>
                 <Switch>
                   <Route path="/" exact
                          component={

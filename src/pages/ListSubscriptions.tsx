@@ -66,6 +66,8 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
       );
     }
 
+    const loading = promise !== null;
+
     return (
       <Container>
         <Header as="h1">My subscriptions</Header>
@@ -84,10 +86,10 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
           </div>
         </div>
 
-        <div style={{ marginTop: 20 }}>
-          <Dimmer.Dimmable dimmed={promise !== null}>
-            <Dimmer active={promise !== null} inverted>
-              <Loader>Loading</Loader>
+        <div style={{ marginTop: 24 }}>
+          <Dimmer.Dimmable>
+            <Dimmer active={loading} inverted>
+              <Loader active={loading}>Loading</Loader>
             </Dimmer>
 
             <SubscriptionList items={filteredSubs}/>

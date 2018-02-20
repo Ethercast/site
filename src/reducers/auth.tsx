@@ -1,11 +1,10 @@
-import { Auth0DecodedHash } from 'auth0-js';
+import { Auth0UserProfile } from 'auth0-js';
 import { Reducer } from 'redux';
 
 export interface AuthState {
   loggedIn: boolean;
-  principal: Auth0DecodedHash | null;
+  principal: Auth0UserProfile | null;
 }
-
 
 const authReducer: Reducer<AuthState> = function authReducer(state = {
   loggedIn: false,
