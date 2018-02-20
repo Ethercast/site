@@ -17,20 +17,26 @@ export interface SubscriptionFormProps {
 
 export default class SubscriptionForm extends React.Component<SubscriptionFormProps> {
   public render() {
-    const { onChange, value, loading } = this.props;
+    const { onSubmit, onChange, value, loading } = this.props;
     const changed = (more: object) => onChange({ ...value, ...more });
     const oc = (name: string): any => (e: any) => changed({ [name]: e.target.value });
 
     return (
       <Form onSubmit={e => {
         e.preventDefault();
-        this.props.onSubmit();
+        debugger;
+
+        onSubmit();
       }}>
         <div>
           <Form.Field>
             <label>Name</label>
             <Input
-              name="name" type="text" placeholder="My First Subscription" onChange={oc('name')}
+              name="name"
+              type="text"
+              placeholder="My First Subscription"
+              onChange={oc('name')}
+              required
             />
           </Form.Field>
           <Form.Field>

@@ -24,7 +24,7 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Dec
                 <small style={{ marginRight: 8 }}>
                   Logged in as {principal.idTokenPayload.sub}
                 </small>
-                <Button warning onClick={onLogOut}>Log out</Button>
+                <Button onClick={onLogOut}>Log out</Button>
               </div>
             ) : (
               <Button onClick={Auth.login}>Log in</Button>
