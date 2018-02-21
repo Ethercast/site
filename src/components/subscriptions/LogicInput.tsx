@@ -57,7 +57,7 @@ export default class LogicInput extends React.PureComponent<LogicInputProps> {
         }
 
         <div style={{ marginTop: 8, textAlign: 'center' }}>
-          <Button onClick={this.addCondition}>Add 'AND' condition</Button>
+          <Button type="button" onClick={this.addCondition}>Add 'AND' condition</Button>
         </div>
       </div>
     );

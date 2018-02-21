@@ -24,6 +24,7 @@ export function ConditionInputArray({ conditions, onChange }: { conditions: Part
                 style={{ marginTop: 8 }}
                 negative
                 icon="trash"
+                type="button"
                 onClick={() => onChange(_.without(conditions, condition))}>
                 Remove condition
               </Button>
@@ -38,6 +39,7 @@ export function ConditionInputArray({ conditions, onChange }: { conditions: Part
 
       <Button
         style={{ marginTop: 8 }}
+        type="button"
         onClick={() => onChange(conditions.concat([{ type: ConditionType.address }]))}>
         Add 'OR' condition
       </Button>
