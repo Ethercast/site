@@ -52,7 +52,7 @@ export default mustBeLoggedIn(
           />
           {
             error !== null ? (
-                <Message error onDismiss={this.removeMessage}>
+                <Message negative onDismiss={this.removeMessage}>
                   {(error as any).message}
                 </Message>
               ) :

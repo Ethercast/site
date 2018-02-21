@@ -38,7 +38,7 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
               principal ? (
                 <Button onClick={onLogOut}>Log out</Button>
               ) : (
-                <Button onClick={Auth.login}>Log in</Button>
+                <Button primary onClick={Auth.login}>Log in</Button>
               )
             }
           </Menu.Item>

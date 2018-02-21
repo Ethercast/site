@@ -23,7 +23,6 @@ export function ConditionInputArray({ conditions, onChange }: { conditions: Part
               <Button
                 style={{ marginTop: 8 }}
                 negative
-                icon="trash"
                 type="button"
                 onClick={() => onChange(_.without(conditions, condition))}>
                 Remove condition

@@ -11,7 +11,7 @@ import { Button, Container, Dimmer, Header, Icon, Input, Loader, Message } from 
 import * as _ from 'underscore';
 
 const ALPHA_MESSAGE = (
-  <Message style={{ marginBottom: 16 }} warning>
+  <Message style={{ marginBottom: 24 }} warning>
     <Message.Header>
       This is alpha software
     </Message.Header>
@@ -22,6 +22,14 @@ const ALPHA_MESSAGE = (
     </p>
   </Message>
 );
+
+function CreateButton(props: {}) {
+  return (
+    <Button size="big" primary as={Link} to="/subscriptions/new">
+      <Icon name="add"/> Create
+    </Button>
+  );
+}
 
 class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subscriptions: Subscription[] | null, promise: Promise<any> | null }> {
   state = {
@@ -81,6 +89,7 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
         <div style={{ display: 'flex' }}>
           <div style={{ flexGrow: 1 }}>
             <Input
+              size="big"
               icon="search"
               placeholder="Search subscriptions"
               fluid
@@ -89,7 +98,7 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
             />
           </div>
           <div style={{ marginLeft: 10 }}>
-            <Button primary as={Link} to="/subscriptions/new"><Icon name="add"/> Create</Button>
+            <CreateButton/>
           </div>
         </div>
 
@@ -105,9 +114,11 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
             {
               filteredSubs.length === 0 ? (
                 q.length > 0 ? (
-                  <Message info>No matching subscriptions</Message>
+                  <Message>No matching subscriptions</Message>
                 ) : (
-                  <Message info>You have not created any subscriptions</Message>
+                  <Message primary>
+                    You have not created any subscriptions. <Link to="/subscriptions/new">Click here</Link> to get started.
+                  </Message>
                 )
               ) : null
             }

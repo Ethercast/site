@@ -12,6 +12,7 @@ import CreateSubscription from './pages/CreateSubscription';
 import ListSubscriptions from './pages/ListSubscriptions';
 import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer/Dimmer';
 import HomePage from './pages/HomePage';
+import ScrollToTop from './components/ScrollToTop';
 
 
 export default withRouter(
@@ -37,6 +38,8 @@ export default withRouter(
               <div>
                 <AppHeader principal={principal} onLogOut={logout}/>
               </div>
+
+              <ScrollToTop/>
 
               <div style={{ flexGrow: 1 }}>
                 <div style={{ paddingTop: '2em' }}>

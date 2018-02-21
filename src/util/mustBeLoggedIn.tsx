@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../reducers';
-import { Container, Message } from 'semantic-ui-react';
+import { Container, Header, Message } from 'semantic-ui-react';
 
 export default function mustBeLoggedIn(Component: React.ComponentType<any>): any {
   return connect(
@@ -14,8 +14,15 @@ export default function mustBeLoggedIn(Component: React.ComponentType<any>): any
         if (!loggedIn) {
           return (
             <Container>
-              <h1>401</h1>
-              <Message info>You must be logged in for this page</Message>
+              <Header as="h1">Sorry, there's a problem!</Header>
+              <Message info>
+                <Message.Header>
+                  You are not logged in
+                </Message.Header>
+                <p>
+                  Please log in to continue.
+                </p>
+              </Message>
             </Container>
           );
         }

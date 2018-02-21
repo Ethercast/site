@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Condition, Subscription } from '../../util/model';
 import LogicInput from './LogicInput';
-import { Button, Form, Header, Input, TextArea } from 'semantic-ui-react';
+import { Button, Form, Header, Input, Message, TextArea } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import FormComponent from '../FormComponent';
 
@@ -64,18 +64,28 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
   public render() {
     const { value, loading } = this.props;
 
+    console.log(value && value.logic && value.logic.length > 0);
+
     return (
-      <Form onSubmit={this.onSubmit}>
+      <Form loading={loading} onSubmit={this.onSubmit} size="big">
         <div>
           <SubscriptionDetailsForm value={value} onChange={this.handleChange}/>
 
           <Header as="h3">Subscription filters</Header>
 
           <LogicInput logic={value.logic} onChange={this.handleLogicChange}/>
+
+          {
+            value && value.logic && value.logic.length > 0 ? null : (
+              <Message negative>
+                You must have at least one subscription filter to continue.
+              </Message>
+            )
+          }
         </div>
         <div style={{ padding: 10, textAlign: 'right' }}>
-          <Button as={Link} to="/subscriptions">Cancel</Button>
-          <Button loading={loading} type="submit" primary={true}>Submit</Button>
+          <Button size="big" as={Link} to="/subscriptions">Cancel</Button>
+          <Button size="big" type="submit" primary={true}>Submit</Button>
         </div>
       </Form>
     );
