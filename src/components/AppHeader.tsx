@@ -19,8 +19,8 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
   return (
     <Menu stackable>
       <Container>
-        <Menu.Item as={Link} to="/" header style={{ fontFamily: 'Roboto Slab', fontSize: '1.2em', padding: '0 1em' }}>
-          <Image size="mini" src="/hero.png" style={{ margin: '0 0.5em 0 -0.5em' }}/> Ethercast
+        <Menu.Item as={Link} to="/" header style={{ display: 'inline-block', fontFamily: 'Roboto Slab', fontSize: '1.2em', padding: '0.5em 1em', textAlign: 'center' }}>
+          <Image size="mini" src="/hero.png" style={{ margin: '0 0.5em 0 -0.5em', display: 'inline' }}/> Ethercast
         </Menu.Item>
         <NavLink to="/subscriptions">My subscriptions</NavLink>
 
