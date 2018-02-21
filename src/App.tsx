@@ -10,8 +10,8 @@ import NotFound from './pages/NotFound';
 import ViewSubscriptionPage from './pages/ViewSubscriptionPage';
 import CreateSubscription from './pages/CreateSubscription';
 import ListSubscriptions from './pages/ListSubscriptions';
-import { Container } from 'semantic-ui-react';
 import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer/Dimmer';
+import HomePage from './pages/HomePage';
 
 
 export default withRouter(
@@ -41,10 +41,7 @@ export default withRouter(
               <div style={{ flexGrow: 1 }}>
                 <div style={{ paddingTop: '2em' }}>
                   <Switch>
-                    <Route path="/" exact
-                           component={
-                             () => <Container><h1>Dashboard</h1><p>Coming soon...</p></Container>
-                           }/>
+                    <Route path="/" exact component={HomePage}/>
                     <Route path="/subscriptions/new" exact component={CreateSubscription}/>
                     <Route path="/subscriptions" exact component={ListSubscriptions}/>
                     <Route path="/subscriptions/:id" exact component={ViewSubscriptionPage}/>
