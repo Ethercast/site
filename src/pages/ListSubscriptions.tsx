@@ -116,7 +116,7 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
                 q.length > 0 ? (
                   <Message>No matching subscriptions</Message>
                 ) : (
-                  <Message primary>
+                  <Message>
                     You have not created any subscriptions. <Link to="/subscriptions/new">Click here</Link> to get started.
                   </Message>
                 )
