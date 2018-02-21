@@ -13,24 +13,20 @@ export function ConditionInputArray({ conditions, onChange }: { conditions: Part
         conditions.map(
           (condition, ix) => (
             <div key={ix}>
-              <div style={{ display: 'flex' }}>
-                <div style={{ flexGrow: 1 }}>
-                  <ConditionInput
-                    value={condition}
-                    onChange={changed => {
-                      onChange(replaceItem(changed, conditions, ix));
-                    }}
-                  />
-                </div>
+              <ConditionInput
+                value={condition}
+                onChange={changed => {
+                  onChange(replaceItem(changed, conditions, ix));
+                }}
+              />
 
-                <div style={{ flexShrink: 0, marginLeft: 10, alignSelf: 'flex-end' }}>
-                  <Button
-                    negative
-                    icon="trash"
-                    onClick={() => onChange(_.without(conditions, condition))}
-                  />
-                </div>
-              </div>
+              <Button
+                style={{ marginTop: 8 }}
+                negative
+                icon="trash"
+                onClick={() => onChange(_.without(conditions, condition))}>
+                Remove condition
+              </Button>
 
               {
                 ix < conditions.length - 1 ? OR_SEPARATOR : null

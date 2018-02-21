@@ -16,7 +16,7 @@ class SubscriptionDetailsForm extends FormComponent<Subscription> {
   render() {
     return (
       <div>
-        <Form.Field>
+        <Form.Field required>
           <label>Name</label>
           <Input
             name="name"
@@ -26,21 +26,21 @@ class SubscriptionDetailsForm extends FormComponent<Subscription> {
             required
           />
         </Form.Field>
-        <Form.Field>
-          <label>Description</label>
-          <TextArea
-            name="description"
-            placeholder="Notify me when events happen"
-            onChange={this.inputChangeHandler('description') as any}
-          />
-        </Form.Field>
-        <Form.Field>
+        <Form.Field required>
           <label>Webhook URL</label>
           <Input
             type="url"
             placeholder="https://my-domain.com/accept-webhook"
             onChange={this.inputChangeHandler('webhookUrl')}
             required
+          />
+        </Form.Field>
+        <Form.Field>
+          <label>Description</label>
+          <TextArea
+            name="description"
+            placeholder="Notify me when events happen"
+            onChange={this.inputChangeHandler('description') as any}
           />
         </Form.Field>
       </div>
