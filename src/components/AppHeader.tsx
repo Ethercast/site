@@ -20,8 +20,7 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
     <Menu stackable>
       <Container>
         <Menu.Item as={Link} to="/" header>
-          <Image size="mini" src="/hero.png" style={{ marginRight: '1.5em' }}/>
-          if-eth
+          Ethercast <Image size="mini" src="/hero.png" style={{ marginRight: '1.5em' }}/>
         </Menu.Item>
         <NavLink to="/subscriptions">My subscriptions</NavLink>
 

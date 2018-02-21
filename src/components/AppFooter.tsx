@@ -6,7 +6,7 @@ export default function AppFooter(props: {}) {
     <Segment inverted vertical style={{ margin: '5em 0em 0em', padding: '1em 0em' }}>
       <Container textAlign="center">
         <List horizontal inverted divided link>
-          <List.Item>Say <a href="mailto:hello@if-eth.com">hello@if-eth.com</a></List.Item>
+          <List.Item>Say <a href="mailto:hello@ethercast.io">hello@ethercast.io</a></List.Item>
         </List>
       </Container>
     </Segment>
