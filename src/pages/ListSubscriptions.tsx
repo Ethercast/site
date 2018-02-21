@@ -86,6 +86,17 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
               <Loader active={loading}>Loading</Loader>
             </Dimmer>
 
+            <Message>
+              <Message.Header>
+                This is alpha software
+              </Message.Header>
+              <p>
+                Please be aware this is alpha software and there are currently no guarantees on
+                message order or consistency. Please let us know if you plan to use this tool
+                in a production system.
+              </p>
+            </Message>
+
             <SubscriptionList items={filteredSubs}/>
 
             {
