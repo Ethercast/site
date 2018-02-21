@@ -5,11 +5,15 @@ import { Container, Header, Message } from 'semantic-ui-react';
 
 export default function mustBeLoggedIn(Component: React.ComponentType<any>): any {
   return connect(
-    ({ auth: { loggedIn } }: AppState) => ({ loggedIn })
+    ({ auth: { loggedIn, loading } }: AppState) => ({ loggedIn, loading })
   )(
-    class extends React.Component<{ loggedIn: boolean }> {
+    class extends React.Component<{ loading:boolean;loggedIn: boolean }> {
       render() {
-        const { loggedIn, ...rest } = this.props;
+        const { loggedIn, loading,...rest } = this.props;
+
+        if (loading) {
+          return null;
+        }
 
         if (!loggedIn) {
           return (
