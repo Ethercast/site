@@ -19,31 +19,27 @@ export default class ConditionInput extends FormComponent<Condition> {
     const { value, onChange } = this.props;
 
     return (
-      <div style={{ display: 'flex' }}>
-        <div style={{ flexShrink: 0 }}>
-          <Form.Field>
-            <label>Type</label>
-            <Select
-              onChange={(e, data) => onChange({ ...value, type: data.value as ConditionType })}
-              value={value && value.type}
-              options={CONDITION_TYPE_OPTIONS}
-              required
-            />
-          </Form.Field>
-        </div>
-        <div style={{ flexGrow: 1, marginLeft: 8 }}>
-          <Form.Field>
-            <label>{CONDITION_NAMES[value && value.type || ConditionType.address]} value</label>
-            <Input
-              style={{ width: '100%' }}
-              type="text"
-              onChange={(e, data) => onChange({ ...value, value: data.value })}
-              placeholder={value && value.type === ConditionType.address ? ZERO_ADDRESS : ZERO_TOPIC}
-              pattern={`0x[a-fA-F0-9]{${value && value.type === ConditionType.address ? 40 : 64}}`}
-              required
-            />
-          </Form.Field>
-        </div>
+      <div>
+        <Form.Field required>
+          <label>Type</label>
+          <Select
+            onChange={(e, data) => onChange({ ...value, type: data.value as ConditionType })}
+            value={value && value.type}
+            options={CONDITION_TYPE_OPTIONS}
+            required
+          />
+        </Form.Field>
+        <Form.Field required>
+          <label>{CONDITION_NAMES[value && value.type || ConditionType.address]} value</label>
+          <Input
+            style={{ width: '100%' }}
+            type="text"
+            onChange={(e, data) => onChange({ ...value, value: data.value })}
+            placeholder={value && value.type === ConditionType.address ? ZERO_ADDRESS : ZERO_TOPIC}
+            pattern={`0x[a-fA-F0-9]{${value && value.type === ConditionType.address ? 40 : 64}}`}
+            required
+          />
+        </Form.Field>
       </div>
     );
   }
