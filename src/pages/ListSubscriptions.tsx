@@ -7,7 +7,7 @@ import { listSubscriptions } from '../util/api';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 import { RouteComponentProps } from 'react-router';
 import { Subscription } from '../util/model';
-import { Button, Container, Dimmer, Header, Icon, Input, Loader } from 'semantic-ui-react';
+import { Button, Container, Dimmer, Header, Icon, Input, Loader, Message } from 'semantic-ui-react';
 import * as _ from 'underscore';
 
 class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subscriptions: Subscription[] | null, promise: Promise<any> | null }> {
@@ -87,6 +87,16 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
             </Dimmer>
 
             <SubscriptionList items={filteredSubs}/>
+
+            {
+              filteredSubs.length === 0 ? (
+                q.length > 0 ? (
+                  <Message info>No matching subscriptions</Message>
+                ) : (
+                  <Message info>You have not created any subscriptions</Message>
+                )
+              ) : null
+            }
           </Dimmer.Dimmable>
         </div>
       </Container>

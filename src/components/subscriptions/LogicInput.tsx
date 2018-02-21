@@ -11,8 +11,7 @@ export interface LogicInputProps {
   onChange: (logic: Partial<Condition>[][]) => void;
 }
 
-
-export default class LogicInput extends React.Component<LogicInputProps> {
+export default class LogicInput extends React.PureComponent<LogicInputProps> {
   addCondition = () => this.props.onChange([
     ...(this.props.logic || []),
     [
