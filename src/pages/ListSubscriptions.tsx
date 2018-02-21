@@ -95,7 +95,7 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
                 ) : (
                   <Message info>You have not created any subscriptions</Message>
                 )
-              ) : null
+              ) : <Message info>You have no subscriptions</Message>
             }
           </Dimmer.Dimmable>
         </div>
