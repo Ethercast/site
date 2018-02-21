@@ -66,7 +66,7 @@ export default connect(
                 </Grid.Column>
                 <Grid.Column style={{ paddingBottom: '5em', paddingTop: '5em' }}>
                   <Header as="h3" style={{ fontSize: '2em' }}>
-                    "I shouldn"t have gone with their competitor."
+                    "I shouldn't have gone with their competitor."
                   </Header>
                   <p style={{ fontSize: '1.33em' }}>
                     Everyone else
