@@ -1,7 +1,7 @@
 import * as auth0 from 'auth0-js';
-import { Auth0DecodedHash, Auth0UserProfile } from 'auth0-js';
+import { Auth0DecodedHash, Auth0UserProfile, AuthOptions } from 'auth0-js';
 
-const AUTH_SETTINGS = {
+const AUTH_SETTINGS: AuthOptions = {
   domain: 'ethercast.auth0.com',
   clientID: 'Uz4zGr8VLnfDsQ4y5tRn0v09iw03X0KK',
   redirectUri: `${window.location.protocol}//${window.location.host}/`,
