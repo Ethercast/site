@@ -9,6 +9,7 @@ function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: o
     method,
     mode: 'cors',
     cache: 'default',
+    body: body ? JSON.stringify(body) : null,
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
