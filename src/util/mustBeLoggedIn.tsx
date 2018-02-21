@@ -7,9 +7,9 @@ export default function mustBeLoggedIn(Component: React.ComponentType<any>): any
   return connect(
     ({ auth: { loggedIn, loading } }: AppState) => ({ loggedIn, loading })
   )(
-    class extends React.Component<{ loading:boolean;loggedIn: boolean }> {
+    class extends React.Component<{ loading: boolean; loggedIn: boolean }> {
       render() {
-        const { loggedIn, loading,...rest } = this.props;
+        const { loggedIn, loading, ...rest } = this.props;
 
         if (loading) {
           return null;
