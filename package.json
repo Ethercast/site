@@ -1,5 +1,5 @@
 {
-  "name": "if-eth.com",
+  "name": "ethercast.io",
   "version": "0.1.0",
   "private": true,
   "dependencies": {},
@@ -11,7 +11,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build -b master"
   },
-  "homepage": "https://if-eth.com/",
+  "homepage": "https://ethercast.io/",
   "devDependencies": {
     "@types/auth0-js": "^8.11.2",
     "@types/classnames": "^2.2.3",

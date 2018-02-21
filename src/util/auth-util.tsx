@@ -2,10 +2,10 @@ import * as auth0 from 'auth0-js';
 import { Auth0DecodedHash, Auth0UserProfile } from 'auth0-js';
 
 const AUTH_SETTINGS = {
-  domain: 'if-eth.auth0.com',
-  clientID: '6HXoI5ljFO6IMsMttUAQbcjn7JGtDg9T',
+  domain: 'ethercast.auth0.com',
+  clientID: 'Uz4zGr8VLnfDsQ4y5tRn0v09iw03X0KK',
   redirectUri: `${window.location.protocol}//${window.location.host}/`,
-  audience: 'https://if-eth.auth0.com/userinfo',
+  audience: 'https://ethercast.auth0.com/userinfo',
   responseType: 'token id_token',
   scope: 'profile subscriptions:read subscriptions:deactivate subscriptions:create'
 };

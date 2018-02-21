@@ -2,7 +2,7 @@ import Auth from './auth-util';
 import * as urlJoin from 'url-join';
 import { Receipt, Subscription } from './model';
 
-const API_URL = 'https://api.if-eth.com';
+const API_URL = 'https://api.ethercast.io';
 
 function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: object, ri?: Request) {
   return fetch(

@@ -1,6 +1,6 @@
 {
-  "short_name": "if-eth",
-  "name": "if-eth-then-whatever",
+  "short_name": "Ethercast",
+  "name": "Ethercast",
   "icons": [
     {
       "src": "favicon.ico",
