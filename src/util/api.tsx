@@ -21,8 +21,6 @@ function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: o
     .then(
       async response => {
         const json = await response.json();
-        debugger;
-
 
         if (response.status === 422) {
           throw new Error(
