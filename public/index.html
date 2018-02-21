@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-58623092-10"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+
+      gtag('config', 'UA-58623092-10');
+    </script>
+
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/grommet/1.10.1/grommet.min.css"
-          integrity="sha256-ARg+cfSDk6Q5kRp9hqL4hsnnfJCN4mL7CnFT8MeiU7U=" crossorigin="anonymous"/>
+          href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"
+          integrity="sha384-370KB8zqOlHxys9dcOyC7aCeXVtGyiKkWkp+cn8Mfoi13/sPj7fvSuhKRRdFbcip"
+          crossorigin="anonymous">
 
     <!-- favicons generated from https://www.favicon-generator.org/ from hero.png -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
@@ -25,6 +41,19 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+
+    <!-- seo -->
+    <meta name="description"
+          content="Get notified when your smart contracts emit events, cutting through the noise with robust, realtime filtering">
+    <meta property="og:title" content="if-eth - a smart contract notification platform"/>
+    <meta property="og:image" content="https://if-eth.com/cover.png"/>
+    <meta property="og:site_name" content="if-eth"/>
+    <meta property="og:url" content="https://if-eth.com"/>
+    <meta property="og:description"
+          content="Get notified when your smart contracts emit events, cutting through the noise with robust, realtime filtering"/>
+    <meta property="twitter:card" content="summary"/>
+    <meta property="twitter:site" content="@ethercast_io"/>
+
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

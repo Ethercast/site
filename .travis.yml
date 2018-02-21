@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "node"
+  - "lts/*"
+script:
+  - npm test
+  - npm run build
+# safelist
+branches:
+  only:
+  - cra

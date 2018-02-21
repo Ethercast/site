@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "no-redundant-jsdoc": true,
+    "semicolon": false
+  }
+}
