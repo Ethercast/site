@@ -71,7 +71,7 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
         <div>
           <SubscriptionDetailsForm value={value} onChange={this.handleChange}/>
 
-          <Header as="h3">Subscription filters</Header>
+          <Header as="h2">Subscription filters</Header>
 
           <LogicInput logic={value.logic} onChange={this.handleLogicChange}/>
 
