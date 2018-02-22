@@ -16,3 +16,5 @@ deploy:
   region: "us-east-1"
   skip_cleanup: true
   local_dir: build
+  on:
+    branch: src
