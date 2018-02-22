@@ -8,3 +8,12 @@ script:
 branches:
   only:
   - src
+
+deploy:
+  provider: s3
+  access_key_id: $TRAVIS_ACCESS_KEY_ID
+  secret_access_key: $TRAVIS_SECRET_ACCESS_KEY
+  bucket: "ethercast.io"
+  region: "us-east-1"
+  skip_cleanup: true
+  local_dir: build
