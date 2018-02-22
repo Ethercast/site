@@ -5,11 +5,9 @@
   "dependencies": {},
   "scripts": {
     "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build && cp build/index.html build/200.html",
+    "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build -b master"
+    "eject": "react-scripts-ts eject"
   },
   "homepage": "https://ethercast.io/",
   "devDependencies": {

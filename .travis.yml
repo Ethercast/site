@@ -4,9 +4,6 @@ node_js:
 script:
   - npm test
   - npm run build
-branches:
-  only:
-  - src
 
 deploy:
   provider: s3
@@ -17,4 +14,4 @@ deploy:
   skip_cleanup: true
   local_dir: build
   on:
-    branch: src
+    branch: master
