@@ -2,7 +2,7 @@ import * as React from 'react';
 import ReceiptTable from '../components/ReceiptTable';
 import { deactivateSubscription, getSubscription } from '../util/api';
 import { RouteComponentProps } from 'react-router';
-import { CONDITION_NAMES, Subscription } from '../util/model';
+import { CONDITION_NAMES, Subscription, ConditionType } from '../util/model';
 import { Button, Container, Header, Message } from 'semantic-ui-react';
 
 export default class ViewSubscriptionPage extends React.Component<RouteComponentProps<{ id: string }>, { subscription: Subscription | null, promise: Promise<any> | null }> {
@@ -128,8 +128,17 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
                           whiteSpace: 'nowrap'
                         }}>
                           <strong>
-                            {CONDITION_NAMES[type]}: <em>{value}</em>
+                            {CONDITION_NAMES[type]}: 
                           </strong>
+                          <em>
+                            {
+                              type === ConditionType.address ? (
+                                <a href={`https://etherscan.io/address/${value}`} target="_blank">
+                                  {value}
+                                </a>
+                              ) : value
+                            }
+                          </em>
                         </div>
                       )
                     )
