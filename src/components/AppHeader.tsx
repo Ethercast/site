@@ -26,7 +26,16 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
           padding: '0.5em 1em',
           textAlign: 'center'
         }}>
-          <Image size="mini" src="/hero.png" style={{ margin: '0 0.5em 0 -0.5em', display: 'inline' }}/> Ethercast
+          <Image
+            size="mini"
+            src="/hero.png"
+            style={{
+              display: 'inline-block',
+              margin: '0 0.5em 0 -0.5em',
+              verticalAlign: 'middle'
+            }}
+          />
+          <span style={{ position: 'relative', top: 4 }}>Ethercast</span>
         </Menu.Item>
         <NavLink to="/subscriptions">My subscriptions</NavLink>
 
