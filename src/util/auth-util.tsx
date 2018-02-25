@@ -1,5 +1,6 @@
 import * as auth0 from 'auth0-js';
 import { Auth0DecodedHash, Auth0UserProfile, AuthOptions } from 'auth0-js';
+import * as moment from 'moment';
 
 const AUTH_SETTINGS: AuthOptions = {
   domain: 'ethercast.auth0.com',
@@ -65,9 +66,23 @@ function getSessionDecodedHash(): Promise<Auth0DecodedHash> {
 async function getUserProfile(): Promise<any> {
   const hash = await getSessionDecodedHash();
 
-  const { accessToken } = hash;
+  const { idTokenPayload, accessToken } = hash;
   if (!accessToken) {
     throw new Error('no access token in the auth0 decoded hash');
+  }
+
+  if (!idTokenPayload) {
+    throw new Error('no id token payload');
+  }
+
+  const { exp } = idTokenPayload;
+
+  if (!exp) {
+    throw new Error('no expiration on token');
+  }
+
+  if (moment(exp * 1000).isBefore(moment())) {
+    throw new Error('token expired');
   }
 
   return new Promise((resolve, reject) => {

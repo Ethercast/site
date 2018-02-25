@@ -19,7 +19,13 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
   return (
     <Menu stackable>
       <Container>
-        <Menu.Item as={Link} to="/" header style={{ display: 'inline-block', fontFamily: 'Roboto Slab', fontSize: '1.2em', padding: '0.5em 1em', textAlign: 'center' }}>
+        <Menu.Item as={Link} to="/" header style={{
+          display: 'inline-block',
+          fontFamily: 'Roboto Slab',
+          fontSize: '1.2em',
+          padding: '0.5em 1em',
+          textAlign: 'center'
+        }}>
           <Image size="mini" src="/hero.png" style={{ margin: '0 0.5em 0 -0.5em', display: 'inline' }}/> Ethercast
         </Menu.Item>
         <NavLink to="/subscriptions">My subscriptions</NavLink>
@@ -27,9 +33,14 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
         <Menu.Menu position="right">
           {
             principal ? (
-              <Menu.Item>
-                Logged in as <strong style={{ marginLeft: 4 }}>{principal.name}</strong>
-              </Menu.Item>
+              [
+                <Menu.Item>
+                  <Image size="tiny" src={principal.picture}/>
+                </Menu.Item>,
+                <Menu.Item>
+                  Logged in as <strong style={{ marginLeft: 4 }}>{principal.name}</strong>
+                </Menu.Item>
+              ]
             ) : null
           }
 
