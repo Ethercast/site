@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { Condition, Subscription } from '../../util/model';
 import LogicInput from './LogicInput';
-import { Button, Form, Header, Input, Message, TextArea } from 'semantic-ui-react';
+import { Button, Form, FormProps, Header, Input, Message, TextArea } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import FormComponent from '../FormComponent';
 
-export interface SubscriptionFormProps {
+export interface SubscriptionFormProps extends FormProps {
   value: Partial<Subscription>;
   onChange: (subscription: Partial<Subscription>) => void;
   onSubmit: () => void;
-  loading: boolean;
 }
 
 class SubscriptionDetailsForm extends FormComponent<Subscription> {
@@ -62,12 +61,10 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
   };
 
   public render() {
-    const { value, loading } = this.props;
-
-    console.log(value && value.logic && value.logic.length > 0);
+    const { value, onChange, ...rest } = this.props;
 
     return (
-      <Form loading={loading} onSubmit={this.onSubmit} size="big">
+      <Form size="big" {...rest} onSubmit={this.onSubmit}>
         <div>
           <SubscriptionDetailsForm value={value} onChange={this.handleChange}/>
 

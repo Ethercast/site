@@ -1,5 +1,9 @@
 export enum ConditionType {
-  address = 'address', topic0 = 'topic0', topic1 = 'topic1', topic2 = 'topic2', topic3 = 'topic3'
+  address = 'address',
+  topic0 = 'topic0',
+  topic1 = 'topic1',
+  topic2 = 'topic2',
+  topic3 = 'topic3'
 }
 
 export const CONDITION_NAMES: {[key in ConditionType]: string} = {

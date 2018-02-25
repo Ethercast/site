@@ -3,7 +3,22 @@ import ReceiptTable from '../components/ReceiptTable';
 import { deactivateSubscription, getSubscription } from '../util/api';
 import { RouteComponentProps } from 'react-router';
 import { CONDITION_NAMES, Subscription, ConditionType } from '../util/model';
-import { Loader,Button, Container, Header, Message } from 'semantic-ui-react';
+import { Loader, Button, Container, Header, Message } from 'semantic-ui-react';
+import { HTMLProps } from 'react';
+
+function Ellipsis({ style, ...props }: HTMLProps<HTMLDivElement>) {
+  return (
+    <div
+      style={{
+        ...style,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap'
+      }}
+      {...props}
+    />
+  );
+}
 
 export default class ViewSubscriptionPage extends React.Component<RouteComponentProps<{ id: string }>, { subscription: Subscription | null, promise: Promise<any> | null }> {
   state = {
@@ -126,23 +141,23 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
                   {
                     ors.map(
                       ({ type, value }, ix) => (
-                        <div key={ix} style={{
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap'
-                        }}>
-                          <strong>
-                            {CONDITION_NAMES[type]}: 
-                          </strong>
-                          <em>
-                            {
-                              type === ConditionType.address ? (
-                                <a href={`https://etherscan.io/address/${value}`} target="_blank">
-                                  {value}
-                                </a>
-                              ) : value
-                            }
-                          </em>
+                        <div key={ix}>
+                          <div>
+                            <strong>
+                              {CONDITION_NAMES[type]}
+                            </strong>
+                          </div>
+                          <Ellipsis>
+                            <em>
+                              {
+                                type === ConditionType.address ? (
+                                  <a href={`https://etherscan.io/address/${value}`} target="_blank">
+                                    {value}
+                                  </a>
+                                ) : value
+                              }
+                            </em>
+                          </Ellipsis>
                         </div>
                       )
                     )

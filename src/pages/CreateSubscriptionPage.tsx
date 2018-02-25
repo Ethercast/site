@@ -5,6 +5,8 @@ import { ConditionType, Subscription } from '../util/model';
 import SubscriptionForm from '../components/subscriptions/SubscriptionForm';
 import { Container, Header, Message } from 'semantic-ui-react';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
+import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer/Dimmer';
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
 
 interface CreateSubscriptionPageState {
   subscription: Partial<Subscription>;
@@ -49,13 +51,18 @@ export default mustBeLoggedIn(
 
       return (
         <Container>
-          <Header as="h1">Create subscription</Header>
-          <SubscriptionForm
-            loading={!!promise}
-            value={subscription}
-            onChange={subscription => this.setState({ subscription })}
-            onSubmit={this.createSubscription}
-          />
+          <Dimmer.Dimmable>
+            <Dimmer active={!!promise} inverted>
+              <Loader active={!!promise}/>
+            </Dimmer>
+
+            <Header as="h1">Create subscription</Header>
+            <SubscriptionForm
+              value={subscription}
+              onChange={subscription => this.setState({ subscription })}
+              onSubmit={this.createSubscription}
+            />
+          </Dimmer.Dimmable>
           {
             error !== null ? (
                 <Message negative onDismiss={this.removeMessage}>
