@@ -34,17 +34,17 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
           {
             principal ? (
               [
-                <Menu.Item>
-                  <Image size="tiny" src={principal.picture}/>
+                <Menu.Item key="img">
+                  <Image height={28} src={principal.picture}/>
                 </Menu.Item>,
-                <Menu.Item>
+                <Menu.Item key="name">
                   Logged in as <strong style={{ marginLeft: 4 }}>{principal.name}</strong>
                 </Menu.Item>
               ]
             ) : null
           }
 
-          <Menu.Item>
+          <Menu.Item key="act">
             {
               principal ? (
                 <Button onClick={onLogOut}>Log out</Button>
