@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { AppState } from '../reducers';
 import { Container, Header, Message } from 'semantic-ui-react';
 
-export default function mustBeLoggedIn(Component: React.ComponentType<any>): any {
+export default function mustBeLoggedIn<TComponentProps extends object>(Component: React.ComponentType<TComponentProps>): React.ComponentType<TComponentProps> {
   return connect(
     ({ auth: { loggedIn, loading } }: AppState) => ({ loggedIn, loading })
   )(
-    class extends React.Component<{ loading: boolean; loggedIn: boolean }> {
+    class extends React.Component<TComponentProps & { loading: boolean; loggedIn: boolean }> {
       render() {
-        const { loggedIn, loading, ...rest } = this.props;
+        const { loggedIn, loading, ...rest } = this.props as any;
 
         if (loading) {
           return null;
@@ -34,5 +34,5 @@ export default function mustBeLoggedIn(Component: React.ComponentType<any>): any
         return <Component {...rest}/>;
       }
     }
-  );
+  ) as any;
 }

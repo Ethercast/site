@@ -3,22 +3,52 @@ import * as React from 'react';
 import * as _ from 'underscore';
 import { listReceipts } from '../util/api';
 import { Receipt } from '../util/model';
-import { Icon, Table } from 'semantic-ui-react';
+import { Message, Icon, Table, Loader } from 'semantic-ui-react';
 
-export default class ReceiptTable extends React.Component<{ subscriptionId: string }, { receipts: Receipt[] }> {
+interface State {
+  receipts: Receipt[];
+  promise: Promise<any> | null;
+  error: string | null;
+}
+
+interface Props {
+  subscriptionId: string;
+}
+
+export default class ReceiptTable extends React.Component<Props, State> {
   state = {
-    receipts: []
+    receipts: [],
+    promise: null,
+    error: null
   };
 
   componentDidMount() {
-    listReceipts(this.props.subscriptionId)
-      .then(
-        (receipts: Receipt[]) => this.setState({ receipts })
-      );
+    this.setState({
+      promise: listReceipts(this.props.subscriptionId)
+        .then(receipts => this.setState({ receipts, promise: null }))
+        .catch(error => this.setState({ error: error.message, promise: null }))
+    });
   }
 
   render() {
-    const { receipts } = this.state;
+    const { error, receipts, promise } = this.state;
+
+    if (promise) {
+      return (
+        <Loader active/>
+      );
+    }
+
+    if (error) {
+      return (
+        <Message warning>
+          <Message.Header>Failed to get webhook receipt list</Message.Header>
+          <p>
+            {error}
+          </p>
+        </Message>
+      );
+    }
 
     return (
       <Table>
@@ -31,9 +61,16 @@ export default class ReceiptTable extends React.Component<{ subscriptionId: stri
         </Table.Header>
         <Table.Body>
           {
-            _.sortBy(
-              receipts,
-              ({ timestamp }: Receipt) => timestamp * -1)
+            receipts.length === 0 ? (
+              <Table.Row>
+                <Table.Cell colSpan={3}>
+                  No events have been delivered to this endpoint
+                </Table.Cell>
+              </Table.Row>
+            ) : null
+          }
+          {
+            _.sortBy(receipts, ({ timestamp }: Receipt) => timestamp * -1)
               .map(
                 ({ id, timestamp, successful }) => (
                   <Table.Row key={id}>

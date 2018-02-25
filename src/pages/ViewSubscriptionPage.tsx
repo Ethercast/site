@@ -3,7 +3,7 @@ import ReceiptTable from '../components/ReceiptTable';
 import { deactivateSubscription, getSubscription } from '../util/api';
 import { RouteComponentProps } from 'react-router';
 import { CONDITION_NAMES, Subscription, ConditionType } from '../util/model';
-import { Button, Container, Header, Message } from 'semantic-ui-react';
+import { Loader,Button, Container, Header, Message } from 'semantic-ui-react';
 
 export default class ViewSubscriptionPage extends React.Component<RouteComponentProps<{ id: string }>, { subscription: Subscription | null, promise: Promise<any> | null }> {
   state = {
@@ -76,7 +76,11 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
     const { promise, subscription } = this.state;
 
     if (promise && !subscription) {
-      return null;
+      return (
+        <Loader active>
+          Getting subscription
+        </Loader>
+      );
     }
 
     if (!subscription) {

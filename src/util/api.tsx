@@ -20,6 +20,10 @@ function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: o
   return fetch(urlJoin(API_URL, path), requestInfo)
     .then(
       async response => {
+        if (response.status === 204) {
+          return;
+        }
+
         const json = await response.json();
 
         if (response.status === 422) {
@@ -36,6 +40,12 @@ function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: o
         }
 
         return json;
+      }
+    )
+    .catch(
+      error => {
+        console.error('failed request', error);
+        throw error;
       }
     );
 }

@@ -6,8 +6,14 @@ import SubscriptionForm from '../components/subscriptions/SubscriptionForm';
 import { Container, Header, Message } from 'semantic-ui-react';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 
+interface CreateSubscriptionPageState {
+  subscription: Partial<Subscription>;
+  error: Error | null;
+  promise: Promise<any> | null;
+}
+
 export default mustBeLoggedIn(
-  class CreateSubscription extends React.Component<RouteComponentProps<{}>, { subscription: Partial<Subscription>; error: Error | null; promise: Promise<any> | null }> {
+  class CreateSubscriptionPage extends React.Component<RouteComponentProps<{}>, CreateSubscriptionPageState> {
     createSubscription = () => {
       this.setState({
         promise: createSubscription(this.state.subscription)

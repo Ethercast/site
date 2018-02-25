@@ -3,6 +3,7 @@ import * as _ from 'underscore';
 import SubscriptionItem from './SubscriptionItem';
 import { Subscription } from '../../util/model';
 import { Card } from 'semantic-ui-react';
+import ClientPaginated from '../ClientPaginated';
 
 export default ({ items }: { items: Subscription[] }) => {
   const groupedSorted = _.chain(items)
@@ -14,16 +15,22 @@ export default ({ items }: { items: Subscription[] }) => {
   const inactive = groupedSorted['deactivated'] || [];
 
   return (
-    <Card.Group itemsPerRow={4} stackable>
+    <ClientPaginated
+      items={active.concat(inactive)}
+      pageSize={12}>
       {
-
-        active.concat(inactive)
-          .map(
-            (subscription: Subscription) => (
-              <SubscriptionItem key={subscription.id} subscription={subscription}/>
-            )
-          )
+        items => (
+          <Card.Group itemsPerRow={4} stackable>
+            {
+              items.map(
+                (subscription: Subscription) => (
+                  <SubscriptionItem key={subscription.id} subscription={subscription}/>
+                )
+              )
+            }
+          </Card.Group>
+        )
       }
-    </Card.Group>
+    </ClientPaginated>
   );
 }

@@ -2,22 +2,32 @@ import * as React from 'react';
 import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
 import { connect } from 'react-redux';
-import { AppState } from './reducers';
 import Auth from './util/auth-util';
 import { Auth0UserProfile } from 'auth0-js';
 import { Route, RouteComponentProps, Switch, withRouter } from 'react-router';
-import NotFound from './pages/NotFound';
+import NotFoundPage from './pages/NotFoundPage';
 import ViewSubscriptionPage from './pages/ViewSubscriptionPage';
-import CreateSubscription from './pages/CreateSubscription';
-import ListSubscriptions from './pages/ListSubscriptions';
-import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer/Dimmer';
+import CreateSubscriptionPage from './pages/CreateSubscriptionPage';
+import ListSubscriptionsPage from './pages/ListSubscriptionsPage';
 import HomePage from './pages/HomePage';
 import ScrollToTop from './components/ScrollToTop';
+import { AppState } from './reducers';
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
 
+interface AppProps extends RouteComponentProps<{}> {
+  principal: Auth0UserProfile | null;
+  loggedIn: boolean;
+  logout: () => any;
+  loading: boolean;
+}
 
 export default withRouter(
   connect(
-    ({ auth: { loggedIn, principal, loading } }: AppState) => ({ loggedIn, principal, loading }),
+    ({ auth: { loggedIn, principal, loading } }: AppState) => ({
+      loggedIn,
+      principal,
+      loading
+    }),
     {
       logout: () => {
         Auth.logout();
@@ -27,13 +37,20 @@ export default withRouter(
       }
     }
   )(
-    class App extends React.Component<RouteComponentProps<{}> & { principal: Auth0UserProfile | null, loggedIn: boolean, logout: () => any; loading: boolean }> {
+    class extends React.Component<AppProps> {
       render() {
         const { logout, principal, loading } = this.props;
 
+        if (loading) {
+          return (
+            <Loader active>
+              Loading...
+            </Loader>
+          );
+        }
+
         return (
-          <Dimmer.Dimmable>
-            <Dimmer inverted active={loading}/>
+          <div>
             <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
               <div>
                 <AppHeader principal={principal} onLogOut={logout}/>
@@ -45,10 +62,10 @@ export default withRouter(
                 <div style={{ paddingTop: '2em' }}>
                   <Switch>
                     <Route path="/" exact component={HomePage}/>
-                    <Route path="/subscriptions/new" exact component={CreateSubscription}/>
-                    <Route path="/subscriptions" exact component={ListSubscriptions}/>
+                    <Route path="/subscriptions/new" exact component={CreateSubscriptionPage}/>
+                    <Route path="/subscriptions" exact component={ListSubscriptionsPage}/>
                     <Route path="/subscriptions/:id" exact component={ViewSubscriptionPage}/>
-                    <Route path="*" component={NotFound}/>
+                    <Route path="*" component={NotFoundPage}/>
                   </Switch>
                 </div>
               </div>
@@ -57,7 +74,7 @@ export default withRouter(
                 <AppFooter/>
               </div>
             </div>
-          </Dimmer.Dimmable>
+          </div>
         );
       }
     }

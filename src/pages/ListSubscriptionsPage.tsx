@@ -10,7 +10,7 @@ import { Subscription } from '../util/model';
 import { Button, Container, Dimmer, Header, Icon, Input, Loader, Message } from 'semantic-ui-react';
 import * as _ from 'underscore';
 
-const ALPHA_MESSAGE = (
+const ALPHA_WARNING = (
   <Message style={{ marginBottom: 24 }} warning>
     <Message.Header>
       This is alpha software
@@ -31,10 +31,17 @@ function CreateButton(props: {}) {
   );
 }
 
-class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subscriptions: Subscription[] | null, promise: Promise<any> | null }> {
+interface State {
+  subscriptions: Subscription[] | null;
+  promise: Promise<any> | null;
+  error: string | null;
+}
+
+class ListSubscriptionsPage extends React.Component<RouteComponentProps<{}>, State> {
   state = {
     subscriptions: null,
-    promise: null
+    promise: null,
+    error: null
   };
 
   componentDidMount() {
@@ -50,7 +57,7 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
     this.setState({
       promise: listSubscriptions()
         .then(subscriptions => this.setState({ subscriptions, promise: null }))
-        .catch(error => this.setState({ promise: null }))
+        .catch(error => this.setState({ error: error.message, promise: null }))
     });
   };
 
@@ -65,7 +72,7 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
 
   render() {
     const { history } = this.props;
-    const { subscriptions, promise } = this.state;
+    const { subscriptions, promise, error } = this.state;
 
     const { search } = history.location;
 
@@ -108,19 +115,31 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
               <Loader active={loading}>Loading</Loader>
             </Dimmer>
 
-            {ALPHA_MESSAGE}
+            {ALPHA_WARNING}
             <SubscriptionList items={filteredSubs}/>
 
             {
-              filteredSubs.length === 0 ? (
-                q.length > 0 ? (
-                  <Message>No matching subscriptions</Message>
-                ) : (
-                  <Message>
-                    You have not created any subscriptions. <Link to="/subscriptions/new">Click here</Link> to get started.
-                  </Message>
-                )
-              ) : null
+              error !== null ? (
+                <Message negative>
+                  <Message.Header>
+                    Something went wrong...
+                  </Message.Header>
+                  <p>
+                    We were not able to fetch your list of subscriptions: {error}
+                  </p>
+                </Message>
+              ) : (
+                filteredSubs.length === 0 ? (
+                  q.length > 0 ? (
+                    <Message>No matching subscriptions</Message>
+                  ) : (
+                    <Message>
+                      You have not created any subscriptions. <Link to="/subscriptions/new">Click here</Link> to get
+                      started.
+                    </Message>
+                  )
+                ) : null
+              )
             }
           </Dimmer.Dimmable>
         </div>
@@ -129,4 +148,4 @@ class ListSubscriptions extends React.Component<RouteComponentProps<{}>, { subsc
   }
 }
 
-export default withRouter(mustBeLoggedIn(ListSubscriptions));
+export default withRouter(mustBeLoggedIn(ListSubscriptionsPage));
