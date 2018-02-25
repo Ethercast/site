@@ -1,17 +1,34 @@
 language: node_js
-node_js:
-  - "node"
+
+cache:
+  node: true
+
 script:
   - npm test
+
+before_deploy:
   - npm run build
+  - mkdir no-cache
+  - mv build/index.html no-cache/index.html
 
 deploy:
-  provider: s3
-  access_key_id: $TRAVIS_ACCESS_KEY_ID
-  secret_access_key: $TRAVIS_SECRET_ACCESS_KEY
-  bucket: "ethercast.io"
-  region: "us-east-1"
-  skip_cleanup: true
-  local_dir: build
-  on:
-    branch: master
+  - provider: s3
+    access_key_id: $TRAVIS_ACCESS_KEY_ID
+    secret_access_key: $TRAVIS_SECRET_ACCESS_KEY
+    bucket: "ethercast.io"
+    region: "us-east-1"
+    skip_cleanup: true
+    local_dir: build
+    cache_control: "max-age=31536000"
+    on:
+      branch: master
+  - provider: s3
+    access_key_id: $TRAVIS_ACCESS_KEY_ID
+    secret_access_key: $TRAVIS_SECRET_ACCESS_KEY
+    bucket: "ethercast.io"
+    region: "us-east-1"
+    skip_cleanup: true
+    local_dir: no-cache
+    cache_control: "max-age=0"
+    on:
+      branch: master
