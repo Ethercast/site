@@ -39,7 +39,7 @@ interface FeatureProps {
   comingSoon?: boolean;
   icon: SemanticICONS;
   title: string;
-  children: string;
+  children: any;
 }
 
 const Feature = ({ icon, title, children, comingSoon = false }: FeatureProps) => (
@@ -56,11 +56,13 @@ const Feature = ({ icon, title, children, comingSoon = false }: FeatureProps) =>
         {children}
       </p>
 
-      {
-        comingSoon ?
-          <Label color="red">Coming soon</Label> :
-          null
-      }
+      <div style={{ textAlign: 'center' }}>
+        {
+          comingSoon ?
+            <Label color="red">Coming soon</Label> :
+            null
+        }
+      </div>
     </Segment>
   </Grid.Column>
 );
@@ -106,7 +108,7 @@ export default class HomePage extends React.Component<HomePageProps> {
           Key features
         </Header>
 
-        <Grid columns="3" stackable padded>
+        <Grid columns="equal" stackable padded>
           <Grid.Row textAlign="center">
             <Feature title="Guaranteed delivery" icon="certificate">
               All events are guaranteed to be delivered at least once to each subscription.
@@ -114,13 +116,27 @@ export default class HomePage extends React.Component<HomePageProps> {
               node reliability.
             </Feature>
             <Feature title="Log decoding" icon="microchip" comingSoon>
-              We decode event events for known contracts for immediate use in downstream
-              systems like Zapier or IFTTT. If the contract is verified on Etherscan,
-              you"ll receive the decoded arguments alongside each event.
+              We decode events from known contract addresses
+              for immediate use in downstream systems like Zapier or IFTTT.
+              If the contract is verified on Etherscan, you'll receive the
+              decoded data and topics alongside each event.
             </Feature>
             <Feature title="Latency" icon="feed">
               We guarantee 99% of events to be delivered once within 5 minutes of the block
               timestamp. Around half of the messages will arrive within 1 minute.
+            </Feature>
+          </Grid.Row>
+          <Grid.Row>
+            <Feature title="Smart forking" icon="fork">
+              When a fork develops, we send you the same logs again
+              with the <code>removed</code> flag so you can handle chain reorganizations
+              correctly.
+            </Feature>
+            <Feature title="FIFO ordering" icon="sort content ascending">
+              Messages are delivered in the same order as the blocks.
+            </Feature>
+            <Feature title="Testnet support" icon="terminal" comingSoon>
+              We support Ropsten, Kovan, and Rinkeby testnets.
             </Feature>
           </Grid.Row>
         </Grid>

@@ -169,7 +169,7 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
         </ul>
 
         <Header as="h3">Webhook receipts</Header>
-        <p>This is the log of incidents of webhooks that have been reported to the endpoint.</p>
+        <p>These are the last 20 webhooks that were sent to the endpoint</p>
         <ReceiptTable subscriptionId={id}/>
       </Container>
     );
