@@ -7,9 +7,9 @@ cache:
 
 script:
   - npm test
-
-before_deploy:
   - npm run build
+
+after_script:
   - mkdir no-cache
   - mv build/index.html no-cache/index.html
 
