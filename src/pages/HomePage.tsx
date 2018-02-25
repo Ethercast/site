@@ -128,9 +128,9 @@ export default class HomePage extends React.Component<HomePageProps> {
           </Grid.Row>
           <Grid.Row>
             <Feature title="Smart forking" icon="fork">
-              When a fork develops, we send you the same logs again
-              with the <code>removed</code> flag so you can handle chain reorganizations
-              correctly.
+              When a chain reorganization occurs, we send you the same logs again
+              with the <code>removed</code> flag so you can revert
+              any downstream effects.
             </Feature>
             <Feature title="FIFO ordering" icon="sort content ascending">
               Messages are delivered in the same order as the blocks.
