@@ -136,7 +136,8 @@ export default class HomePage extends React.Component<HomePageProps> {
               Messages are delivered in the same order as the blocks.
             </Feature>
             <Feature title="Testnet support" icon="terminal" comingSoon>
-              We support Ropsten, Kovan, and Rinkeby testnets.
+              In addition to the Ethereum mainnet,
+              we support the Ropsten, Kovan, and Rinkeby testnets.
             </Feature>
           </Grid.Row>
         </Grid>
