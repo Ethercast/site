@@ -119,13 +119,14 @@ export default class HomePage extends React.Component<HomePageProps> {
             <Feature title="Guaranteed delivery" icon="certificate">
               All events are guaranteed to be delivered at least once to each subscription.
               That means you can build systems on top of Ethercast without worrying about
-              the reliability of Ethereum nodes or
+              the reliability of Ethereum nodes or any service listening to events
+              from an Ethereum node.
             </Feature>
             <Feature title="Log decoding" icon="microchip" comingSoon>
               We decode events from known contract addresses
               for immediate use in downstream systems like Zapier or IFTTT.
               If the contract is verified on Etherscan, you'll receive the
-              decoded data and topics alongside each event.
+              decoded data and topics with each event.
             </Feature>
             <Feature title="Latency" icon="feed">
               We guarantee 99% of events to be delivered once within 5 minutes of the block
