@@ -43,12 +43,16 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
           {
             principal ? (
               [
-                <Menu.Item key="img">
-                  <Image height={28} src={principal.picture}/>
-                </Menu.Item>,
-                <Menu.Item key="name">
-                  Logged in as <strong style={{ marginLeft: 4 }}>{principal.name}</strong>
-                </Menu.Item>
+                principal.picture ? (
+                  <Menu.Item key="img">
+                    <Image height={28} circular src={principal.picture}/>
+                  </Menu.Item>
+                ) : null,
+                principal.name ? (
+                  <Menu.Item key="name">
+                    Logged in as <strong style={{ marginLeft: 4 }}>{principal.name}</strong>
+                  </Menu.Item>
+                ) : null
               ]
             ) : null
           }

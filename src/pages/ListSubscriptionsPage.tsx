@@ -9,6 +9,7 @@ import { RouteComponentProps } from 'react-router';
 import { Subscription } from '../util/model';
 import { Button, Container, Dimmer, Header, Icon, Input, Loader, Message } from 'semantic-ui-react';
 import * as _ from 'underscore';
+import ClientPaginated from '../components/ClientPaginated';
 
 const ALPHA_WARNING = (
   <Message style={{ marginBottom: 24 }} warning>
@@ -90,6 +91,14 @@ class ListSubscriptionsPage extends React.Component<RouteComponentProps<{}>, Sta
 
     const loading = promise !== null;
 
+    const groupedSorted = _.chain(filteredSubs)
+      .groupBy('status')
+      .mapObject(subs => _.sortBy(subs, ({ timestamp }: Subscription) => timestamp * -1))
+      .value();
+
+    const active = groupedSorted['active'] || [];
+    const inactive = groupedSorted['deactivated'] || [];
+
     return (
       <Container>
         <Header as="h1">My subscriptions</Header>
@@ -109,38 +118,43 @@ class ListSubscriptionsPage extends React.Component<RouteComponentProps<{}>, Sta
           </div>
         </div>
 
+        {ALPHA_WARNING}
+
         <div style={{ marginTop: 24 }}>
           <Dimmer.Dimmable>
             <Dimmer active={loading} inverted>
               <Loader active={loading}>Loading</Loader>
             </Dimmer>
 
-            {ALPHA_WARNING}
-            <SubscriptionList items={filteredSubs}/>
-
-            {
-              error !== null ? (
-                <Message negative>
-                  <Message.Header>
-                    Something went wrong...
-                  </Message.Header>
-                  <p>
-                    We were not able to fetch your list of subscriptions: {error}
-                  </p>
-                </Message>
-              ) : (
-                filteredSubs.length === 0 ? (
-                  q.length > 0 ? (
-                    <Message>No matching subscriptions</Message>
-                  ) : (
-                    <Message>
-                      You have not created any subscriptions. <Link to="/subscriptions/new">Click here</Link> to get
-                      started.
+            <ClientPaginated
+              items={active.concat(inactive)}
+              pageSize={12}>
+              {
+                items => {
+                  return error !== null ? (
+                    <Message negative>
+                      <Message.Header>
+                        Something went wrong...
+                      </Message.Header>
+                      <p>
+                        We were not able to fetch your list of subscriptions: {error}
+                      </p>
                     </Message>
-                  )
-                ) : null
-              )
-            }
+                  ) : (
+                    items.length === 0 ? (
+                      q.length > 0 ? (
+                        <Message>No matching subscriptions</Message>
+                      ) : (
+                        <Message>
+                          You have not created any subscriptions. <Link to="/subscriptions/new">Click here</Link> to get
+                          started.
+                        </Message>
+                      )
+                    ) : <SubscriptionList items={items as Subscription[]}/>
+                  );
+                }
+              }
+            </ClientPaginated>
           </Dimmer.Dimmable>
         </div>
       </Container>

@@ -8,7 +8,7 @@ const AUTH_SETTINGS: AuthOptions = {
   redirectUri: `${window.location.protocol}//${window.location.host}/`,
   audience: 'https://ethercast.auth0.com/userinfo',
   responseType: 'token id_token',
-  scope: 'profile subscriptions:read subscriptions:deactivate subscriptions:create'
+  scope: 'openid profile subscriptions:read subscriptions:deactivate subscriptions:create'
 };
 
 const auth = new auth0.WebAuth(AUTH_SETTINGS);

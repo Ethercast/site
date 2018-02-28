@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import Auth from '../util/auth-util';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs';
 import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
+import Visibility from 'semantic-ui-react/dist/commonjs/behaviors/Visibility/Visibility';
+import Transition from 'semantic-ui-react/dist/commonjs/modules/Transition/Transition';
 
 export interface HomePageProps extends RouteComponentProps<{}> {
   loggedIn: boolean;
@@ -44,26 +46,30 @@ interface FeatureProps {
 
 const Feature = ({ icon, title, children, comingSoon = false }: FeatureProps) => (
   <Grid.Column>
-    <Segment piled>
-      <Header as="h2" icon textAlign="center">
-        <Icon name={icon}/>
-        <Header.Content>
-          {title}
-        </Header.Content>
-      </Header>
+    <Visibility>
+      <Transition transitionOnMount animation="fade up">
+        <Segment piled>
+          <Header as="h2" icon textAlign="center" color="black">
+            <Icon name={icon}/>
+            <Header.Content>
+              {title}
+            </Header.Content>
+          </Header>
 
-      <p style={{ fontSize: '1.33em' }}>
-        {children}
-      </p>
+          <p style={{ fontSize: '1.33em' }}>
+            {children}
+          </p>
 
-      <div style={{ textAlign: 'center' }}>
-        {
-          comingSoon ?
-            <Label color="red">Coming soon</Label> :
-            null
-        }
-      </div>
-    </Segment>
+          <div style={{ textAlign: 'center' }}>
+            {
+              comingSoon ?
+                <Label color="blue">Coming soon</Label> :
+                null
+            }
+          </div>
+        </Segment>
+      </Transition>
+    </Visibility>
   </Grid.Column>
 );
 
@@ -112,8 +118,8 @@ export default class HomePage extends React.Component<HomePageProps> {
           <Grid.Row textAlign="center">
             <Feature title="Guaranteed delivery" icon="certificate">
               All events are guaranteed to be delivered at least once to each subscription.
-              That means you can build systems on top of Ethercast without worrying about ethereum
-              node reliability.
+              That means you can build systems on top of Ethercast without worrying about
+              the reliability of Ethereum nodes or
             </Feature>
             <Feature title="Log decoding" icon="microchip" comingSoon>
               We decode events from known contract addresses
@@ -132,8 +138,11 @@ export default class HomePage extends React.Component<HomePageProps> {
               with the <code>removed</code> flag so you can revert
               any downstream effects.
             </Feature>
-            <Feature title="FIFO ordering" icon="sort content ascending">
-              Messages are delivered in the same order as the blocks.
+            <Feature title="Best-effort ordering" icon="sort content ascending">
+              Messages are delivered with best-effort ordering. In most cases,
+              webhooks will be triggered for logs in the order that they arrive.
+              When logs are removed due to a chain reorganization,
+              they are sent in reverse order.
             </Feature>
             <Feature title="Testnet support" icon="terminal" comingSoon>
               In addition to the Ethereum mainnet,
