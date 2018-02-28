@@ -1,14 +1,11 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Button, Container, Grid, Header, Icon, Segment } from 'semantic-ui-react';
+import { Label, Transition, Button, Container, Grid, Header, Icon, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { AppState } from '../reducers';
 import { Link } from 'react-router-dom';
 import Auth from '../util/auth-util';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs';
-import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
-import Visibility from 'semantic-ui-react/dist/commonjs/behaviors/Visibility/Visibility';
-import Transition from 'semantic-ui-react/dist/commonjs/modules/Transition/Transition';
 
 export interface HomePageProps extends RouteComponentProps<{}> {
   loggedIn: boolean;
@@ -46,30 +43,28 @@ interface FeatureProps {
 
 const Feature = ({ icon, title, children, comingSoon = false }: FeatureProps) => (
   <Grid.Column>
-    <Visibility>
-      <Transition transitionOnMount animation="fade up">
-        <Segment piled>
-          <Header as="h2" icon textAlign="center" color="black">
-            <Icon name={icon}/>
-            <Header.Content>
-              {title}
-            </Header.Content>
-          </Header>
+    <Transition transitionOnMount animation="fade up">
+      <Segment piled>
+        <Header as="h2" icon textAlign="center" color="black">
+          <Icon name={icon}/>
+          <Header.Content>
+            {title}
+          </Header.Content>
+        </Header>
 
-          <p style={{ fontSize: '1.33em' }}>
-            {children}
-          </p>
+        <p style={{ fontSize: '1.33em' }}>
+          {children}
+        </p>
 
-          <div style={{ textAlign: 'center' }}>
-            {
-              comingSoon ?
-                <Label color="blue">Coming soon</Label> :
-                null
-            }
-          </div>
-        </Segment>
-      </Transition>
-    </Visibility>
+        <div style={{ textAlign: 'center' }}>
+          {
+            comingSoon ?
+              <Label color="blue">Coming soon</Label> :
+              null
+          }
+        </div>
+      </Segment>
+    </Transition>
   </Grid.Column>
 );
 
