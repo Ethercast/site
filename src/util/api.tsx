@@ -3,13 +3,17 @@ import * as urlJoin from 'url-join';
 import { Subscription, WebhookReceipt } from './model';
 
 const URL_MAPPING = {
-  'ropsten.ethercast.io': 'https://ropsten.api.ethercast.io',
+  'localhost:3000': 'https://api.ethercast.io',
+  // 'ropsten.ethercast.io': 'https://ropsten.api.ethercast.io',
   'kovan.ethercast.io': 'https://kovan.api.ethercast.io',
   'rinkeby.ethercast.io': 'https://rinkeby.api.ethercast.io',
   'mainnet.ethercast.io': 'https://api.ethercast.io'
 };
 
-const API_URL = URL_MAPPING[window.location.host.toLowerCase()] || 'https://api.ethercast.io';
+const API_URL = URL_MAPPING[window.location.host.toLowerCase()];
+if (!API_URL) {
+  window.location.href = 'https://ethercast.io';
+}
 
 function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: object) {
   const requestInfo: RequestInit = {
