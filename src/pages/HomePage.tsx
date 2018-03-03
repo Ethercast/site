@@ -36,12 +36,13 @@ const GetStarted = connect(
 
 interface FeatureProps {
   comingSoon?: boolean;
+  beta?: boolean;
   icon: SemanticICONS;
   title: string;
   children: any;
 }
 
-const Feature = ({ icon, title, children, comingSoon = false }: FeatureProps) => (
+const Feature = ({ icon, title, children, comingSoon = false, beta = false }: FeatureProps) => (
   <Grid.Column>
     <Transition transitionOnMount animation="fade up">
       <Segment piled>
@@ -60,6 +61,11 @@ const Feature = ({ icon, title, children, comingSoon = false }: FeatureProps) =>
           {
             comingSoon ?
               <Label color="blue">Coming soon</Label> :
+              null
+          }
+          {
+            beta ?
+              <Label color="red">In beta</Label> :
               null
           }
         </div>
@@ -117,7 +123,7 @@ export default class HomePage extends React.Component<HomePageProps> {
               the reliability of Ethereum nodes or any service listening to events
               from an Ethereum node.
             </Feature>
-            <Feature title="Log decoding" icon="microchip" comingSoon>
+            <Feature title="Log decoding" icon="microchip" beta>
               We decode events from known contract addresses
               for immediate use in downstream systems like Zapier or IFTTT.
               If the contract is verified on Etherscan, you'll receive the

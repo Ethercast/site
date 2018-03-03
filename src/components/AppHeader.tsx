@@ -4,6 +4,7 @@ import { Button, Container, Image, Menu } from 'semantic-ui-react';
 import { Auth0UserProfile } from 'auth0-js';
 import Auth from '../util/auth-util';
 import { Route } from 'react-router';
+import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
 
 function NavLink({ to, ...props }: any) {
   return (
@@ -35,7 +36,12 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
               verticalAlign: 'middle'
             }}
           />
-          <span style={{ position: 'relative', top: 4 }}>Ethercast</span>
+          <span style={{ position: 'relative', top: 4 }}>
+            Ethercast
+          </span>
+        </Menu.Item>
+        <Menu.Item>
+          <Label style={{ marginLeft: 0 }} color="red">Beta</Label>
         </Menu.Item>
         <NavLink to="/subscriptions">My subscriptions</NavLink>
 
