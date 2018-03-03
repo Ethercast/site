@@ -11,19 +11,6 @@ import { Button, Container, Dimmer, Header, Icon, Input, Loader, Message } from 
 import * as _ from 'underscore';
 import ClientPaginated from '../components/ClientPaginated';
 
-const ALPHA_WARNING = (
-  <Message style={{ marginBottom: 24 }} warning>
-    <Message.Header>
-      This is alpha software
-    </Message.Header>
-    <p>
-      Please be aware this is alpha software and there are currently no guarantees on
-      message order or consistency. Please let us know if you plan to use this tool
-      in a production system.
-    </p>
-  </Message>
-);
-
 function CreateButton(props: {}) {
   return (
     <Button size="big" primary as={Link} to="/subscriptions/new">
@@ -117,8 +104,6 @@ class ListSubscriptionsPage extends React.Component<RouteComponentProps<{}>, Sta
             <CreateButton/>
           </div>
         </div>
-
-        {ALPHA_WARNING}
 
         <div style={{ marginTop: 24 }}>
           <Dimmer.Dimmable>

@@ -7,11 +7,11 @@ export enum FilterType {
 }
 
 export const FILTER_TYPE_NAMES: {[key in FilterType]: string} = {
-  address: 'Contract address',
-  topic0: 'Method signature',
-  topic1: 'First indexed argument',
-  topic2: 'Second indexed argument',
-  topic3: 'Third indexed argument'
+  address: 'Contract addresses',
+  topic0: 'Method signatures',
+  topic1: 'First indexed arguments',
+  topic2: 'Second indexed arguments',
+  topic3: 'Third indexed arguments'
 };
 
 // TODO: export & share from the backend

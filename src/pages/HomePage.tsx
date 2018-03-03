@@ -45,7 +45,7 @@ interface FeatureProps {
 const Feature = ({ icon, title, children, comingSoon = false, beta = false }: FeatureProps) => (
   <Grid.Column>
     <Transition transitionOnMount animation="fade up">
-      <Segment piled>
+      <Segment raised>
         <Header as="h2" icon textAlign="center" color="black">
           <Icon name={icon}/>
           <Header.Content>
@@ -65,7 +65,7 @@ const Feature = ({ icon, title, children, comingSoon = false, beta = false }: Fe
           }
           {
             beta ?
-              <Label color="red">In beta</Label> :
+              <Label color="yellow">BETA</Label> :
               null
           }
         </div>
@@ -115,44 +115,34 @@ export default class HomePage extends React.Component<HomePageProps> {
           Key features
         </Header>
 
-        <Grid columns="equal" stackable padded>
-          <Grid.Row textAlign="center">
-            <Feature title="Guaranteed delivery" icon="certificate">
-              All events are guaranteed to be delivered at least once to each subscription.
-              That means you can build systems on top of Ethercast without worrying about
-              the reliability of Ethereum nodes or any service listening to events
-              from an Ethereum node.
-            </Feature>
-            <Feature title="Log decoding" icon="microchip" beta>
-              We decode events from known contract addresses
-              for immediate use in downstream systems like Zapier or IFTTT.
-              If the contract is verified on Etherscan, you'll receive the
-              decoded data and topics with each event.
-            </Feature>
-            <Feature title="Latency" icon="feed">
-              We guarantee 99% of events to be delivered once within 5 minutes of the block
-              timestamp. Around half of the messages will arrive within 1 minute.
-            </Feature>
-          </Grid.Row>
-          <Grid.Row>
-            <Feature title="Smart forking" icon="fork">
-              When a chain reorganization occurs, we send you the same logs again
-              with the <code>removed</code> flag so you can revert
-              any downstream effects.
-            </Feature>
-            <Feature title="Best-effort ordering" icon="sort content ascending">
-              Messages are delivered with best-effort ordering. In most cases,
-              webhooks will be triggered for logs in the order that they arrive.
-              When logs are removed due to a chain reorganization,
-              they are sent in reverse order.
-            </Feature>
-            <Feature title="Testnet support" icon="terminal" beta>
-              In addition to the Ethereum mainnet,
-              we will support the Ropsten, Kovan, and Rinkeby testnets.
-              Today we are deployed on Kovan, Rinkeby and Mainnet.
-            </Feature>
-          </Grid.Row>
-        </Grid>
+        <Container>
+          <Grid columns="equal" stackable padded>
+            <Grid.Row textAlign="center">
+              <Feature title="Log decoding" icon="microchip">
+                We decode events from verified contract addresses
+                for immediate use in downstream systems like Zapier or IFTTT.
+                If the contract is verified on <a href="https://etherscan.io" target="_blank">Etherscan</a>, you'll
+                receive the decoded data and topics with each event.
+              </Feature>
+              <Feature title="Latency" icon="feed">
+                We guarantee 99% of events to be delivered once within 5 minutes of the block
+                timestamp. Around half of the messages will arrive within 1 minute.
+              </Feature>
+            </Grid.Row>
+            <Grid.Row>
+              <Feature title="Smart forking" icon="fork">
+                When a chain reorganization occurs, we send you the same logs again
+                with the <code>removed</code> flag so you can revert
+                any downstream effects.
+              </Feature>
+              <Feature title="Testnet support" icon="terminal">
+                In addition to our deployment on the <a href="https://ethercast.io">Ethereum mainnet</a>,
+                we are also deployed on the <a href="https://kovan.ethercast.io">Kovan testnet</a>. We intend
+                to support all the same testnets as Etherscan.
+              </Feature>
+            </Grid.Row>
+          </Grid>
+        </Container>
       </div>
     );
   }

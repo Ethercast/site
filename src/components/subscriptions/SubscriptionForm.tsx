@@ -4,6 +4,7 @@ import { Button, Form, FormProps, Header, Input, TextArea } from 'semantic-ui-re
 import { Link } from 'react-router-dom';
 import FormComponent from '../FormComponent';
 import FiltersInput from './FiltersInput';
+import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
 
 export interface SubscriptionFormProps extends FormProps {
   value: Partial<Subscription>;
@@ -68,7 +69,9 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
         <div>
           <SubscriptionDetailsForm value={value} onChange={this.handleChange}/>
 
-          <Header as="h2">Subscription filters</Header>
+          <Header as="h2">
+            Subscription filters <Label color="yellow">enter at least one</Label>
+          </Header>
 
           <FiltersInput value={value.filters} onChange={this.handleFiltersChange}/>
         </div>

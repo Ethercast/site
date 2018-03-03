@@ -7,6 +7,7 @@ import { Container, Header, Message } from 'semantic-ui-react';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 import Dimmer from 'semantic-ui-react/dist/commonjs/modules/Dimmer/Dimmer';
 import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
+import * as _ from 'underscore';
 
 interface CreateSubscriptionPageState {
   subscription: Partial<Subscription>;
@@ -18,7 +19,13 @@ export default mustBeLoggedIn(
   class CreateSubscriptionPage extends React.Component<RouteComponentProps<{}>, CreateSubscriptionPageState> {
     createSubscription = () => {
       this.setState({
-        promise: createSubscription(this.state.subscription)
+        promise: createSubscription({
+          ...this.state.subscription,
+          filters: _.mapObject(
+            this.state.subscription.filters,
+            (value: string) => typeof value === 'string' ? value.split(',') : value
+          )
+        })
           .then(
             (subscription) => {
               this.props.history.push(`/subscriptions/${subscription.id}`);
@@ -34,9 +41,7 @@ export default mustBeLoggedIn(
 
     state = {
       subscription: {
-        filters: {
-          address: ['']
-        }
+        filters: {}
       },
       promise: null,
       error: null
