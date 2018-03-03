@@ -7,7 +7,8 @@ const URL_MAPPING = {
   // 'ropsten.ethercast.io': 'https://ropsten.api.ethercast.io',
   'kovan.ethercast.io': 'https://kovan.api.ethercast.io',
   'rinkeby.ethercast.io': 'https://rinkeby.api.ethercast.io',
-  'mainnet.ethercast.io': 'https://api.ethercast.io'
+  'mainnet.ethercast.io': 'https://api.ethercast.io',
+  'ethercast.io': 'https://api.ethercast.io'
 };
 
 const API_URL = URL_MAPPING[window.location.host.toLowerCase()];
