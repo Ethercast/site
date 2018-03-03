@@ -146,9 +146,10 @@ export default class HomePage extends React.Component<HomePageProps> {
               When logs are removed due to a chain reorganization,
               they are sent in reverse order.
             </Feature>
-            <Feature title="Testnet support" icon="terminal" comingSoon>
+            <Feature title="Testnet support" icon="terminal" beta>
               In addition to the Ethereum mainnet,
-              we support the Ropsten, Kovan, and Rinkeby testnets.
+              we will support the Ropsten, Kovan, and Rinkeby testnets.
+              Today we are deployed on Kovan, Rinkeby and Mainnet.
             </Feature>
           </Grid.Row>
         </Grid>
