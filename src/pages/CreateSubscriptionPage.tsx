@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { createSubscription } from '../util/api';
-import { ConditionType, Subscription } from '../util/model';
+import { Subscription } from '../util/model';
 import SubscriptionForm from '../components/subscriptions/SubscriptionForm';
 import { Container, Header, Message } from 'semantic-ui-react';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
@@ -34,11 +34,9 @@ export default mustBeLoggedIn(
 
     state = {
       subscription: {
-        logic: [
-          [
-            { type: ConditionType.address, value: '' }
-          ]
-        ]
+        filters: {
+          address: ['']
+        }
       },
       promise: null,
       error: null

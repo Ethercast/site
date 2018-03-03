@@ -2,9 +2,10 @@ import * as React from 'react';
 import ReceiptTable from '../components/ReceiptTable';
 import { deactivateSubscription, getSubscription } from '../util/api';
 import { RouteComponentProps } from 'react-router';
-import { CONDITION_NAMES, Subscription, ConditionType } from '../util/model';
+import { FILTER_TYPE_NAMES, Subscription, FilterType } from '../util/model';
 import { Loader, Button, Container, Header, Message } from 'semantic-ui-react';
 import { HTMLProps } from 'react';
+import * as _ from 'underscore';
 
 function Ellipsis({ style, ...props }: HTMLProps<HTMLDivElement>) {
   return (
@@ -100,11 +101,16 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
 
     if (!subscription) {
       return (
-        <Message error>The subscription was not found.</Message>
+        <Container>
+          <Message error>
+            <Message.Header>Something went wrong...</Message.Header>
+            <Message.Content>The subscription was not found</Message.Content>
+          </Message>
+        </Container>
       );
     }
 
-    const { id, name, status, description, webhookUrl, logic } = subscription as Subscription;
+    const { id, name, status, description, webhookUrl, filters } = subscription as Subscription;
 
     return (
       <Container>
@@ -135,26 +141,32 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
         <p>This subscription is receiving logs with all of the following attributes:</p>
         <ul>
           {
-            logic.map(
-              (ors, orIx) => (
-                <li key={orIx}>
+            _.map(
+              filters,
+              (filterValues, type) => (
+                <li key={type}>
                   {
-                    ors.map(
-                      ({ type, value }, ix) => (
+                    _.map(
+                      filterValues ? (
+                        typeof filterValues === 'string' ?
+                          [filterValues] :
+                          filterValues
+                      ) : [],
+                      (filterValue, ix) => (
                         <div key={ix}>
                           <div>
                             <strong>
-                              {CONDITION_NAMES[type]}
+                              {FILTER_TYPE_NAMES[type]}
                             </strong>
                           </div>
                           <Ellipsis>
                             <em>
                               {
-                                type === ConditionType.address ? (
-                                  <a href={`https://etherscan.io/address/${value}`} target="_blank">
-                                    {value}
+                                type === FilterType.address ? (
+                                  <a href={`https://etherscan.io/address/${filterValue}`} target="_blank">
+                                    {filterValue}
                                   </a>
-                                ) : value
+                                ) : filterValue
                               }
                             </em>
                           </Ellipsis>

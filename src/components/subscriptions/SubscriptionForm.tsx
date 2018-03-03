@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Condition, Subscription } from '../../util/model';
-import LogicInput from './LogicInput';
-import { Button, Form, FormProps, Header, Input, Message, TextArea } from 'semantic-ui-react';
+import { Subscription, SubscriptionFilters } from '../../util/model';
+import { Button, Form, FormProps, Header, Input, TextArea } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import FormComponent from '../FormComponent';
+import FiltersInput from './FiltersInput';
 
 export interface SubscriptionFormProps extends FormProps {
   value: Partial<Subscription>;
@@ -50,9 +50,9 @@ class SubscriptionDetailsForm extends FormComponent<Subscription> {
 export default class SubscriptionForm extends React.PureComponent<SubscriptionFormProps> {
   handleChange = (value: Partial<Subscription>) => this.props.onChange(value);
 
-  handleLogicChange = (logic: Partial<Condition>[][]) => this.props.onChange({
+  handleFiltersChange = (filters: SubscriptionFilters) => this.props.onChange({
     ...this.props.value,
-    logic: logic as any
+    filters
   });
 
   onSubmit = (e: any) => {
@@ -70,15 +70,7 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
 
           <Header as="h2">Subscription filters</Header>
 
-          <LogicInput logic={value.logic} onChange={this.handleLogicChange}/>
-
-          {
-            value && value.logic && value.logic.length > 0 ? null : (
-              <Message negative>
-                You must have at least one subscription filter to continue.
-              </Message>
-            )
-          }
+          <FiltersInput value={value.filters} onChange={this.handleFiltersChange}/>
         </div>
         <div style={{ padding: 10, textAlign: 'right' }}>
           <Button size="big" as={Link} to="/subscriptions">Cancel</Button>

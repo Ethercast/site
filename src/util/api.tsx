@@ -1,8 +1,16 @@
 import Auth from './auth-util';
 import * as urlJoin from 'url-join';
-import { Receipt, Subscription } from './model';
+import { Subscription, WebhookReceipt } from './model';
 
-const API_URL = 'https://api.ethercast.io';
+const URL_MAPPING = {
+  'localhost:3000': 'https://z3jsy16upi.execute-api.us-east-1.amazonaws.com/mainnet',
+  'ropsten.ethercast.io': 'https://ropsten.api.ethercast.io',
+  'kovan.ethercast.io': 'https://kovan.api.ethercast.io',
+  'rinkeby.ethercast.io': 'https://rinkeby.api.ethercast.io',
+  'mainnet.ethercast.io': 'https://api.ethercast.io'
+};
+
+const API_URL = URL_MAPPING[window.location.host.toLowerCase()] || 'https://api.ethercast.io';
 
 function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: object) {
   const requestInfo: RequestInit = {
@@ -28,7 +36,7 @@ function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: o
 
         if (response.status === 422) {
           throw new Error(
-            `Validation errors: ${json.details.map(({ message }: any) => message).join(';')}`
+            `Validation errors: ${json.error.details.map(({ message }: any) => message).join(';')}`
           );
         }
 
@@ -66,6 +74,6 @@ export async function deactivateSubscription(id: string): Promise<void> {
   await fetchWithAuth('DELETE', `/subscriptions/${id}`);
 }
 
-export function listReceipts(subscriptionId: string): Promise<Receipt[]> {
+export function listReceipts(subscriptionId: string): Promise<WebhookReceipt[]> {
   return fetchWithAuth('GET', `/subscriptions/${subscriptionId}/receipts`);
 }

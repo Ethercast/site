@@ -2,11 +2,11 @@ import * as moment from 'moment';
 import * as React from 'react';
 import * as _ from 'underscore';
 import { listReceipts } from '../util/api';
-import { Receipt } from '../util/model';
+import { WebhookReceipt } from '../util/model';
 import { Message, Icon, Table, Dimmer } from 'semantic-ui-react';
 
 interface State {
-  receipts: Receipt[];
+  receipts: WebhookReceipt[];
   promise: Promise<any> | null;
   error: string | null;
 }
@@ -53,31 +53,35 @@ export default class ReceiptTable extends React.Component<Props, State> {
               <Table.HeaderCell>Id</Table.HeaderCell>
               <Table.HeaderCell>When</Table.HeaderCell>
               <Table.HeaderCell>Successful</Table.HeaderCell>
+              <Table.HeaderCell>Status Code</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             {
               receipts.length === 0 ? (
                 <Table.Row>
-                  <Table.Cell colSpan={3}>
+                  <Table.Cell colSpan={4}>
                     No events have been delivered to this endpoint
                   </Table.Cell>
                 </Table.Row>
               ) : null
             }
             {
-              _.sortBy(receipts, ({ timestamp }: Receipt) => timestamp * -1)
+              _.sortBy(receipts, ({ timestamp }: WebhookReceipt) => timestamp * -1)
                 .map(
-                  ({ id, timestamp, successful }) => (
+                  ({ id, timestamp, result: { statusCode, success } }) => (
                     <Table.Row key={id}>
                       <Table.Cell>{id}</Table.Cell>
-                      <Table.Cell>{moment(timestamp).format('l LT')}</Table.Cell>
+                      <Table.Cell>{moment(timestamp * 1000).format('l LT')}</Table.Cell>
                       <Table.Cell>
                         {
-                          successful ?
+                          success ?
                             <Icon disabled name="check" color="green"/> :
                             <Icon disabled name="exclamation triangle" color="red"/>
                         }
+                      </Table.Cell>
+                      <Table.Cell>
+                        {statusCode}
                       </Table.Cell>
                     </Table.Row>
                   )
