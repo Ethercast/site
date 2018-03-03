@@ -73,7 +73,7 @@ export default class ReceiptTable extends React.Component<Props, State> {
                     <Table.Row key={id}>
                       <Table.Cell>{id}</Table.Cell>
                       <Table.Cell>{moment(timestamp * 1000).format('l LT')}</Table.Cell>
-                      <Table.Cell>
+                      <Table.Cell style={{ paddingLeft: 32 }}>
                         {
                           success ?
                             <Icon disabled name="check" color="green"/> :
