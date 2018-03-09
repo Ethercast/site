@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ChangeEvent, ChangeEventHandler } from 'react';
 import * as _ from 'underscore';
 
-interface BaseFormProps<TModel> {
+export interface BaseFormProps<TModel> {
   value?: Partial<TModel>;
   onChange: (changed: Partial<TModel>) => void;
 }

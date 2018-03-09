@@ -2,10 +2,11 @@ import * as React from 'react';
 import ReceiptTable from '../components/ReceiptTable';
 import { deactivateSubscription, getSubscription } from '../util/api';
 import { RouteComponentProps } from 'react-router';
-import { FILTER_TYPE_NAMES, Subscription, FilterType } from '../util/model';
+import { FILTER_TYPE_NAMES, Subscription, LogFilterType } from '../util/model';
 import { Loader, Button, Container, Header, Message } from 'semantic-ui-react';
 import { HTMLProps } from 'react';
 import * as _ from 'underscore';
+import EtherscanLink from '../components/EtherscanLink';
 
 function Ellipsis({ style, ...props }: HTMLProps<HTMLDivElement>) {
   return (
@@ -110,7 +111,7 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
       );
     }
 
-    const { id, name, status, description, webhookUrl, filters } = subscription as Subscription;
+    const { id, name, status, description, webhookUrl, filters, type } = subscription as Subscription;
 
     return (
       <Container>
@@ -138,7 +139,8 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
         </p>
 
         <Header as="h3">Filters</Header>
-        <p>This subscription is receiving logs with all of the following attributes:</p>
+        <p>This subscription is receiving events of type <strong>{type}</strong> with all of the following attributes:
+        </p>
         <ul>
           {
             _.map(
@@ -162,10 +164,8 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
                           <Ellipsis>
                             <em>
                               {
-                                type === FilterType.address ? (
-                                  <a href={`https://etherscan.io/address/${filterValue}`} target="_blank">
-                                    {filterValue}
-                                  </a>
+                                type === LogFilterType.address ? (
+                                  <EtherscanLink address={filterValue}/>
                                 ) : filterValue
                               }
                             </em>

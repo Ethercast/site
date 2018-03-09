@@ -1,5 +1,8 @@
-import { FILTER_TYPE_NAMES, FilterType, SubscriptionFilters } from '../../util/model';
-import FormComponent from '../FormComponent';
+import {
+  FILTER_TYPE_NAMES, LogFilterType, SubscriptionFilters, SubscriptionType,
+  TransactionFilterType
+} from '../../util/model';
+import FormComponent, { BaseFormProps } from '../FormComponent';
 import * as React from 'react';
 import { Form } from 'semantic-ui-react';
 import * as _ from 'underscore';
@@ -24,9 +27,13 @@ function commaSeparatedPattern(pattern: string) {
 const ADDRESSES_PATTERN = commaSeparatedPattern(ADDRESS_PATTERN);
 const TOPICS_PATTERN = commaSeparatedPattern(TOPIC_PATTERN);
 
-export default class FiltersInput extends FormComponent<SubscriptionFilters> {
+interface FiltersInputProps extends BaseFormProps<SubscriptionFilters> {
+  type: SubscriptionType;
+}
+
+export default class FiltersInput extends FormComponent<SubscriptionFilters, FiltersInputProps> {
   render() {
-    const { value, onChange } = this.props;
+    const { value, onChange, type } = this.props;
 
     const noneFilled = !value ||
       _.all(
@@ -40,10 +47,10 @@ export default class FiltersInput extends FormComponent<SubscriptionFilters> {
     return (
       <div>
         {
-          Object.keys(FilterType)
+          Object.keys(type === SubscriptionType.log ? LogFilterType : TransactionFilterType)
             .map(
               (type, ix, list) => {
-                const isAddress = type === FilterType.address;
+                const isAddress = type === LogFilterType.address || type === TransactionFilterType.from || type === TransactionFilterType.to;
                 const typeValue = value ? value[type] : '';
 
                 const error = Boolean(

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { createSubscription } from '../util/api';
-import { Subscription } from '../util/model';
+import { Subscription, SubscriptionType } from '../util/model';
 import SubscriptionForm from '../components/subscriptions/SubscriptionForm';
 import { Container, Header, Message } from 'semantic-ui-react';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
@@ -23,7 +23,9 @@ export default mustBeLoggedIn(
           ...this.state.subscription,
           filters: _.mapObject(
             this.state.subscription.filters,
-            (value: string) => typeof value === 'string' ? value.split(',') : value
+            (value: string) => typeof value === 'string' && value.length > 0 ?
+              value.split(',') :
+              null
           )
         })
           .then(
@@ -41,6 +43,7 @@ export default mustBeLoggedIn(
 
     state = {
       subscription: {
+        type: SubscriptionType.log,
         filters: {}
       },
       promise: null,

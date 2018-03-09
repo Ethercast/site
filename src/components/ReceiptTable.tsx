@@ -50,7 +50,6 @@ export default class ReceiptTable extends React.Component<Props, State> {
         <Table>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Id</Table.HeaderCell>
               <Table.HeaderCell>When</Table.HeaderCell>
               <Table.HeaderCell>Successful</Table.HeaderCell>
               <Table.HeaderCell>Status Code</Table.HeaderCell>
@@ -70,8 +69,7 @@ export default class ReceiptTable extends React.Component<Props, State> {
               _.sortBy(receipts, ({ timestamp }: WebhookReceipt) => timestamp * -1)
                 .map(
                   ({ id, timestamp, result: { statusCode, success } }) => (
-                    <Table.Row key={id}>
-                      <Table.Cell>{id}</Table.Cell>
+                    <Table.Row title={id} key={id}>
                       <Table.Cell>{moment(timestamp * 1000).format('l LT')}</Table.Cell>
                       <Table.Cell style={{ paddingLeft: 32 }}>
                         {

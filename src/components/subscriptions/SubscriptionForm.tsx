@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { Subscription, SubscriptionFilters } from '../../util/model';
+import { Subscription, SubscriptionFilters, SubscriptionType } from '../../util/model';
 import { Button, Form, FormProps, Header, Input, TextArea } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import FormComponent from '../FormComponent';
 import FiltersInput from './FiltersInput';
 import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
+import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
+import Divider from 'semantic-ui-react/dist/commonjs/elements/Divider/Divider';
 
 export interface SubscriptionFormProps extends FormProps {
   value: Partial<Subscription>;
@@ -73,7 +75,35 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
             Subscription filters <Label color="yellow">enter at least one</Label>
           </Header>
 
-          <FiltersInput value={value.filters} onChange={this.handleFiltersChange}/>
+          <Segment>
+            <div style={{ textAlign: 'center' }}>
+              <Button.Group>
+                <Button
+                  type="button"
+                  positive={value && value.type === SubscriptionType.log}
+                  onClick={() => this.handleChange({ type: SubscriptionType.log, filters: {} })}
+                >
+                  Logs
+                </Button>
+                <Button.Or/>
+                <Button
+                  type="button"
+                  positive={value && value.type === SubscriptionType.transaction}
+                  onClick={() => this.handleChange({ type: SubscriptionType.transaction, filters: {} })}
+                >
+                  Transactions
+                </Button>
+              </Button.Group>
+            </div>
+
+            <Divider/>
+
+            <FiltersInput
+              type={value && value.type ? value.type : SubscriptionType.log}
+              value={value.filters}
+              onChange={this.handleFiltersChange}
+            />
+          </Segment>
         </div>
         <div style={{ padding: 10, textAlign: 'right' }}>
           <Button size="big" as={Link} to="/subscriptions">Cancel</Button>

@@ -1,4 +1,4 @@
-export enum FilterType {
+export enum LogFilterType {
   address = 'address',
   topic0 = 'topic0',
   topic1 = 'topic1',
@@ -6,23 +6,34 @@ export enum FilterType {
   topic3 = 'topic3'
 }
 
-export const FILTER_TYPE_NAMES: {[key in FilterType]: string} = {
+export enum TransactionFilterType {
+  from = 'from',
+  to = 'to'
+}
+
+export enum SubscriptionType {
+  log = 'log',
+  transaction = 'transaction'
+}
+
+export const FILTER_TYPE_NAMES: {[key in LogFilterType | TransactionFilterType]: string} = {
   address: 'Contract addresses',
   topic0: 'Method signatures',
   topic1: 'First indexed arguments',
   topic2: 'Second indexed arguments',
-  topic3: 'Third indexed arguments'
+  topic3: 'Third indexed arguments',
+  from: 'From address',
+  to: 'To address'
 };
 
 // TODO: export & share from the backend
 export enum SubscriptionStatus {
   active = 'active',
-  pending = 'pending',
   deactivated = 'deactivated'
 }
 
 export type FilterOptionValue = string | string[] | null;
-export type SubscriptionFilters = Partial<{[filterType in FilterType]: FilterOptionValue}>;
+export type SubscriptionFilters = {[filterType in TransactionFilterType]?: FilterOptionValue};
 
 export interface Subscription {
   id: string; // uuid v4
@@ -32,6 +43,7 @@ export interface Subscription {
   description?: string; // reasonable max length - longer
   webhookUrl: string;
   status: SubscriptionStatus;
+  type: SubscriptionType;
   filters: SubscriptionFilters;
   subscriptionArn: string;
 }

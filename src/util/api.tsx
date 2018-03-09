@@ -3,7 +3,7 @@ import * as urlJoin from 'url-join';
 import { Subscription, WebhookReceipt } from './model';
 
 const URL_MAPPING = {
-  'localhost:3000': 'https://api.ethercast.io',
+  'localhost:3000': 'https://kovan.api.ethercast.io',
   // 'ropsten.ethercast.io': 'https://ropsten.api.ethercast.io',
   'kovan.ethercast.io': 'https://kovan.api.ethercast.io',
   // 'rinkeby.ethercast.io': 'https://rinkeby.api.ethercast.io',
