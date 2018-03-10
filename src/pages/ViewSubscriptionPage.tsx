@@ -8,7 +8,7 @@ import { Button, Container, Header, Loader, Message } from 'semantic-ui-react';
 import * as _ from 'underscore';
 import EtherscanLink from '../components/EtherscanLink';
 import { FILTER_TYPE_NAMES } from '../util/filter-type-names';
-import { LogSubscription, TransactionSubscription } from '../../../backend-model/src/backend-model';
+import { LogSubscription, TransactionSubscription } from '../../../backend-model/src/types';
 
 function Ellipsis({ style, ...props }: HTMLProps<HTMLDivElement>) {
   return (

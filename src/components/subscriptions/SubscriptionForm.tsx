@@ -7,7 +7,7 @@ import FiltersInput from './FiltersInput';
 import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
 import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
 import Divider from 'semantic-ui-react/dist/commonjs/elements/Divider/Divider';
-import { SubscriptionPostRequest } from '../../../../backend-model/src/backend-model';
+import { SubscriptionPostRequest } from '../../../../backend-model/src/types';
 
 export interface SubscriptionFormProps extends FormProps {
   value: Partial<SubscriptionPostRequest>;
