@@ -3,12 +3,14 @@ import { HTMLProps } from 'react';
 import ReceiptTable from '../components/ReceiptTable';
 import { deactivateSubscription, getSubscription } from '../util/api';
 import { RouteComponentProps } from 'react-router';
-import { LogFilterType, Subscription, TransactionFilterType } from '@ethercast/backend-model';
+import {
+  LogFilterType, LogSubscription, Subscription, TransactionFilterType,
+  TransactionSubscription
+} from '@ethercast/backend-model';
 import { Button, Container, Header, Loader, Message } from 'semantic-ui-react';
 import * as _ from 'underscore';
 import EtherscanLink from '../components/EtherscanLink';
 import { FILTER_TYPE_NAMES } from '../util/filter-type-names';
-import { LogSubscription, TransactionSubscription } from '../../../backend-model/src/types';
 
 function Ellipsis({ style, ...props }: HTMLProps<HTMLDivElement>) {
   return (

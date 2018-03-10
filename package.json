@@ -10,7 +10,7 @@
   },
   "homepage": "https://ethercast.io/",
   "devDependencies": {
-    "@ethercast/backend-model": "0.0.2",
+    "@ethercast/backend-model": "0.0.3",
     "@types/auth0-js": "^8.11.2",
     "@types/classnames": "^2.2.3",
     "@types/jest": "^22.1.3",

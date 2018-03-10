@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Subscription, SubscriptionType } from '@ethercast/backend-model';
+import { Subscription, SubscriptionType, SubscriptionPostRequest } from '@ethercast/backend-model';
 import { Button, Form, FormProps, Header, Input, TextArea } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import FormComponent from '../FormComponent';
@@ -7,7 +7,6 @@ import FiltersInput from './FiltersInput';
 import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
 import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
 import Divider from 'semantic-ui-react/dist/commonjs/elements/Divider/Divider';
-import { SubscriptionPostRequest } from '../../../../backend-model/src/types';
 
 export interface SubscriptionFormProps extends FormProps {
   value: Partial<SubscriptionPostRequest>;
