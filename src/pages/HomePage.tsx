@@ -113,7 +113,6 @@ export default class HomePage extends React.Component<HomePageProps> {
           as="h2"
           textAlign="center"
           style={{ marginTop: 40, fontSize: '3em' }}
-          color="blue"
         >
           Key features
         </Header>
