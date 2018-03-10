@@ -118,9 +118,10 @@ export default class HomePage extends React.Component<HomePageProps> {
         <Container>
           <Grid columns="equal" stackable padded>
             <Grid.Row textAlign="center">
-              <Feature title="Log decoding" icon="microchip">
-                We decode events and transactions from/to contracts that have verified source on Etherscan
-                for immediate use in downstream systems like Zapier or IFTTT.
+              <Feature title="Event decoding" icon="microchip">
+                Ethercast decodes events logged by contracts and transactions sent to contracts
+                that have verified source on Etherscan for immediate use in downstream systems
+                like Zapier or IFTTT.
                 If the contract is verified on <a href="https://etherscan.io" target="_blank">Etherscan</a>, you'll
                 receive the decoded data and topics with each log and transaction in the <code>ethercast</code> key
               </Feature>
