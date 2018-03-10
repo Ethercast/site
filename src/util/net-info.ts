@@ -13,7 +13,7 @@ export interface NetInfoMapping {
 const MAINNET: NetInfo = {
   networkId: 1,
   networkName: 'mainnet',
-  apiUrl: 'https://kovan.api.ethercast.io',
+  apiUrl: 'https://api.ethercast.io',
   enabled: true,
   etherscanUrl: 'https://etherscan.io'
 };
