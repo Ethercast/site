@@ -27,7 +27,7 @@ const GetStarted = connect(
           }
         }}>
         <Button.Content>
-          Get Started <Icon style={{ marginLeft: 8 }} name="arrow right"/>
+          {loggedIn ? 'Get started' : 'Sign up'} <Icon style={{ marginLeft: 8 }} name="arrow right"/>
         </Button.Content>
       </Button>
     );
@@ -47,7 +47,7 @@ const Feature = ({ icon, title, children, comingSoon = false, beta = false }: Fe
     <Transition transitionOnMount animation="fade up">
       <Segment raised>
         <Header as="h2" icon textAlign="center" color="black">
-          <Icon name={icon}/>
+          <Icon name={icon} circular inverted color="blue"/>
           <Header.Content>
             {title}
           </Header.Content>
@@ -81,7 +81,7 @@ export default class HomePage extends React.Component<HomePageProps> {
         <Segment
           inverted
           textAlign="center"
-          style={{ minHeight: 700, marginTop: '-2em' }}
+          style={{ minHeight: '80vh', marginTop: '-2em', display: 'flex', alignItems: 'center' }}
           vertical>
           <Container text>
             <Header
@@ -91,14 +91,12 @@ export default class HomePage extends React.Component<HomePageProps> {
               style={{
                 fontFamily: 'Roboto Slab',
                 fontSize: '4em',
-                fontWeight: 'normal',
-                marginBottom: 0,
-                marginTop: '3em'
+                fontWeight: 'normal'
               }}
             />
             <Header
               as="h2"
-              content="Subscribe to receive decoded transactions and smart contract events via webhooks"
+              content="Subscribe to anything that happens on the Ethereum blockchain"
               inverted
               style={{
                 fontSize: '1.7em',
@@ -111,7 +109,12 @@ export default class HomePage extends React.Component<HomePageProps> {
           </Container>
         </Segment>
 
-        <Header as="h2" textAlign="center" style={{ marginTop: 40, fontSize: '3em' }}>
+        <Header
+          as="h2"
+          textAlign="center"
+          style={{ marginTop: 40, fontSize: '3em' }}
+          color="blue"
+        >
           Key features
         </Header>
 
