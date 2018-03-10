@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as _ from 'underscore';
 import { listReceipts } from '../util/api';
 import { Dimmer, Icon, Message, Table } from 'semantic-ui-react';
-import { WebhookReceipt } from '@ethercast/backend-model';
+import { WebhookReceipt } from '../debt/ethercast-backend-model';
 
 interface State {
   receipts: WebhookReceipt[];

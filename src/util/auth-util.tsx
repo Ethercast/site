@@ -34,9 +34,9 @@ function getSession(): Auth0DecodedHash | null {
 }
 
 function getSessionDecodedHash(): Promise<Auth0DecodedHash> {
-  const existingSession = getSession();
-
   return new Promise((resolve, reject) => {
+    const existingSession = getSession();
+
     auth.parseHash(
       (err, authResult) => {
         if (authResult && authResult.idToken) {

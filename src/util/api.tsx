@@ -1,7 +1,7 @@
 import Auth from './auth-util';
 import * as urlJoin from 'url-join';
 import { netInfo } from './net-info';
-import { LogSubscription, TransactionSubscription, WebhookReceipt } from '@ethercast/backend-model';
+import { LogSubscription, TransactionSubscription, WebhookReceipt } from '../debt/ethercast-backend-model';
 
 if (!netInfo || !netInfo.enabled) {
   alert('sorry, this network is not yet supported!');

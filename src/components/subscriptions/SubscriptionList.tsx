@@ -1,6 +1,6 @@
 import * as React from 'react';
 import SubscriptionItem from './SubscriptionItem';
-import { Subscription } from '@ethercast/backend-model';
+import { Subscription } from '../../debt/ethercast-backend-model';
 import { Card } from 'semantic-ui-react';
 
 export default ({ items }: { items: Subscription[] }) => {

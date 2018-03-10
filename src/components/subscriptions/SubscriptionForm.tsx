@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Subscription, SubscriptionType, SubscriptionPostRequest } from '@ethercast/backend-model';
+import { Subscription, SubscriptionType, SubscriptionPostRequest } from '../../debt/ethercast-backend-model';
 import { Button, Form, FormProps, Header, Input, TextArea } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import FormComponent from '../FormComponent';

@@ -1,4 +1,4 @@
-import { LogFilterType, TransactionFilterType } from '@ethercast/backend-model';
+import { LogFilterType, TransactionFilterType } from '../debt/ethercast-backend-model';
 
 export type SubscriptionFilter = TransactionFilterType | LogFilterType;
 

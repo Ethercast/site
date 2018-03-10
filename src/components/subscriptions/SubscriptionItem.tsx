@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 import * as React from 'react';
-import { Subscription } from '@ethercast/backend-model';
+import { Subscription } from '../../debt/ethercast-backend-model';
 import { Card } from 'semantic-ui-react';
 import { RouteComponentProps, withRouter } from 'react-router';
 

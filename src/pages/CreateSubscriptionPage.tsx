@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { createSubscription } from '../util/api';
-import { Subscription, SubscriptionType } from '@ethercast/backend-model';
+import { Subscription, SubscriptionType } from '../debt/ethercast-backend-model';
 import SubscriptionForm from '../components/subscriptions/SubscriptionForm';
 import { Container, Header, Message } from 'semantic-ui-react';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';

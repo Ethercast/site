@@ -4,7 +4,7 @@ import {
   SubscriptionType,
   TransactionFilterType,
   TransactionSubscriptionFilters
-} from '@ethercast/backend-model';
+} from '../../debt/ethercast-backend-model';
 import FormComponent, { BaseFormProps } from '../FormComponent';
 import * as React from 'react';
 import { Form } from 'semantic-ui-react';

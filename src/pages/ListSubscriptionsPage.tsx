@@ -6,7 +6,7 @@ import SubscriptionList from '../components/subscriptions/SubscriptionList';
 import { listSubscriptions } from '../util/api';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 import { RouteComponentProps } from 'react-router';
-import { Subscription } from '@ethercast/backend-model';
+import { Subscription } from '../debt/ethercast-backend-model';
 import { Button, Container, Dimmer, Header, Icon, Input, Loader, Message } from 'semantic-ui-react';
 import * as _ from 'underscore';
 import ClientPaginated from '../components/ClientPaginated';

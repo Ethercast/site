@@ -6,7 +6,7 @@ import { RouteComponentProps } from 'react-router';
 import {
   LogFilterType, LogSubscription, Subscription, TransactionFilterType,
   TransactionSubscription
-} from '@ethercast/backend-model';
+} from '../debt/ethercast-backend-model';
 import { Button, Container, Header, Loader, Message } from 'semantic-ui-react';
 import * as _ from 'underscore';
 import EtherscanLink from '../components/EtherscanLink';
