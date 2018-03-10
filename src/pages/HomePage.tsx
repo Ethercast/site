@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Label, Transition, Button, Container, Grid, Header, Icon, Segment } from 'semantic-ui-react';
+import { Button, Container, Grid, Header, Icon, Label, Segment, Transition } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { AppState } from '../reducers';
 import { Link } from 'react-router-dom';
@@ -98,7 +98,7 @@ export default class HomePage extends React.Component<HomePageProps> {
             />
             <Header
               as="h2"
-              content="Subscribe to smart contract events on the Ethereum blockchain via webhooks"
+              content="Subscribe to receive decoded transactions and smart contract events via webhooks"
               inverted
               style={{
                 fontSize: '1.7em',
@@ -119,10 +119,10 @@ export default class HomePage extends React.Component<HomePageProps> {
           <Grid columns="equal" stackable padded>
             <Grid.Row textAlign="center">
               <Feature title="Log decoding" icon="microchip">
-                We decode events from verified contract addresses
+                We decode events and transactions from/to contracts that have verified source on Etherscan
                 for immediate use in downstream systems like Zapier or IFTTT.
                 If the contract is verified on <a href="https://etherscan.io" target="_blank">Etherscan</a>, you'll
-                receive the decoded data and topics with each event.
+                receive the decoded data and topics with each log and transaction in the <code>ethercast</code> key
               </Feature>
               <Feature title="Latency" icon="feed">
                 We guarantee 99% of events to be delivered once within 5 minutes of the block
