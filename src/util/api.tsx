@@ -1,7 +1,7 @@
 import Auth from './auth-util';
 import * as urlJoin from 'url-join';
-import { Subscription, WebhookReceipt } from './model';
 import { netInfo } from './net-info';
+import { LogSubscription, TransactionSubscription, WebhookReceipt } from '@ethercast/backend-model';
 
 if (!netInfo || !netInfo.enabled) {
   alert('sorry, this network is not yet supported!');
@@ -58,15 +58,15 @@ function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: o
     );
 }
 
-export function createSubscription(sub: object): Promise<Subscription> {
+export function createSubscription(sub: object): Promise<TransactionSubscription | LogSubscription> {
   return fetchWithAuth('POST', '/subscriptions', sub);
 }
 
-export function listSubscriptions(): Promise<Subscription[]> {
+export function listSubscriptions(): Promise<(LogSubscription | TransactionSubscription)[]> {
   return fetchWithAuth('GET', '/subscriptions');
 }
 
-export function getSubscription(id: string): Promise<Subscription> {
+export function getSubscription(id: string): Promise<(LogSubscription | TransactionSubscription)> {
   return fetchWithAuth('GET', `/subscriptions/${id}`);
 }
 

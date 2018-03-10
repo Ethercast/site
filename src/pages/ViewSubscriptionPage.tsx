@@ -3,10 +3,12 @@ import { HTMLProps } from 'react';
 import ReceiptTable from '../components/ReceiptTable';
 import { deactivateSubscription, getSubscription } from '../util/api';
 import { RouteComponentProps } from 'react-router';
-import { FILTER_TYPE_NAMES, LogFilterType, Subscription, TransactionFilterType } from '../util/model';
+import { LogFilterType, Subscription, TransactionFilterType } from '@ethercast/backend-model';
 import { Button, Container, Header, Loader, Message } from 'semantic-ui-react';
 import * as _ from 'underscore';
 import EtherscanLink from '../components/EtherscanLink';
+import { FILTER_TYPE_NAMES } from '../util/filter-type-names';
+import { LogSubscription, TransactionSubscription } from '../../../backend-model/src/backend-model';
 
 function Ellipsis({ style, ...props }: HTMLProps<HTMLDivElement>) {
   return (
@@ -111,7 +113,9 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
       );
     }
 
-    const { id, name, status, description, webhookUrl, filters, type } = subscription as Subscription;
+    const {
+      id, name, status, description, webhookUrl, filters, type
+    } = subscription as LogSubscription | TransactionSubscription;
 
     return (
       <Container>

@@ -1,13 +1,17 @@
 import {
-  FILTER_TYPE_NAMES, LogFilterType, SubscriptionFilters, SubscriptionType,
-  TransactionFilterType
-} from '../../util/model';
+  LogFilterType,
+  LogSubscriptionFilters,
+  SubscriptionType,
+  TransactionFilterType,
+  TransactionSubscriptionFilters
+} from '@ethercast/backend-model';
 import FormComponent, { BaseFormProps } from '../FormComponent';
 import * as React from 'react';
 import { Form } from 'semantic-ui-react';
 import * as _ from 'underscore';
 import TextArea from 'semantic-ui-react/dist/commonjs/addons/TextArea/TextArea';
 import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
+import { FILTER_TYPE_NAMES } from '../../util/filter-type-names';
 
 const ZERO_ADDRESS = `0x${_.range(0, 40).map(() => '0').join('')}`;
 const ZERO_TOPIC = `0x${_.range(0, 64).map(() => '0').join('')}`;
@@ -26,6 +30,8 @@ function commaSeparatedPattern(pattern: string) {
 
 const ADDRESSES_PATTERN = commaSeparatedPattern(ADDRESS_PATTERN);
 const TOPICS_PATTERN = commaSeparatedPattern(TOPIC_PATTERN);
+
+type SubscriptionFilters = LogSubscriptionFilters | TransactionSubscriptionFilters;
 
 interface FiltersInputProps extends BaseFormProps<SubscriptionFilters> {
   type: SubscriptionType;
@@ -51,7 +57,7 @@ export default class FiltersInput extends FormComponent<SubscriptionFilters, Fil
             .map(
               (type, ix, list) => {
                 const isAddress = type === LogFilterType.address || type === TransactionFilterType.from || type === TransactionFilterType.to;
-                const typeValue = value ? value[type] : '';
+                const typeValue = value ? value[ type ] : '';
 
                 const error = Boolean(
                   typeValue && typeValue.length > 0 &&
@@ -65,14 +71,14 @@ export default class FiltersInput extends FormComponent<SubscriptionFilters, Fil
                     error={error}
                     key={type}
                   >
-                    <label>{FILTER_TYPE_NAMES[type]}</label>
+                    <label>{FILTER_TYPE_NAMES[ type ]}</label>
                     <TextArea
                       required={noneFilled && isAddress}
                       type="text"
                       autoHeight
                       rows={2}
                       value={typeValue}
-                      onChange={(e, data) => onChange({ ...value, [type]: data.value })}
+                      onChange={(e, data) => onChange({ ...value, [ type ]: data.value })}
                       placeholder={isAddress ? ADDRESS_PLACEHOLDER : TOPIC_PLACEHOLDER}
                       pattern={isAddress ? ADDRESSES_PATTERN : TOPICS_PATTERN}
                     />
