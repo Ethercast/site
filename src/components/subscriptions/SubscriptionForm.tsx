@@ -51,7 +51,8 @@ class SubscriptionDetailsForm extends FormComponent<Subscription> {
 }
 
 export default class SubscriptionForm extends React.PureComponent<SubscriptionFormProps> {
-  handleChange = (value: Partial<Subscription>) => this.props.onChange(value);
+  handleChange = (value: Partial<Subscription>) =>
+    this.props.onChange({ ...this.props.value, ...value });
 
   handleFiltersChange = (filters: SubscriptionFilters) => this.props.onChange({
     ...this.props.value,

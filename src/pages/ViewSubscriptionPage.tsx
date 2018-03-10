@@ -1,10 +1,10 @@
 import * as React from 'react';
+import { HTMLProps } from 'react';
 import ReceiptTable from '../components/ReceiptTable';
 import { deactivateSubscription, getSubscription } from '../util/api';
 import { RouteComponentProps } from 'react-router';
-import { FILTER_TYPE_NAMES, Subscription, LogFilterType } from '../util/model';
-import { Loader, Button, Container, Header, Message } from 'semantic-ui-react';
-import { HTMLProps } from 'react';
+import { FILTER_TYPE_NAMES, LogFilterType, Subscription, TransactionFilterType } from '../util/model';
+import { Button, Container, Header, Loader, Message } from 'semantic-ui-react';
 import * as _ from 'underscore';
 import EtherscanLink from '../components/EtherscanLink';
 
@@ -151,22 +151,25 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
                     _.map(
                       filterValues ? (
                         typeof filterValues === 'string' ?
-                          [filterValues] :
+                          [ filterValues ] :
                           filterValues
                       ) : [],
                       (filterValue, ix) => (
                         <div key={ix}>
                           <div>
                             <strong>
-                              {FILTER_TYPE_NAMES[type]}
+                              {FILTER_TYPE_NAMES[ type ]}
                             </strong>
                           </div>
                           <Ellipsis>
                             <em>
                               {
-                                type === LogFilterType.address ? (
-                                  <EtherscanLink address={filterValue}/>
-                                ) : filterValue
+                                type === LogFilterType.address ||
+                                type === TransactionFilterType.from ||
+                                type === TransactionFilterType.to
+                                  ? (
+                                    <EtherscanLink address={filterValue}/>
+                                  ) : filterValue
                               }
                             </em>
                           </Ellipsis>

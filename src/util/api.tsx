@@ -1,18 +1,10 @@
 import Auth from './auth-util';
 import * as urlJoin from 'url-join';
 import { Subscription, WebhookReceipt } from './model';
+import { netInfo } from './net-info';
 
-const URL_MAPPING = {
-  'localhost:3000': 'https://kovan.api.ethercast.io',
-  // 'ropsten.ethercast.io': 'https://ropsten.api.ethercast.io',
-  'kovan.ethercast.io': 'https://kovan.api.ethercast.io',
-  // 'rinkeby.ethercast.io': 'https://rinkeby.api.ethercast.io',
-  'mainnet.ethercast.io': 'https://api.ethercast.io',
-  'ethercast.io': 'https://api.ethercast.io'
-};
-
-const API_URL = URL_MAPPING[window.location.host.toLowerCase()];
-if (!API_URL) {
+if (!netInfo || !netInfo.enabled) {
+  alert('sorry, this network is not yet supported!');
   window.location.href = 'https://ethercast.io';
 }
 
@@ -29,7 +21,11 @@ function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: o
     }
   };
 
-  return fetch(urlJoin(API_URL, path), requestInfo)
+  if (!netInfo) {
+    return new Promise(() => null);
+  }
+
+  return fetch(urlJoin(netInfo.apiUrl, path), requestInfo)
     .then(
       async response => {
         if (response.status === 204) {
