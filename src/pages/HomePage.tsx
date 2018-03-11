@@ -144,14 +144,6 @@ export default class HomePage extends React.Component<HomePageProps> {
                 to support all the same testnets as Etherscan.
               </Feature>
             </Grid.Row>
-            <Grid.Row>
-              <Feature title="API access" icon="fork" comingSoon>
-                Integrate....
-              </Feature>
-              <Feature title="" icon="terminal" comingSoon>
-
-              </Feature>
-            </Grid.Row>
           </Grid>
         </Container>
       </div>
