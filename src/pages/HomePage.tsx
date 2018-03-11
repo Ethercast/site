@@ -119,7 +119,7 @@ export default class HomePage extends React.Component<HomePageProps> {
 
         <Container>
           <Grid columns="equal" stackable padded>
-            <Grid.Row textAlign="center" stretched>
+            <Grid.Row stretched>
               <Feature title="Event decoding" icon="microchip">
                 Ethercast decodes events logged by contracts and transactions sent to contracts
                 that have verified source on Etherscan for immediate use in downstream systems
