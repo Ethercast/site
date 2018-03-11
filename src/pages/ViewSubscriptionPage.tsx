@@ -152,38 +152,40 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
             _.map(
               filters,
               (filterValues, type) => (
-                <li key={type}>
-                  {
-                    _.map(
-                      filterValues ? (
-                        typeof filterValues === 'string' ?
-                          [ filterValues ] :
-                          filterValues
-                      ) : [],
-                      (filterValue, ix) => (
-                        <div key={ix}>
-                          <div>
-                            <strong>
-                              {FILTER_TYPE_NAMES[ type ]}
-                            </strong>
+                filterValues ? (
+                  <li key={type}>
+                    {
+                      _.map(
+                        (
+                          typeof filterValues === 'string' ?
+                            [ filterValues ] :
+                            filterValues
+                        ),
+                        (filterValue, ix) => (
+                          <div key={ix}>
+                            <div>
+                              <strong>
+                                {FILTER_TYPE_NAMES[ type ]}
+                              </strong>
+                            </div>
+                            <Ellipsis>
+                              <em>
+                                {
+                                  type === LogFilterType.address ||
+                                  type === TransactionFilterType.from ||
+                                  type === TransactionFilterType.to
+                                    ? (
+                                      <EtherscanLink address={filterValue}/>
+                                    ) : filterValue
+                                }
+                              </em>
+                            </Ellipsis>
                           </div>
-                          <Ellipsis>
-                            <em>
-                              {
-                                type === LogFilterType.address ||
-                                type === TransactionFilterType.from ||
-                                type === TransactionFilterType.to
-                                  ? (
-                                    <EtherscanLink address={filterValue}/>
-                                  ) : filterValue
-                              }
-                            </em>
-                          </Ellipsis>
-                        </div>
+                        )
                       )
-                    )
-                  }
-                </li>
+                    }
+                  </li>
+                ) : null
               )
             )
           }
