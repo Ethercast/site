@@ -1,5 +1,4 @@
-// copied from v0.0.3
-
+// copied from v0.0.7
 export enum SubscriptionStatus {
   active = 'active',
   deactivated = 'deactivated'
@@ -31,6 +30,7 @@ export interface Subscription {
   id: string; // uuid v4
   type: SubscriptionType;
   timestamp: number;
+  secret: string;
   user: string;
   name: string; // reasonable max length
   description?: string; // reasonable max length - longer
@@ -49,6 +49,20 @@ export interface TransactionSubscription extends Subscription {
   filters: TransactionSubscriptionFilters;
 }
 
+export interface CreateSubscriptionRequest extends Pick<Subscription, 'name' | 'description' | 'webhookUrl'> {
+  filters: LogSubscriptionFilters | TransactionSubscriptionFilters;
+}
+
+export interface CreateTransactionSubscriptionRequest extends CreateSubscriptionRequest {
+  type: SubscriptionType.transaction,
+  filters: TransactionSubscriptionFilters
+}
+
+export interface CreateLogSubscriptionRequest extends CreateSubscriptionRequest {
+  type: SubscriptionType.log,
+  filters: LogSubscriptionFilters
+}
+
 export interface WebhookReceiptResult {
   statusCode: number;
   success: boolean;
@@ -64,6 +78,20 @@ export interface WebhookReceipt {
   result: WebhookReceiptResult;
 }
 
-export interface SubscriptionPostRequest extends Pick<Subscription, 'name' | 'type' | 'description' | 'webhookUrl'> {
-  filters: LogSubscriptionFilters | TransactionSubscriptionFilters;
+export interface CreateApiKeyRequest {
+  scopes: Set<Scope>;
+}
+
+export interface ApiKey extends CreateApiKeyRequest {
+  user: string;
+  secret: string;
+}
+
+export enum Scope {
+  READ_SUBSCRIPTION = 'subscription:read',
+  LIST_SUBSCRIPTIONS = 'subscription:list',
+  CREATE_SUBSCRIPTION = 'subscription:create',
+  DEACTIVATE_SUBSCRIPTION = 'subscription:deactivate',
+  CREATE_API_KEY = 'apiKey:create',
+  DEACTIVATE_API_KEY = 'apiKey:deactivate'
 }

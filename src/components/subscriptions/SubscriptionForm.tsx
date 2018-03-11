@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { Subscription, SubscriptionType, SubscriptionPostRequest } from '../../debt/ethercast-backend-model';
+import {
+  Subscription,
+  SubscriptionType,
+  CreateTransactionSubscriptionRequest,
+  CreateLogSubscriptionRequest
+} from '../../debt/ethercast-backend-model';
 import { Button, Form, FormProps, Header, Input, TextArea } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import FormComponent from '../FormComponent';
@@ -9,8 +14,8 @@ import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
 import Divider from 'semantic-ui-react/dist/commonjs/elements/Divider/Divider';
 
 export interface SubscriptionFormProps extends FormProps {
-  value: Partial<SubscriptionPostRequest>;
-  onChange: (subscription: Partial<SubscriptionPostRequest>) => void;
+  value: Partial<CreateLogSubscriptionRequest | CreateTransactionSubscriptionRequest>;
+  onChange: (subscription: Partial<CreateLogSubscriptionRequest | CreateTransactionSubscriptionRequest>) => void;
   onSubmit: () => void;
 }
 
@@ -52,8 +57,8 @@ class SubscriptionDetailsForm extends FormComponent<Subscription> {
 }
 
 export default class SubscriptionForm extends React.PureComponent<SubscriptionFormProps> {
-  handleChange = (value: Partial<SubscriptionPostRequest>) =>
-    this.props.onChange({ ...this.props.value, ...value });
+  handleChange = (value: Partial<CreateLogSubscriptionRequest | CreateTransactionSubscriptionRequest>) =>
+    this.props.onChange({ ...this.props.value, ...value } as any);
 
   handleFiltersChange = (filters: any) => this.props.onChange({
     ...this.props.value,

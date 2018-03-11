@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { createSubscription } from '../util/api';
-import { Subscription, SubscriptionType } from '../debt/ethercast-backend-model';
+import {
+  CreateLogSubscriptionRequest,
+  CreateTransactionSubscriptionRequest,
+  SubscriptionType
+} from '../debt/ethercast-backend-model';
 import SubscriptionForm from '../components/subscriptions/SubscriptionForm';
 import { Container, Header, Message } from 'semantic-ui-react';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
@@ -10,7 +14,7 @@ import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
 import * as _ from 'underscore';
 
 interface CreateSubscriptionPageState {
-  subscription: Partial<Subscription>;
+  subscription: Partial<CreateTransactionSubscriptionRequest | CreateLogSubscriptionRequest>;
   error: Error | null;
   promise: Promise<any> | null;
 }
@@ -45,7 +49,7 @@ export default mustBeLoggedIn(
       subscription: {
         type: SubscriptionType.log,
         filters: {}
-      },
+      } as any,
       promise: null,
       error: null
     };
@@ -64,7 +68,7 @@ export default mustBeLoggedIn(
 
             <Header as="h1">Create subscription</Header>
             <SubscriptionForm
-              value={subscription}
+              value={subscription as any}
               onChange={subscription => this.setState({ subscription })}
               onSubmit={this.createSubscription}
             />
