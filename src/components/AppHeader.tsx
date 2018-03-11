@@ -40,6 +40,7 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
           </span>
         </Menu.Item>
         <NavLink to="/subscriptions">My subscriptions</NavLink>
+        <NavLink to="/api-keys">My API keys</NavLink>
 
         <Menu.Menu position="right">
           {

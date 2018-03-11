@@ -13,6 +13,7 @@ import HomePage from './pages/HomePage';
 import ScrollToTop from './components/ScrollToTop';
 import { AppState } from './reducers';
 import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
+import ListApiKeysPage from './pages/ListApiKeysPage';
 
 interface AppProps extends RouteComponentProps<{}> {
   principal: Auth0UserProfile | null;
@@ -65,6 +66,7 @@ export default withRouter(
                     <Route path="/subscriptions/new" exact component={CreateSubscriptionPage}/>
                     <Route path="/subscriptions" exact component={ListSubscriptionsPage}/>
                     <Route path="/subscriptions/:id" exact component={ViewSubscriptionPage}/>
+                    <Route path="/api-keys" exact component={ListApiKeysPage}/>
                     <Route path="*" component={NotFoundPage}/>
                   </Switch>
                 </div>
