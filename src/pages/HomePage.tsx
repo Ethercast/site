@@ -96,7 +96,7 @@ export default class HomePage extends React.Component<HomePageProps> {
             />
             <Header
               as="h2"
-              content="Subscribe to anything that happens on the Ethereum blockchain"
+              content="Subscribe to anything that happens on the Ethereum blockchain."
               inverted
               style={{
                 fontSize: '1.7em',
@@ -119,7 +119,7 @@ export default class HomePage extends React.Component<HomePageProps> {
 
         <Container>
           <Grid columns="equal" stackable padded>
-            <Grid.Row textAlign="center">
+            <Grid.Row textAlign="center" stretched>
               <Feature title="Event decoding" icon="microchip">
                 Ethercast decodes events logged by contracts and transactions sent to contracts
                 that have verified source on Etherscan for immediate use in downstream systems
@@ -127,12 +127,13 @@ export default class HomePage extends React.Component<HomePageProps> {
                 If the contract is verified on <a href="https://etherscan.io" target="_blank">Etherscan</a>, you'll
                 receive the decoded data and topics with each log and transaction in the <code>ethercast</code> key
               </Feature>
-              <Feature title="Latency" icon="feed">
-                We guarantee 99% of events to be delivered once within 5 minutes of the block
-                timestamp. Around half of the messages will arrive within 1 minute.
+              <Feature title="Security" icon="lock" comingSoon>
+                Our webhook requests are validated with HMAC signatures, so you know we produced them.
+                If you want to check the validity and correctness of the transaction and log data,
+                you can use a third party such as Infura or your own Ethereum node.
               </Feature>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row stretched>
               <Feature title="Smart forking" icon="fork">
                 When a chain reorganization occurs, we send you the same logs again
                 with the <code>removed</code> flag so you can revert
@@ -144,6 +145,29 @@ export default class HomePage extends React.Component<HomePageProps> {
                 to support all the same testnets as Etherscan.
               </Feature>
             </Grid.Row>
+            <Grid.Row stretched>
+              <Feature title="API access" icon="key" comingSoon>
+                Use API keys to programmatically create subscriptions and integrate
+                with the blockchain without writing any code.
+              </Feature>
+              <Feature title="Latency" icon="feed">
+                We guarantee 99% of events to be delivered once within 5 minutes of the block
+                timestamp. Around half of the messages will arrive within 1 minute.
+              </Feature>
+            </Grid.Row>
+
+            {/*<Grid.Row columns={2} centered>*/}
+              {/*<Grid.Column>*/}
+                {/*<Feature title="Rapid iteration" icon="trophy">*/}
+                  {/*As one of the first users of Ethercast, you have the chance*/}
+                  {/*to shape its development and help build a core piece of Ethereum infrastructure.*/}
+
+                  {/*<div style={{ textAlign: 'center', marginTop: 20 }}>*/}
+                    {/*<GetStarted/>*/}
+                  {/*</div>*/}
+                {/*</Feature>*/}
+              {/*</Grid.Column>*/}
+            {/*</Grid.Row>*/}
           </Grid>
         </Container>
       </div>
