@@ -1,14 +1,20 @@
 import * as auth0 from 'auth0-js';
 import { Auth0DecodedHash, Auth0UserProfile, AuthOptions } from 'auth0-js';
 import * as moment from 'moment';
+import { Scope } from '../debt/ethercast-backend-model';
+
+const scope = Object.keys(Scope)
+  .map(k => Scope[ k ])
+  .concat([ 'openid', 'profile' ])
+  .join(' ');
 
 const AUTH_SETTINGS: AuthOptions = {
   domain: 'ethercast.auth0.com',
   clientID: 'Uz4zGr8VLnfDsQ4y5tRn0v09iw03X0KK',
-  redirectUri: `${window.location.protocol}//${window.location.host}/`,
-  audience: 'https://ethercast.auth0.com/userinfo',
+  redirectUri: `${window.location.origin}/`,
+  audience: 'https://api.ethercast.io',
   responseType: 'token id_token',
-  scope: 'openid profile subscriptions:read subscriptions:deactivate subscriptions:create'
+  scope
 };
 
 const auth = new auth0.WebAuth(AUTH_SETTINGS);
@@ -104,7 +110,9 @@ async function getUserProfile(): Promise<any> {
 
 export default class Auth {
   static login() {
-    auth.authorize();
+    auth.authorize({
+      scope
+    });
   }
 
   static logout() {

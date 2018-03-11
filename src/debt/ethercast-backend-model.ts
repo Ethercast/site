@@ -88,10 +88,9 @@ export interface ApiKey extends CreateApiKeyRequest {
 }
 
 export enum Scope {
-  READ_SUBSCRIPTION = 'subscription:read',
-  LIST_SUBSCRIPTIONS = 'subscription:list',
-  CREATE_SUBSCRIPTION = 'subscription:create',
-  DEACTIVATE_SUBSCRIPTION = 'subscription:deactivate',
-  CREATE_API_KEY = 'apiKey:create',
-  DEACTIVATE_API_KEY = 'apiKey:deactivate'
+  READ_SUBSCRIPTION = 'read:subscription',
+  CREATE_SUBSCRIPTION = 'create:subscription',
+  DEACTIVATE_SUBSCRIPTION = 'deactivate:subscription',
+  CREATE_API_KEY = 'create:apiKey',
+  DEACTIVATE_API_KEY = 'deactivate:apiKey'
 }

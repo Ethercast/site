@@ -11,6 +11,7 @@ import { Button, Container, Header, Loader, Message } from 'semantic-ui-react';
 import * as _ from 'underscore';
 import EtherscanLink from '../components/EtherscanLink';
 import { FILTER_TYPE_NAMES } from '../util/filter-type-names';
+import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
 
 function Ellipsis({ style, ...props }: HTMLProps<HTMLDivElement>) {
   return (
@@ -93,6 +94,20 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
     });
   };
 
+  secretRef: any;
+  setSecretRef = (ref: any) => this.secretRef = ref;
+  copySecret = () => {
+    this.secretRef.inputRef.select();
+
+    try {
+      const successful = document.execCommand('copy');
+      alert(successful ? `Copied secret to clipboard` : `Failed to copy!`);
+    } catch (err) {
+      console.error(err);
+      alert('Failed to copy!');
+    }
+  };
+
   render() {
     const { promise, subscription } = this.state;
 
@@ -116,7 +131,10 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
     }
 
     const {
-      id, name, status, description, webhookUrl, filters, type
+      id, name, status, description, webhookUrl,
+      filters,
+      type,
+      secret
     } = subscription as LogSubscription | TransactionSubscription;
 
     return (
@@ -144,7 +162,28 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
           Endpoint: <a href={webhookUrl} target="_blank">{webhookUrl}</a>
         </p>
 
-        <Header as="h3">Filters</Header>
+        <Header as="h3">Subscription secret</Header>
+        <p>
+          The subscription secret below is used to sign all requests to the endpoint.
+          You can use it to verify requests made to your webhook are coming from Ethercast.
+        </p>
+        <div>
+          <Input
+            ref={this.setSecretRef}
+            action={{
+              color: 'blue',
+              labelPosition: 'right',
+              icon: 'copy',
+              content: 'Copy',
+              onClick: this.copySecret
+            }}
+            value={secret}
+            readOnly
+          />
+        </div>
+
+
+        <Header as="h3">Subscription filters</Header>
         <p>This subscription is receiving events of type <strong>{type}</strong> with all of the following attributes:
         </p>
         <ul>
