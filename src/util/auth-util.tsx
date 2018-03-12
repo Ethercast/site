@@ -42,7 +42,7 @@ async function setSession(authResult: Auth0DecodedHash | null): Promise<void> {
 
 async function removeSession(): Promise<void> {
   const storage = await connectStorage();
-  return storage.get(AUTH_RESULT);
+  await storage.del(AUTH_RESULT);
 }
 
 async function getSession(): Promise<Auth0DecodedHash | null> {
