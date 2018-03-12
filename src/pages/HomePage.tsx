@@ -170,8 +170,8 @@ export default class HomePage extends React.Component<HomePageProps> {
             <Header as='h3' style={{ fontSize: '2em' }}>Pay only for what you use</Header>
             <p style={{ fontSize: '1.33em' }}>
               Our billing will be based entirely on the number of events you consume. You won't pay
-              until your contract sees significant usage. Note that while in open beta, Ethercast is
-              free to use.
+              until your subscriptions see significant usage.
+              Note that while in open beta, Ethercast is free to use.
             </p>
           </Container>
         </Segment>
