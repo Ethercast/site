@@ -11,7 +11,7 @@
 <script>
   window.CrossStorageHub.init([
     {
-      origin: /https?:\/\/(ethercast\.io|localhost:3000)$/,
+      origin: /^https?:\/\/((((kovan|ropsten|rinkeby|mainnet)\.)?ethercast\.io)|localhost:3000)$/,
       allow: [
         'get', 'set', 'del'
       ]
