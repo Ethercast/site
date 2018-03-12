@@ -4,6 +4,9 @@ import { Button, Container, Image, Menu } from 'semantic-ui-react';
 import { Auth0UserProfile } from 'auth0-js';
 import Auth from '../util/auth-util';
 import { Route } from 'react-router';
+import Dropdown from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
+import * as _ from 'underscore';
+import { netInfo, NETWORKS } from '../util/net-info';
 
 function NavLink({ to, ...props }: any) {
   return (
@@ -43,6 +46,26 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
         <NavLink to="/api-keys">My API keys</NavLink>
 
         <Menu.Menu position="right">
+          <Dropdown item text="Networks">
+            <Dropdown.Menu>
+              {
+                _.map(
+                  NETWORKS,
+                  (info, name) => (
+                    <Dropdown.Item
+                      key={name}
+                      as="a"
+                      text={name}
+                      disabled={!info.enabled}
+                      active={info === netInfo}
+                      href={`https://${name.toLowerCase()}.ethercast.io`}
+                    />
+                  )
+                )
+              }
+            </Dropdown.Menu>
+          </Dropdown>
+
           {
             principal ? (
               [

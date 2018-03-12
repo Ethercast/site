@@ -51,4 +51,11 @@ export const URL_MAPPING: NetInfoMapping = {
   'ethercast.io': MAINNET
 };
 
+export const NETWORKS = {
+  'Mainnet': MAINNET,
+  'Ropsten': ROPSTEN,
+  'Kovan': KOVAN,
+  'Rinkeby': RINKEBY
+};
+
 export const netInfo: NetInfo | undefined = URL_MAPPING[ window.location.host.toLowerCase() ];
