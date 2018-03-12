@@ -8,7 +8,13 @@ if (!netInfo || !netInfo.enabled) {
   window.location.href = 'https://ethercast.io';
 }
 
-function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: object) {
+async function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: object) {
+  const token: string | null = await Auth.getIdToken();
+
+  if (!token) {
+    throw new Error('unauthorized request');
+  }
+
   const requestInfo: RequestInit = {
     method,
     mode: 'cors',
@@ -17,7 +23,7 @@ function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: o
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': `Bearer ${Auth.getIdToken()}`
+      'Authorization': `Bearer ${token}`
     }
   };
 

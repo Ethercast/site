@@ -25,6 +25,7 @@
     "@types/url-join": "^0.8.2",
     "auth0-js": "^9.3.3",
     "classnames": "^2.2.5",
+    "cross-storage": "^1.0.0",
     "gh-pages": "^1.1.0",
     "moment": "^2.20.1",
     "promise-polyfill": "^7.1.0",

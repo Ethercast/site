@@ -2,6 +2,8 @@ import * as auth0 from 'auth0-js';
 import { Auth0DecodedHash, Auth0UserProfile, AuthOptions } from 'auth0-js';
 import * as moment from 'moment';
 import { Scope } from '../debt/ethercast-backend-model';
+import { CrossStorageClient } from 'cross-storage';
+import * as _ from 'underscore';
 
 const scope = Object.keys(Scope)
   .map(k => Scope[ k ])
@@ -21,16 +23,32 @@ const auth = new auth0.WebAuth(AUTH_SETTINGS);
 
 const AUTH_RESULT = 'auth_result';
 
-function setSession(authResult: Auth0DecodedHash | null) {
-  localStorage.setItem(AUTH_RESULT, JSON.stringify(authResult));
+const connectStorage = _.once(
+  async function () {
+    const storage = new CrossStorageClient(
+      process.env.NODE_ENV === 'production' ?
+        'https://ethercast.io/sso.html' :
+        '/sso.html'
+    );
+    await storage.onConnect();
+    return storage;
+  }
+);
+
+async function setSession(authResult: Auth0DecodedHash | null): Promise<void> {
+  const storage = await connectStorage();
+  await storage.set(AUTH_RESULT, JSON.stringify(authResult));
 }
 
-function removeSession(): void {
-  localStorage.removeItem(AUTH_RESULT);
+async function removeSession(): Promise<void> {
+  const storage = await connectStorage();
+  return storage.get(AUTH_RESULT);
 }
 
-function getSession(): Auth0DecodedHash | null {
-  const sessionText = localStorage.getItem(AUTH_RESULT);
+async function getSession(): Promise<Auth0DecodedHash | null> {
+  const storage = await connectStorage();
+
+  const sessionText = await storage.get(AUTH_RESULT);
 
   if (sessionText) {
     return JSON.parse(sessionText);
@@ -40,8 +58,8 @@ function getSession(): Auth0DecodedHash | null {
 }
 
 function getSessionDecodedHash(): Promise<Auth0DecodedHash> {
-  return new Promise((resolve, reject) => {
-    const existingSession = getSession();
+  return new Promise(async (resolve, reject) => {
+    const existingSession = await getSession();
 
     auth.parseHash(
       (err, authResult) => {
@@ -94,13 +112,13 @@ async function getUserProfile(): Promise<any> {
   return new Promise((resolve, reject) => {
     auth.client.userInfo(
       accessToken,
-      function (err, user) {
+      async function (err, user) {
         if (err) {
           console.error(err);
-          removeSession();
+          await removeSession();
           reject(err);
         } else {
-          setSession(hash);
+          await setSession(hash);
           resolve(user);
         }
       }
@@ -109,22 +127,22 @@ async function getUserProfile(): Promise<any> {
 }
 
 export default class Auth {
-  static login() {
+  static login(): void {
     auth.authorize({
       scope
     });
   }
 
-  static logout() {
-    removeSession();
+  static async logout(): Promise<void> {
+    await removeSession();
   }
 
   static async getUser(): Promise<Auth0UserProfile> {
     return getUserProfile();
   }
 
-  static getIdToken(): string | null {
-    const storedAuth = getSession();
+  static async getIdToken(): Promise<string | null> {
+    const storedAuth = await getSession();
     if (!storedAuth) {
       return null;
     }
