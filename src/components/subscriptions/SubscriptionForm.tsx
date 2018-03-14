@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {
-  Subscription,
-  SubscriptionType,
+  CreateLogSubscriptionRequest,
   CreateTransactionSubscriptionRequest,
-  CreateLogSubscriptionRequest
+  Subscription,
+  SubscriptionType
 } from '../../debt/ethercast-backend-model';
 import { Button, Form, FormProps, Header, Input, TextArea } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
@@ -19,9 +19,42 @@ export interface SubscriptionFormProps extends FormProps {
   onSubmit: () => void;
 }
 
+const REQUEST_BIN_HOST = 'https://requestbin.fullcontact.com';
 
 class SubscriptionDetailsForm extends FormComponent<Subscription> {
+  state = {
+    generatingUrl: false
+  };
+
+  generateUrl = async () => {
+    const { generatingUrl } = this.state;
+    if (generatingUrl) {
+      return;
+    }
+
+    this.setState({ generatingUrl: true });
+
+    const response =
+      await fetch(`${REQUEST_BIN_HOST}/api/v1/bins`, { method: 'POST' });
+
+    if (response.status !== 200) {
+      this.setState({ generatingUrl: false });
+      alert('Sorry, we couldn\'t get one this time. Try going to https://requestbin.fullcontact.com/');
+    } else {
+      const { name } = await response.json();
+
+      this.props.onChange({
+        ...this.props.value,
+        webhookUrl: `${REQUEST_BIN_HOST}/${name}`,
+        description: `View subscription messages at ${`${REQUEST_BIN_HOST}/${name}?inspect`}`
+      });
+
+      this.setState({ generatingUrl: false });
+    }
+  };
+
   render() {
+    const { value } = this.props;
     return (
       <div>
         <Form.Field required>
@@ -31,6 +64,7 @@ class SubscriptionDetailsForm extends FormComponent<Subscription> {
             type="text"
             placeholder="My First Subscription"
             onChange={this.inputChangeHandler('name')}
+            value={value && value.name || ''}
             required
           />
         </Form.Field>
@@ -41,11 +75,22 @@ class SubscriptionDetailsForm extends FormComponent<Subscription> {
             placeholder="https://my-domain.com/accept-webhook"
             onChange={this.inputChangeHandler('webhookUrl')}
             required
+            value={value && value.webhookUrl || ''}
+            action={{
+              color: 'blue',
+              type: 'button',
+              loading: this.state.generatingUrl,
+              labelPosition: 'right',
+              icon: 'plus',
+              content: 'Get test URL',
+              onClick: this.generateUrl
+            }}
           />
         </Form.Field>
         <Form.Field>
           <label>Description</label>
           <TextArea
+            value={value && value.description || ''}
             name="description"
             placeholder="Notify me when events happen"
             onChange={this.inputChangeHandler('description') as any}
@@ -57,11 +102,12 @@ class SubscriptionDetailsForm extends FormComponent<Subscription> {
 }
 
 export default class SubscriptionForm extends React.PureComponent<SubscriptionFormProps> {
-  handleChange = (value: Partial<CreateLogSubscriptionRequest | CreateTransactionSubscriptionRequest>) =>
-    this.props.onChange({ ...this.props.value, ...value } as any);
+  handleChange = (changes: Partial<CreateLogSubscriptionRequest | CreateTransactionSubscriptionRequest>) => {
+    console.log(changes);
+    this.props.onChange({ ...this.props.value, ...changes } as any);
+  };
 
-  handleFiltersChange = (filters: any) => this.props.onChange({
-    ...this.props.value,
+  handleFiltersChange = (filters: any) => this.handleChange({
     filters
   });
 
