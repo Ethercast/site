@@ -19,7 +19,7 @@ export default withRouter(
             <Card.Description>
               {description && description.length > 0 ? description : <em>No description</em>}
             </Card.Description>
-            <Card.Content>{moment(timestamp).format('l LT')}</Card.Content>
+            <Card.Content>{moment(timestamp * 1000).format('l LT')}</Card.Content>
           </Card.Content>
         </Card>
       );
