@@ -1,31 +1,21 @@
 import * as React from 'react';
-import { HTMLProps } from 'react';
-import ReceiptTable from '../components/ReceiptTable';
-import { deactivateSubscription, getSubscription } from '../util/api';
 import { RouteComponentProps } from 'react-router';
+import { Button, Container, Header, Loader, Message } from 'semantic-ui-react';
+import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
+import * as _ from 'underscore';
+import Ellipsis from '../components/Ellipsis';
+import EtherscanLink from '../components/EtherscanLink';
+import Linkify from '../components/Linkify';
+import ReceiptTable from '../components/ReceiptTable';
 import {
-  LogFilterType, LogSubscription, Subscription, TransactionFilterType,
+  LogFilterType,
+  LogSubscription,
+  Subscription,
+  TransactionFilterType,
   TransactionSubscription
 } from '../debt/ethercast-backend-model';
-import { Button, Container, Header, Loader, Message } from 'semantic-ui-react';
-import * as _ from 'underscore';
-import EtherscanLink from '../components/EtherscanLink';
+import { deactivateSubscription, getSubscription } from '../util/api';
 import { FILTER_TYPE_INFO } from '../util/filter-type-names';
-import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
-
-function Ellipsis({ style, ...props }: HTMLProps<HTMLDivElement>) {
-  return (
-    <div
-      style={{
-        ...style,
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap'
-      }}
-      {...props}
-    />
-  );
-}
 
 export default class ViewSubscriptionPage extends React.Component<RouteComponentProps<{ id: string }>, { subscription: Subscription | null, promise: Promise<any> | null }> {
   state = {
@@ -154,7 +144,7 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
 
         <p>
           {
-            description ? description : <em>No description</em>
+            description ? <Linkify children={description}/> : <em>No description</em>
           }
         </p>
 
