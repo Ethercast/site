@@ -1,4 +1,3 @@
-// copied from v0.0.7
 export enum SubscriptionStatus {
   active = 'active',
   deactivated = 'deactivated'
@@ -79,6 +78,7 @@ export interface WebhookReceipt {
 }
 
 export interface CreateApiKeyRequest {
+  name: string;
   scopes: Set<Scope>;
 }
 

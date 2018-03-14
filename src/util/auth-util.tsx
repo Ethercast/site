@@ -1,6 +1,5 @@
 import * as auth0 from 'auth0-js';
 import { Auth0DecodedHash, Auth0UserProfile, AuthOptions } from 'auth0-js';
-import * as moment from 'moment';
 import { Scope } from '../debt/ethercast-backend-model';
 import { CrossStorageClient } from 'cross-storage';
 import * as _ from 'underscore';
@@ -15,7 +14,7 @@ const AUTH_SETTINGS: AuthOptions = {
   clientID: 'Uz4zGr8VLnfDsQ4y5tRn0v09iw03X0KK',
   redirectUri: `${window.location.origin}/`,
   audience: 'https://api.ethercast.io',
-  responseType: 'token id_token',
+  responseType: 'token',
   scope
 };
 
@@ -63,23 +62,20 @@ function getSessionDecodedHash(): Promise<Auth0DecodedHash> {
 
     auth.parseHash(
       (err, authResult) => {
-        if (authResult && authResult.idToken) {
+        if (err) {
+          if (existingSession) {
+            resolve(existingSession);
+          } else {
+            reject(new Error('invalid auth and no existing session'));
+          }
+        } else if (authResult && authResult.accessToken) {
           resolve(authResult);
         } else {
-          if (err) {
-            console.error(err);
-            if (existingSession) {
-              resolve(existingSession);
-            } else {
-              reject();
-            }
+          if (existingSession) {
+            resolve(existingSession);
           } else {
-            // if there's a valid existing session, use it
-            if (existingSession) {
-              resolve(existingSession);
-            } else {
-              reject();
-            }
+            console.log(err, authResult);
+            reject(new Error('unexpected branch in auth code'));
           }
         }
       }
@@ -90,23 +86,10 @@ function getSessionDecodedHash(): Promise<Auth0DecodedHash> {
 async function getUserProfile(): Promise<any> {
   const hash = await getSessionDecodedHash();
 
-  const { idTokenPayload, accessToken } = hash;
+  const { accessToken } = hash;
+
   if (!accessToken) {
     throw new Error('no access token in the auth0 decoded hash');
-  }
-
-  if (!idTokenPayload) {
-    throw new Error('no id token payload');
-  }
-
-  const { exp } = idTokenPayload;
-
-  if (!exp) {
-    throw new Error('no expiration on token');
-  }
-
-  if (moment(exp * 1000).isBefore(moment())) {
-    throw new Error('token expired');
   }
 
   return new Promise((resolve, reject) => {
@@ -129,7 +112,7 @@ async function getUserProfile(): Promise<any> {
 export default class Auth {
   static login(): void {
     auth.authorize({
-      scope
+      audience: 'https://api.ethercast.io'
     });
   }
 
@@ -141,13 +124,13 @@ export default class Auth {
     return getUserProfile();
   }
 
-  static async getIdToken(): Promise<string | null> {
+  static async getAccessToken(): Promise<string | null> {
     const storedAuth = await getSession();
     if (!storedAuth) {
       return null;
     }
 
-    const { idToken } = storedAuth;
-    return idToken || null;
+    const { accessToken } = storedAuth;
+    return accessToken || null;
   };
 }

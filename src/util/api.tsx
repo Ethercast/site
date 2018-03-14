@@ -9,7 +9,7 @@ if (!netInfo || !netInfo.enabled) {
 }
 
 async function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: object) {
-  const token: string | null = await Auth.getIdToken();
+  const token: string | null = await Auth.getAccessToken();
 
   if (!token) {
     throw new Error('unauthorized request');

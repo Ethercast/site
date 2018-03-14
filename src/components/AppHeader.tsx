@@ -42,8 +42,12 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
             Ethercast
           </span>
         </Menu.Item>
-        <NavLink to="/subscriptions">My subscriptions</NavLink>
-        <NavLink to="/api-keys">My API keys</NavLink>
+        {
+          principal ? [
+            <NavLink key="sub-link" to="/subscriptions">My subscriptions</NavLink>,
+            <NavLink key="api-keys-link" to="/api-keys">My API keys</NavLink>
+          ] : null
+        }
 
         <Menu.Menu position="right">
           <Dropdown item text="Networks">
