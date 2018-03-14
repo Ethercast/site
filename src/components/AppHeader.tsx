@@ -1,11 +1,11 @@
+import { Auth0UserProfile } from 'auth0-js';
 import * as React from 'react';
+import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Button, Container, Image, Menu } from 'semantic-ui-react';
-import { Auth0UserProfile } from 'auth0-js';
-import Auth from '../util/auth-util';
-import { Route } from 'react-router';
 import Dropdown from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
 import * as _ from 'underscore';
+import Auth from '../util/auth-util';
 import { netInfo, NETWORKS } from '../util/net-info';
 
 function NavLink({ to, ...props }: any) {
@@ -20,7 +20,7 @@ function NavLink({ to, ...props }: any) {
 
 export default function AppHeader({ principal, onLogOut }: { principal: Auth0UserProfile | null, onLogOut: () => void }) {
   return (
-    <Menu stackable>
+    <Menu stackable style={{ height: 56 }}>
       <Container>
         <Menu.Item as={Link} to="/" header style={{
           display: 'inline-block',
