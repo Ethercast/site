@@ -18,7 +18,8 @@ export enum LogFilterType {
 
 export enum TransactionFilterType {
   from = 'from',
-  to = 'to'
+  to = 'to',
+  methodSignature = 'methodSignature'
 }
 
 export type FilterOptionValue = string | string[] | null;

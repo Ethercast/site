@@ -10,7 +10,7 @@ import {
 import { Button, Container, Header, Loader, Message } from 'semantic-ui-react';
 import * as _ from 'underscore';
 import EtherscanLink from '../components/EtherscanLink';
-import { FILTER_TYPE_NAMES } from '../util/filter-type-names';
+import { FILTER_TYPE_INFO } from '../util/filter-type-names';
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
 
 function Ellipsis({ style, ...props }: HTMLProps<HTMLDivElement>) {
@@ -204,7 +204,7 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
                           <div key={ix}>
                             <div>
                               <strong>
-                                {FILTER_TYPE_NAMES[ type ]}
+                                {FILTER_TYPE_INFO[ type ].name}
                               </strong>
                             </div>
                             <Ellipsis>
