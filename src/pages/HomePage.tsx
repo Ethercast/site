@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
-import { Button, Container, Grid, Header, Icon, Label, Segment, Transition } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { AppState } from '../reducers';
+import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
-import Auth from '../util/auth-util';
+import { Button, Container, Grid, Header, Icon, Label, Segment, Transition } from 'semantic-ui-react';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs';
 import Divider from 'semantic-ui-react/dist/commonjs/elements/Divider/Divider';
+import EyeCatcherAnimation from '../components/EyeCatcherAnimation';
+import { AppState } from '../reducers';
+import Auth from '../util/auth-util';
 
 export interface HomePageProps extends RouteComponentProps<{}> {
   loggedIn: boolean;
@@ -79,36 +80,38 @@ export default class HomePage extends React.Component<HomePageProps> {
   public render() {
     return (
       <div>
-        <Segment
-          inverted
-          textAlign="center"
-          style={{ minHeight: '80vh', marginTop: '-2em', display: 'flex', alignItems: 'center' }}
-          vertical>
-          <Container text>
-            <Header
-              as="h1"
-              content="Ethercast"
-              inverted
-              style={{
-                fontFamily: 'Roboto Slab',
-                fontSize: '4em',
-                fontWeight: 'normal'
-              }}
-            />
-            <Header
-              as="h2"
-              content="Subscribe to anything that happens on the Ethereum blockchain."
-              inverted
-              style={{
-                fontSize: '1.7em',
-                fontWeight: 'normal',
-                marginTop: '1.5em',
-                marginBottom: '1.5em'
-              }}
-            />
-            <GetStarted/>
-          </Container>
-        </Segment>
+        <EyeCatcherAnimation>
+          <Segment
+            inverted
+            textAlign="center"
+            style={{ minHeight: '80vh', marginTop: '-2em', display: 'flex', alignItems: 'center' }}
+            vertical>
+            <Container text>
+              <Header
+                as="h1"
+                content="Ethercast"
+                inverted
+                style={{
+                  fontFamily: 'Roboto Slab',
+                  fontSize: '4em',
+                  fontWeight: 'normal'
+                }}
+              />
+              <Header
+                as="h2"
+                content="Subscribe to anything that happens on the Ethereum blockchain."
+                inverted
+                style={{
+                  fontSize: '1.7em',
+                  fontWeight: 'normal',
+                  marginTop: '1.5em',
+                  marginBottom: '1.5em'
+                }}
+              />
+              <GetStarted/>
+            </Container>
+          </Segment>
+        </EyeCatcherAnimation>
 
         <Header
           as="h2"
@@ -129,9 +132,10 @@ export default class HomePage extends React.Component<HomePageProps> {
                 receive the decoded data and topics with each log and transaction in the <code>ethercast</code> key
               </Feature>
               <Feature title="Security" icon="lock">
-                Our webhook requests are validated with HMAC signatures, so you know they came from us.
-                If you want to check the validity and correctness of the transaction and log data,
-                you can use a third party such as Infura or your own Ethereum node.
+                Our webhook requests are validated with HMAC signatures,
+                so you know they came from us.
+                If you want to check the correctness of the transaction and log data,
+                you can verify with an additional party such as Infura.
               </Feature>
             </Grid.Row>
             <Grid.Row stretched>
