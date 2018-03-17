@@ -75,7 +75,6 @@ export default class EyeCatcherAnimation extends React.Component<{}, { catchers:
   timer: number;
 
   componentDidMount() {
-    this.addCatcher();
     this.timer = window.setInterval(this.addCatcher, FREQUENCY);
   }
 
