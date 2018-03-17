@@ -59,8 +59,9 @@ class SubscriptionDetailsForm extends FormComponent<Subscription> {
     return (
       <div>
         <Form.Field required>
-          <label>Name</label>
+          <label htmlFor="subscription-name">Name</label>
           <Input
+            id="subscription-name"
             name="name"
             type="text"
             placeholder="My First Subscription"
@@ -70,9 +71,10 @@ class SubscriptionDetailsForm extends FormComponent<Subscription> {
           />
         </Form.Field>
         <Form.Field required>
-          <label>Webhook URL</label>
+          <label htmlFor="subscription-webhook-url">Webhook URL</label>
           <Input
             type="url"
+            id="subscription-webhook-url"
             placeholder="https://my-domain.com/accept-webhook"
             onChange={this.inputChangeHandler('webhookUrl')}
             required
@@ -89,8 +91,9 @@ class SubscriptionDetailsForm extends FormComponent<Subscription> {
           />
         </Form.Field>
         <Form.Field>
-          <label>Description</label>
+          <label htmlFor="subscription-description">Description</label>
           <TextArea
+            id="subscription-description"
             value={value && value.description || ''}
             name="description"
             placeholder="Notify me when events happen"
@@ -117,7 +120,7 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
   };
 
   public render() {
-    const { value, onChange, onViewExample,...rest } = this.props;
+    const { value, onChange, onViewExample, ...rest } = this.props;
 
     return (
       <Form size="big" {...rest} onSubmit={this.onSubmit}>

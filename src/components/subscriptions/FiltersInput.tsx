@@ -52,8 +52,9 @@ export default class FiltersInput extends FormComponent<SubscriptionFilters, Fil
                     error={error}
                     key={type}
                   >
-                    <label>{name}</label>
+                    <label htmlFor={`subscription-${name}`}>{name}</label>
                     <TextArea
+                      id={`subscription-${name}`}
                       required={noneFilled}
                       type="text"
                       autoHeight

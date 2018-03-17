@@ -105,7 +105,7 @@ export default mustBeLoggedIn(
             </Modal.Header>
             <Modal.Content scrolling>
               <p>
-                Adding addresses to your example will cause decoded parameters to show up in this example
+                Adding filters to your subscription will allow us to provide better examples
               </p>
               {example ? <FormattedJSON object={example}/> : null}
             </Modal.Content>
