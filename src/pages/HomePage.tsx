@@ -99,7 +99,7 @@ export default class HomePage extends React.Component<HomePageProps> {
               />
               <Header
                 as="h2"
-                content="Subscribe to anything that happens on the Ethereum blockchain."
+                content="Real-time subscriptions for anything that happens on the Ethereum blockchain"
                 inverted
                 style={{
                   fontSize: '1.7em',
