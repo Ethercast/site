@@ -1,23 +1,27 @@
 import * as React from 'react';
-import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
+import Responsive from 'semantic-ui-react/dist/commonjs/addons/Responsive/Responsive';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
 import Transition from 'semantic-ui-react/dist/commonjs/modules/Transition/Transition';
 import * as _ from 'underscore';
 
 const TEXTS = [
-  'A kitty was born',
-  'Augur predicted an event',
-  'BNTY sold for 0.05 ETH',
-  'A MakerDAO CDP was liquidated'
+  'CryptoKitties: a new kitty was born',
+  'MakerDAO: a CDP was opened',
+  'Augur: a bet was completed',
+  'EtherDelta: a trade was executed',
+  'MakerDAO: a CDP was liquidated',
+  '0x00: sent you some ETH',
+  'CryptoKitties: the genesis kitty sold'
 ];
 
-function randomText(): string {
-  return TEXTS[ Math.round(Math.random() * TEXTS.length - 1) ];
-}
+const FREQUENCY: number = 3000;
+const DURATION: number = 5000;
 
 interface Catcher {
   text: string;
   position: number;
   right: boolean;
+  visible: boolean;
 }
 
 export default class EyeCatcherAnimation extends React.Component<{}, { catchers: { [id: number]: Catcher } }> {
@@ -34,23 +38,45 @@ export default class EyeCatcherAnimation extends React.Component<{}, { catchers:
       catchers: {
         ...catchers,
         [ id ]: {
-          text: randomText(),
-          position: Math.round(Math.random() * 100),
-          right: Boolean(Math.round(Math.random())),
+          text: TEXTS[ id % TEXTS.length ],
+          visible: true,
+          position: Math.round(Math.random() * 90 + 5),
+          right: id % 2 === 1,
           fontSize: `${Math.round(100 + Math.random() * 15) / 100}em`
         }
       }
     }));
+
     setTimeout(
-      () => this.setState(({ catchers }) => ({ catchers: _.omit(catchers, '' + id) })),
-      4000 + Math.random() * 500
+      () => {
+        this.setState(
+          ({ catchers }) => ({
+            catchers: {
+              ...catchers,
+              [ id ]: {
+                ...catchers[ id ],
+                visible: false
+              }
+            }
+          })
+        );
+
+        setTimeout(
+          () => {
+            this.setState(({ catchers }) => ({ catchers: _.omit(catchers, '' + id) }));
+          },
+          500
+        );
+      },
+      DURATION
     );
   };
 
   timer: number;
 
   componentDidMount() {
-    this.timer = window.setInterval(this.addCatcher, 3000);
+    this.addCatcher();
+    this.timer = window.setInterval(this.addCatcher, FREQUENCY);
   }
 
   componentWillUnmount() {
@@ -61,32 +87,41 @@ export default class EyeCatcherAnimation extends React.Component<{}, { catchers:
     const { children } = this.props;
     const { catchers } = this.state;
 
-    console.log(catchers);
-
     return (
       <div style={{ position: 'relative' }}>
         {children}
-        <Transition.Group animation={'fade'} duration={200}>
+        <Responsive minWidth={1200}>
           {
             _.map(
               catchers,
-              ({ id, text, fontSize, position, right }) =>
+              ({ visible, text, fontSize, position, right }, id) =>
                 (
-                  <Label
-                    icon="exclamation"
+                  <Transition
+                    key={id}
+                    transitionOnMount
+                    animation={right ? 'fade left' : 'fade right'}
+                    visible={visible}
+                  >
+                  <span
                     style={{
+                      margin: '0',
+                      color: 'rgba(255,255,255,0.8)',
                       position: 'absolute',
                       fontSize: fontSize,
                       top: `${position}%`,
                       left: right ? null : 12,
                       right: right ? 12 : null
-                    }}>
+                    }}
+                  >
+                    {right ? <Icon name="exclamation"/> : null}
                     {text}
-                  </Label>
+                    {right ? null : <Icon name="exclamation"/>}
+                  </span>
+                  </Transition>
                 )
             )
           }
-        </Transition.Group>
+        </Responsive>
       </div>
     );
   }

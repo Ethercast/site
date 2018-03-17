@@ -20,7 +20,7 @@ function NavLink({ to, ...props }: any) {
 
 export default function AppHeader({ principal, onLogOut }: { principal: Auth0UserProfile | null, onLogOut: () => void }) {
   return (
-    <Menu stackable style={{ height: 56 }}>
+    <Menu stackable>
       <Container>
         <Menu.Item as={Link} to="/" header style={{
           display: 'inline-block',
