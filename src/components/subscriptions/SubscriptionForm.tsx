@@ -1,22 +1,23 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Form, FormProps, Header, Input, TextArea } from 'semantic-ui-react';
+import Divider from 'semantic-ui-react/dist/commonjs/elements/Divider/Divider';
+import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
+import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
 import {
   CreateLogSubscriptionRequest,
   CreateTransactionSubscriptionRequest,
   Subscription,
   SubscriptionType
 } from '../../debt/ethercast-backend-model';
-import { Button, Form, FormProps, Header, Input, TextArea } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 import FormComponent from '../FormComponent';
 import FiltersInput from './FiltersInput';
-import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
-import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
-import Divider from 'semantic-ui-react/dist/commonjs/elements/Divider/Divider';
 
 export interface SubscriptionFormProps extends FormProps {
   value: Partial<CreateLogSubscriptionRequest | CreateTransactionSubscriptionRequest>;
   onChange: (subscription: Partial<CreateLogSubscriptionRequest | CreateTransactionSubscriptionRequest>) => void;
   onSubmit: () => void;
+  onViewExample: () => void;
 }
 
 const REQUEST_BIN_HOST = 'https://requestbin.fullcontact.com';
@@ -103,7 +104,6 @@ class SubscriptionDetailsForm extends FormComponent<Subscription> {
 
 export default class SubscriptionForm extends React.PureComponent<SubscriptionFormProps> {
   handleChange = (changes: Partial<CreateLogSubscriptionRequest | CreateTransactionSubscriptionRequest>) => {
-    console.log(changes);
     this.props.onChange({ ...this.props.value, ...changes } as any);
   };
 
@@ -117,7 +117,7 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
   };
 
   public render() {
-    const { value, onChange, ...rest } = this.props;
+    const { value, onChange, onViewExample,...rest } = this.props;
 
     return (
       <Form size="big" {...rest} onSubmit={this.onSubmit}>
@@ -160,7 +160,12 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
         </div>
         <div style={{ padding: 10, textAlign: 'right' }}>
           <Button size="big" as={Link} to="/subscriptions">Cancel</Button>
-          <Button size="big" type="submit" primary={true}>Submit</Button>
+          <Button size="big" type="button" onClick={onViewExample} positive>
+            View example
+          </Button>
+          <Button size="big" type="submit" primary={true}>
+            Submit
+          </Button>
         </div>
       </Form>
     );

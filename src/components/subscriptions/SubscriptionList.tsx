@@ -5,7 +5,7 @@ import { Card } from 'semantic-ui-react';
 
 export default ({ items }: { items: Subscription[] }) => {
   return (
-    <Card.Group itemsPerRow={4} stackable>
+    <Card.Group itemsPerRow={3} stackable>
       {
         items.map(
           (subscription: Subscription) => (

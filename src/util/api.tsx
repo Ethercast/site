@@ -1,5 +1,12 @@
 import * as urlJoin from 'url-join';
-import { LogSubscription, TransactionSubscription, WebhookReceipt } from '../debt/ethercast-backend-model';
+import {
+  LogSubscription,
+  LogSubscriptionFilters,
+  SubscriptionType,
+  TransactionSubscription,
+  TransactionSubscriptionFilters,
+  WebhookReceipt
+} from '../debt/ethercast-backend-model';
 import Auth from './auth-util';
 import { netInfo } from './net-info';
 
@@ -86,4 +93,8 @@ export async function deactivateSubscription(id: string): Promise<void> {
 
 export function listReceipts(subscriptionId: string): Promise<WebhookReceipt[]> {
   return fetchWithAuth('GET', `/subscriptions/${subscriptionId}/receipts`);
+}
+
+export function getExamples(request: { type: SubscriptionType, filters: TransactionSubscriptionFilters | LogSubscriptionFilters }): Promise<object> {
+  return fetchWithAuth('POST', `/get-examples`, request);
 }
