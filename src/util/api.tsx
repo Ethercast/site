@@ -39,8 +39,7 @@ async function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, bo
         }
 
         if (response.status === 401) {
-          console.log('error response');
-          throw new Error('You are not logged in');
+          throw new Error('Your token has expired');
         }
 
         const json = await response.json();
