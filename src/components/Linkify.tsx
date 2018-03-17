@@ -13,8 +13,10 @@ export default function Linkify({ children }: LinkifyProps) {
         children ?
           children.split(' ')
             .map(
-              w =>
-                matching.test(w) ? <a target="_blank" rel="nofollow noreferrer" href={w}>{w} </a> : ``
+              (w, ix) =>
+                matching.test(w) ?
+                  <a key={ix} target="_blank" rel="nofollow noreferrer" href={w}>{w} </a> :
+                  `${w} `
             )
           :
           null

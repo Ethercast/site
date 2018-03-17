@@ -1,7 +1,7 @@
-import Auth from './auth-util';
 import * as urlJoin from 'url-join';
-import { netInfo } from './net-info';
 import { LogSubscription, TransactionSubscription, WebhookReceipt } from '../debt/ethercast-backend-model';
+import Auth from './auth-util';
+import { netInfo } from './net-info';
 
 if (!netInfo || !netInfo.enabled) {
   alert('sorry, this network is not yet supported!');
@@ -36,6 +36,11 @@ async function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, bo
       async response => {
         if (response.status === 204) {
           return;
+        }
+
+        if (response.status === 401) {
+          console.log('error response');
+          throw new Error('You are not logged in');
         }
 
         const json = await response.json();
