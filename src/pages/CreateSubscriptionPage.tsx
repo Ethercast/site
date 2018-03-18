@@ -99,14 +99,19 @@ export default mustBeLoggedIn(
             />
           </Dimmer.Dimmable>
 
-          <Modal open={example !== null} onClose={this.closeExample}>
+          <Modal open={example !== null} onClose={this.closeExample} animated>
             <Modal.Header>
               Example event
             </Modal.Header>
             <Modal.Content scrolling>
-              <p>
-                Adding filters to your subscription will allow us to provide better examples
-              </p>
+              <Message warning>
+                <Message.Header>Work in progress</Message.Header>
+                <Message.Content>
+                  This feature is a work in progress.
+                  Currently you cannot see the decoded log or transaction parameters that will be delivered with the
+                  basic log and transaction fields.
+                </Message.Content>
+              </Message>
               {example ? <FormattedJSON object={example}/> : null}
             </Modal.Content>
             <Modal.Actions>

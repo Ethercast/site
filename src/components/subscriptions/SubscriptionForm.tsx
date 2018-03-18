@@ -119,6 +119,10 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
     this.props.onSubmit();
   };
 
+  openWizard = (e: any) => {
+    alert('Coming soon!');
+  };
+
   public render() {
     const { value, onChange, onViewExample, ...rest } = this.props;
 
@@ -150,6 +154,15 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
                   Transactions
                 </Button>
               </Button.Group>
+
+              <Button
+                style={{ marginLeft: 12 }}
+                onClick={this.openWizard}
+                type="button"
+                icon="wizard"
+                content="Easy button"
+                primary
+              />
             </div>
 
             <Divider/>
