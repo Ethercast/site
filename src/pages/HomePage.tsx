@@ -157,6 +157,21 @@ export default class HomePage extends React.Component<HomePageProps> {
                 with the blockchain without writing any code.
               </Feature>
             </Grid.Row>
+
+            <Grid.Row>
+              <Grid.Column width={4}/>
+              <Feature title="Zapier Integration" icon="alarm" beta>
+                We are integrated directly with Zapier so you integrate blockchain with other applications without
+                writing a single line of code.
+                <a
+                  style={{ marginLeft: 4 }}
+                  target="_blank"
+                  href="https://zapier.com/platform/public-invite/3099/34e68fc08de8f5eaf736af0eeacc47d4/">
+                  Try the beta!
+                </a>
+              </Feature>
+              <Grid.Column width={4}/>
+            </Grid.Row>
           </Grid>
         </Container>
 
