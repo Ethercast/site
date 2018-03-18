@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Button, Container, Header, Loader, Message } from 'semantic-ui-react';
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon/Icon';
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input/Input';
 import * as _ from 'underscore';
 import Ellipsis from '../components/Ellipsis';
@@ -157,6 +158,12 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
           The subscription secret below is used to sign all requests to the endpoint.
           You can use it to verify requests made to your webhook are coming from Ethercast.
         </p>
+        <Message info>
+          <Icon name="question circle"/> Need help validating signatures? Try out the <a target="_blank"
+                                                                                         href="https://ethercast.github.io/calculate-signature/">@ethercast/calculate-signature</a> npm
+          module.
+        </Message>
+
         <div>
           <Input
             ref={this.setSecretRef}

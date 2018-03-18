@@ -2,17 +2,28 @@ import { Auth0UserProfile } from 'auth0-js';
 import * as React from 'react';
 import { Route } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Button, Container, Image, Menu } from 'semantic-ui-react';
+import { Button, Container, Image, Menu, MenuItemProps } from 'semantic-ui-react';
 import Dropdown from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
 import * as _ from 'underscore';
 import Auth from '../util/auth-util';
 import { netInfo, NETWORKS } from '../util/net-info';
 
+const StyledMenuItem = ({ style, ...props }: MenuItemProps) => (
+  <Menu.Item style={{ ...style, justifyContent: 'center' }} {...props}/>
+);
+
 function NavLink({ to, ...props }: any) {
   return (
     <Route path={to} exact>
       {
-        ({ match }) => <Menu.Item {...props} active={!!match} as={Link} to={to}/>
+        ({ match }) => (
+          <StyledMenuItem
+            {...props}
+            active={!!match}
+            as={Link}
+            to={to}
+          />
+        )
       }
     </Route>
   );
@@ -22,13 +33,17 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
   return (
     <Menu stackable>
       <Container>
-        <Menu.Item as={Link} to="/" header style={{
-          display: 'inline-block',
-          fontFamily: 'Roboto Slab',
-          fontSize: '1.2em',
-          padding: '0.5em 1em',
-          textAlign: 'center'
-        }}>
+        <StyledMenuItem
+          as={Link}
+          to="/"
+          header
+          style={{
+            display: 'inline-block',
+            fontFamily: 'Roboto Slab',
+            fontSize: '1.2em',
+            padding: '0.5em 1em',
+            textAlign: 'center'
+          }}>
           <Image
             size="mini"
             src="/hero.png"
@@ -41,7 +56,7 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
           <span style={{ position: 'relative', top: 4 }}>
             Ethercast
           </span>
-        </Menu.Item>
+        </StyledMenuItem>
         {
           principal ? [
             <NavLink key="sub-link" to="/subscriptions">My subscriptions</NavLink>
@@ -50,13 +65,14 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
         }
 
         <Menu.Menu position="right">
-          <Dropdown item text="Networks">
+          <Dropdown item text="Networks" style={{ justifyContent: 'center' }}>
             <Dropdown.Menu>
               {
                 _.map(
                   NETWORKS,
                   (info, name) => (
                     <Dropdown.Item
+                      style={{ textAlign: 'center' }}
                       key={name}
                       as="a"
                       text={name}
@@ -74,20 +90,20 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
             principal ? (
               [
                 principal.picture ? (
-                  <Menu.Item key="img">
+                  <StyledMenuItem key="img">
                     <Image height={28} circular src={principal.picture}/>
-                  </Menu.Item>
+                  </StyledMenuItem>
                 ) : null,
                 principal.name ? (
-                  <Menu.Item key="name">
+                  <StyledMenuItem key="name">
                     Logged in as <strong style={{ marginLeft: 4 }}>{principal.name}</strong>
-                  </Menu.Item>
+                  </StyledMenuItem>
                 ) : null
               ]
             ) : null
           }
 
-          <Menu.Item key="act">
+          <StyledMenuItem key="act">
             {
               principal ? (
                 <Button onClick={onLogOut}>Log out</Button>
@@ -95,7 +111,7 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
                 <Button primary onClick={Auth.login}>Log in</Button>
               )
             }
-          </Menu.Item>
+          </StyledMenuItem>
         </Menu.Menu>
       </Container>
     </Menu>
