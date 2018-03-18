@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { Button, Container, Grid, Header, Icon, Label, Segment, Transition } from 'semantic-ui-react';
 import { SemanticICONS } from 'semantic-ui-react/dist/commonjs';
 import Divider from 'semantic-ui-react/dist/commonjs/elements/Divider/Divider';
-import EyeCatcherAnimation from '../components/EyeCatcherAnimation';
 import { AppState } from '../reducers';
 import Auth from '../util/auth-util';
 
@@ -80,38 +79,36 @@ export default class HomePage extends React.Component<HomePageProps> {
   public render() {
     return (
       <div>
-        <EyeCatcherAnimation>
-          <Segment
-            inverted
-            textAlign="center"
-            style={{ minHeight: '80vh', marginTop: '-2em', display: 'flex', alignItems: 'center' }}
-            vertical>
-            <Container text>
-              <Header
-                as="h1"
-                content="Ethercast"
-                inverted
-                style={{
-                  fontFamily: 'Roboto Slab',
-                  fontSize: '4em',
-                  fontWeight: 'normal'
-                }}
-              />
-              <Header
-                as="h2"
-                content="Real-time subscriptions for anything that happens on the Ethereum blockchain"
-                inverted
-                style={{
-                  fontSize: '1.7em',
-                  fontWeight: 'normal',
-                  marginTop: '1.5em',
-                  marginBottom: '1.5em'
-                }}
-              />
-              <GetStarted/>
-            </Container>
-          </Segment>
-        </EyeCatcherAnimation>
+        <Segment
+          inverted
+          textAlign="center"
+          style={{ minHeight: '80vh', marginTop: '-2em', display: 'flex', alignItems: 'center' }}
+          vertical>
+          <Container text>
+            <Header
+              as="h1"
+              content="Ethercast"
+              inverted
+              style={{
+                fontFamily: 'Roboto Slab',
+                fontSize: '4em',
+                fontWeight: 'normal'
+              }}
+            />
+            <Header
+              as="h2"
+              content="Real-time subscriptions for anything that happens on the Ethereum blockchain"
+              inverted
+              style={{
+                fontSize: '1.7em',
+                fontWeight: 'normal',
+                marginTop: '1.5em',
+                marginBottom: '1.5em'
+              }}
+            />
+            <GetStarted/>
+          </Container>
+        </Segment>
 
         <Header
           as="h2"
