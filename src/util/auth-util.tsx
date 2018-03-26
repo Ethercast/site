@@ -1,8 +1,7 @@
 import * as auth0 from 'auth0-js';
 import { Auth0DecodedHash, Auth0UserProfile, AuthOptions } from 'auth0-js';
 import { Scope } from '../debt/ethercast-backend-model';
-import { CrossStorageClient } from 'cross-storage';
-import * as _ from 'underscore';
+import connectStorage from './connect-storage';
 
 const scope = Object.keys(Scope)
   .map(k => Scope[ k ])
@@ -21,18 +20,6 @@ const AUTH_SETTINGS: AuthOptions = {
 const auth = new auth0.WebAuth(AUTH_SETTINGS);
 
 const AUTH_RESULT = 'auth_result';
-
-const connectStorage = _.once(
-  async function () {
-    const storage = new CrossStorageClient(
-      process.env.NODE_ENV === 'production' ?
-        'https://ethercast.io/sso.html' :
-        '/sso.html'
-    );
-    await storage.onConnect();
-    return storage;
-  }
-);
 
 async function setSession(authResult: Auth0DecodedHash | null): Promise<void> {
   const storage = await connectStorage();
