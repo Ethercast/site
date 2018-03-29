@@ -19,7 +19,11 @@ export default class MailingFooter extends React.Component<{}, State> {
 
   subscribe = () => {
     const url = `https://ethercast.us12.list-manage.com/subscribe?u=bcdba189ebc2ddf23f14ae273&id=ba729c94d7&MERGE0=${this.state.email}`;
-    window.open(url, '_blank', 'noopener');
+    const succeeded = window.open(url, '_blank', 'noopener');
+    if (!succeeded) {
+      // this browser does not support or is blocking the popup
+      window.location.href = url;
+    }
     this.dismiss();
   };
 
