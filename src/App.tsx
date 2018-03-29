@@ -54,9 +54,7 @@ export default withRouter(
         return (
           <div>
             <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
-              <div>
-                <AppHeader principal={principal} onLogOut={logout}/>
-              </div>
+              <AppHeader principal={principal} onLogOut={logout}/>
 
               <ScrollToTop/>
 
