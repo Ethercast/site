@@ -18,7 +18,8 @@ export default class MailingFooter extends React.Component<{}, State> {
   };
 
   subscribe = () => {
-    // TODO
+    const url = `https://ethercast.us12.list-manage.com/subscribe?u=bcdba189ebc2ddf23f14ae273&id=ba729c94d7&MERGE0=${this.state.email}`;
+    window.open(url, '_blank', 'noopener');
     this.dismiss();
   };
 
