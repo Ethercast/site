@@ -4,7 +4,7 @@ import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 
 export default mustBeLoggedIn(
-  class ListApiKeysPage extends React.PureComponent {
+  class ApiKeysPage extends React.PureComponent {
     render() {
       return (
         <Container>
