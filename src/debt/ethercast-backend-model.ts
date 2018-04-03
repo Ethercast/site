@@ -80,10 +80,11 @@ export interface WebhookReceipt {
 
 export interface CreateApiKeyRequest {
   name: string;
-  scopes: Set<Scope>;
+  scopes: Scope[];
 }
 
 export interface ApiKey extends CreateApiKeyRequest {
+  id: string;
   user: string;
   secret: string;
 }
@@ -92,6 +93,7 @@ export enum Scope {
   READ_SUBSCRIPTION = 'read:subscription',
   CREATE_SUBSCRIPTION = 'create:subscription',
   DEACTIVATE_SUBSCRIPTION = 'deactivate:subscription',
+  READ_API_KEY = 'read:apiKey',
   CREATE_API_KEY = 'create:apiKey',
   DEACTIVATE_API_KEY = 'deactivate:apiKey'
 }
