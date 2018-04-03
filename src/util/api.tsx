@@ -1,5 +1,7 @@
 import * as urlJoin from 'url-join';
 import {
+  ApiKey,
+  Scope,
   LogSubscription,
   LogSubscriptionFilters,
   SubscriptionType,
@@ -73,6 +75,18 @@ async function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, bo
         throw error;
       }
     );
+}
+
+export function createApiKey(name: string, scopes: Scope[]): Promise<ApiKey> {
+  return fetchWithAuth('POST', '/api-keys', {name, scopes});
+}
+
+export function listApiKeys(): Promise<ApiKey[]> {
+  return fetchWithAuth('GET', '/api-keys');
+}
+
+export function deleteApiKey(id: string): Promise<void> {
+  return fetchWithAuth('DELETE', `/api-keys/${id}`);
 }
 
 export function createSubscription(sub: object): Promise<TransactionSubscription | LogSubscription> {
