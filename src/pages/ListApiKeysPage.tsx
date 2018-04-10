@@ -1,100 +1,108 @@
+import * as _ from 'underscore';
 import * as qs from 'qs';
 import * as React from 'react';
 import { ChangeEvent } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import SubscriptionList from '../components/subscriptions/SubscriptionList';
-import { listSubscriptions } from '../util/api';
-import mustBeLoggedIn from '../util/mustBeLoggedIn';
 import { RouteComponentProps } from 'react-router';
-import { Subscription } from '../debt/ethercast-backend-model';
 import { Button, Container, Dimmer, Header, Icon, Input, Loader, Message } from 'semantic-ui-react';
-import * as _ from 'underscore';
+import { deleteApiKey, listApiKeys } from '../util/api';
+import mustBeLoggedIn from '../util/mustBeLoggedIn';
+import { ApiKey } from '../debt/ethercast-backend-model';
 import ClientPaginated from '../components/ClientPaginated';
+import ApiKeyList from '../components/api-keys/ApiKeyList';
 
 function CreateButton(props: {}) {
   return (
-    <Button size="big" primary as={Link} to="/subscriptions/new">
+    <Button size="big" primary as={Link} to="/api-keys/new">
       <Icon name="add"/> Create
     </Button>
   );
 }
 
 interface State {
-  subscriptions: Subscription[] | null;
+  apiKeys: ApiKey[] | null;
   promise: Promise<any> | null;
   error: string | null;
 }
 
-class ListSubscriptionsPage extends React.Component<RouteComponentProps<{}>, State> {
+class ListApiKeysPage extends React.Component<RouteComponentProps<{}>, State> {
   state = {
-    subscriptions: null,
+    apiKeys: null,
     promise: null,
     error: null
   };
 
   componentDidMount() {
-    this.fetchSubs();
+    this.fetchApiKeys();
   }
 
-  fetchSubs = () => {
+  fetchApiKeys = () => {
     const { promise } = this.state;
     if (promise) {
       return;
     }
 
     this.setState({
-      promise: listSubscriptions()
-        .then(subscriptions => this.setState({ subscriptions, promise: null }))
+      promise: listApiKeys()
+        .then(apiKeys => this.setState({ apiKeys, promise: null }))
         .catch(error => this.setState({ error: error.message, promise: null }))
     });
   };
+
+  deleteApiKey = (id: string) => {
+    const { promise } = this.state;
+    if (promise) {
+      return;
+    }
+
+    this.setState({
+      promise: deleteApiKey(id)
+        .then(() => {
+          this.setState({promise: null});
+          this.fetchApiKeys();
+        })
+        .catch(error => this.setState({ error: error.message, promise: null }))
+    });
+  }
 
   handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     const { history } = this.props;
 
     history.replace({
-      pathname: '/subscriptions',
+      pathname: '/api-keys',
       search: `q=${value}`
     });
   };
 
   render() {
     const { history } = this.props;
-    const { subscriptions, promise, error } = this.state;
+    const { apiKeys, promise, error } = this.state;
 
     const { search } = history.location;
 
-    let filteredSubs: Subscription[] = subscriptions || [];
+    let filteredKeys: ApiKey[] = apiKeys || [];
 
     let q = '';
     if (search && search.length > 1) {
       q = qs.parse(search.substr(1)).q || '';
 
-      filteredSubs = _.filter(
-        filteredSubs,
-        ({ name }: Subscription) => !q || name.toLowerCase().indexOf(q) !== -1
+      filteredKeys = _.filter(
+        filteredKeys,
+        ({ name }: ApiKey) => !q || name.toLowerCase().indexOf(q) !== -1
       );
     }
 
     const loading = promise !== null;
 
-    const groupedSorted = _.chain(filteredSubs)
-      .groupBy('status')
-      .mapObject(subs => _.sortBy(subs, ({ timestamp }: Subscription) => timestamp * -1))
-      .value();
-
-    const active = groupedSorted['active'] || [];
-    const inactive = groupedSorted['deactivated'] || [];
-
     return (
       <Container>
-        <Header as="h1">My subscriptions</Header>
+        <Header as="h1">My API Keys</Header>
         <div style={{ display: 'flex' }}>
           <div style={{ flexGrow: 1 }}>
             <Input
               size="big"
               icon="search"
-              placeholder="Search subscriptions"
+              placeholder="Search API keys"
               fluid
               onChange={this.handleChange}
               value={q}
@@ -112,7 +120,7 @@ class ListSubscriptionsPage extends React.Component<RouteComponentProps<{}>, Sta
             </Dimmer>
 
             <ClientPaginated
-              items={active.concat(inactive)}
+              items={filteredKeys}
               pageSize={12}>
               {
                 items => {
@@ -122,29 +130,29 @@ class ListSubscriptionsPage extends React.Component<RouteComponentProps<{}>, Sta
                         Something went wrong...
                       </Message.Header>
                       <p>
-                        We were not able to fetch your list of subscriptions: {error}
+                        We were not able to fetch your list of API keys: {error}
                       </p>
                     </Message>
                   ) : (
                     items.length === 0 ? (
                       q.length > 0 ? (
-                        <Message>No matching subscriptions</Message>
+                        <Message>No matching API keys</Message>
                       ) : (
                         <Message>
-                          You have not created any subscriptions. <Link to="/subscriptions/new">Click here</Link> to get
-                          started.
+                          You have not created any API keys. <Link to="/api-keys/new">Click here</Link> to get started.
                         </Message>
                       )
-                    ) : <SubscriptionList items={items as Subscription[]}/>
+                    ) : <ApiKeyList items={items as ApiKey[]} deleteApiKey={this.deleteApiKey.bind(this)}/>
                   );
                 }
               }
             </ClientPaginated>
           </Dimmer.Dimmable>
         </div>
+
       </Container>
-    );
+    )
   }
 };
 
-export default withRouter(mustBeLoggedIn(ListSubscriptionsPage));
+export default withRouter(mustBeLoggedIn(ListApiKeysPage));

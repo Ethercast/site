@@ -1,7 +1,7 @@
 import * as urlJoin from 'url-join';
 import {
+  CreateApiKeyRequest,
   ApiKey,
-  Scope,
   LogSubscription,
   LogSubscriptionFilters,
   SubscriptionType,
@@ -17,7 +17,7 @@ if (!netInfo || !netInfo.enabled) {
   window.location.href = 'https://ethercast.io';
 }
 
-async function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: object) {
+async function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: object, parse: boolean = true) {
   const token: string | null = await Auth.getAccessToken();
 
   if (!token) {
@@ -51,7 +51,8 @@ async function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, bo
           throw new Error('Your token has expired');
         }
 
-        const json = await response.json();
+        let json;
+        if (parse) json = await response.json();
 
         if (response.status === 422) {
           throw new Error(
@@ -77,7 +78,7 @@ async function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, bo
     );
 }
 
-export function createApiKey(name: string, scopes: Scope[]): Promise<ApiKey> {
+export function createApiKey({name, scopes}: CreateApiKeyRequest): Promise<ApiKey> {
   return fetchWithAuth('POST', '/api-keys', {name, scopes});
 }
 
@@ -86,7 +87,7 @@ export function listApiKeys(): Promise<ApiKey[]> {
 }
 
 export function deleteApiKey(id: string): Promise<void> {
-  return fetchWithAuth('DELETE', `/api-keys/${id}`);
+  return fetchWithAuth('DELETE', `/api-keys/${id}`, undefined, false);
 }
 
 export function createSubscription(sub: object): Promise<TransactionSubscription | LogSubscription> {
