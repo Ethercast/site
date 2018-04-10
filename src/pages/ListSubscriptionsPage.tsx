@@ -145,6 +145,6 @@ class ListSubscriptionsPage extends React.Component<RouteComponentProps<{}>, Sta
       </Container>
     );
   }
-}
+};
 
 export default withRouter(mustBeLoggedIn(ListSubscriptionsPage));

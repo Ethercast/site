@@ -59,8 +59,8 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
         </StyledMenuItem>
         {
           principal ? [
-            <NavLink key="sub-link" to="/subscriptions">My subscriptions</NavLink>
-            // <NavLink key="api-keys-link" to="/api-keys">My API keys</NavLink>
+            <NavLink key="sub-link" to="/subscriptions">Subscriptions</NavLink>,
+            <NavLink key="api-keys-link" to="/api-keys">API keys</NavLink>
           ] : null
         }
 
