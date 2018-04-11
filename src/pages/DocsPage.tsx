@@ -8,20 +8,24 @@ enum HTTP {
   DELETE = 'DELETE',
 }
 
-const createBadges = (repo: string) => {
-  const docsHref = `https://docs.ethercast.io/${repo}/`;
+const createBadges = (repo: string, {definitions = false, source = false} = {definitions: true, source: true}) => {
+  const defsHref = `https://docs.ethercast.io/${repo}/`;
   const repoHref = `https://github.com/Ethercast/${repo}`;
 
   return (
     <span style={{ marginLeft: '2rem' }}>
-      <Label as='a' href={docsHref} color='blue'>
-        <Icon name='book'/>
-        Docs
-      </Label>
-      <Label as='a' href={repoHref} color='grey'>
-        <Icon name='github'/>
-        Source
-      </Label>
+      {definitions &&
+        <Label as='a' href={defsHref} color='blue'>
+          <Icon name='book'/>
+          Definitions
+        </Label>
+      }
+      {source &&
+        <Label as='a' href={repoHref} color='grey'>
+          <Icon name='github'/>
+          Source
+        </Label>
+      }
     </span>
   );
 }
@@ -55,12 +59,12 @@ const createRoute = (verb: HTTP, path: string, expects?: string) => {
 export default function Docs(props: RouteComponentProps<{}>) {
   return (
     <Container>
-      <Header as='h2'>Documentation {createBadges('')}</Header>
+      <Header as='h2'>Documentation {createBadges('', {source: true})}</Header>
       <p>
         Ethercast lets you set up webhook subscriptions to events or transactions on the Ethereum Blockchain. Subscriptions can be set up throught the website, or using an API Key / Secret pair obtained through the website. This documentation covers how to interact with webhooks once you receive them, and how to subscribe to them through the API. If you want to create a subscription through the website, you can <a href='/subscriptions/new'>do that here</a>.
       </p>
       <p>
-        Documentation is been generated from typescript sources to help you use, parse, and validate webhooks and the API. Click on the docs / source button in any section to see definitions and source code.
+        Documentation is been generated from typescript sources to help you use, parse, and validate webhooks and the API. Click on the definitionss or source buttons in any section to see them.
       </p>
       <Divider/>
       <Header as='h3'>Webhooks</Header>
