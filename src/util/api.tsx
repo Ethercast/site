@@ -12,11 +12,6 @@ import {
 import Auth from './auth-util';
 import { netInfo } from './net-info';
 
-if (!netInfo || !netInfo.enabled) {
-  alert('sorry, this network is not yet supported!');
-  window.location.href = 'https://ethercast.io';
-}
-
 async function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, body?: object, parse: boolean = true) {
   const token: string | null = await Auth.getAccessToken();
 

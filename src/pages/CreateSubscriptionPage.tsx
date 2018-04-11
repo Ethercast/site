@@ -68,10 +68,15 @@ export default mustBeLoggedIn(
 
     handleViewExample = async () => {
       const parsed = _.pick(parseSubscriptionFilters(this.state.subscription), 'type', 'filters');
+
+
       try {
-        const example = await getExamples(parsed as any);
-        this.setState({ example });
+        const promise = getExamples(parsed as any);
+        this.setState({ promise });
+        const example = await promise;
+        this.setState({ example, promise: null });
       } catch (err) {
+        this.setState({ promise: null });
         alert(`Sorry, your subscription is not valid.\n\n${err.message}`);
       }
     };
@@ -108,8 +113,7 @@ export default mustBeLoggedIn(
                 <Message.Header>Work in progress</Message.Header>
                 <Message.Content>
                   This feature is a work in progress.
-                  Currently you cannot see the decoded log or transaction parameters that will be delivered with the
-                  basic log and transaction fields.
+                  The log you actually receive may include decoded log or transaction information under the key <code>ethercast</code>
                 </Message.Content>
               </Message>
               {example ? <FormattedJSON object={example}/> : null}

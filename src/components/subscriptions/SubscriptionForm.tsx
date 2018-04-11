@@ -79,15 +79,6 @@ class SubscriptionDetailsForm extends FormComponent<Subscription> {
             onChange={this.inputChangeHandler('webhookUrl')}
             required
             value={value && value.webhookUrl || ''}
-            action={{
-              color: 'blue',
-              type: 'button',
-              loading: this.state.generatingUrl,
-              labelPosition: 'right',
-              icon: 'plus',
-              content: 'Get test URL',
-              onClick: this.generateUrl
-            }}
           />
         </Form.Field>
         <Form.Field>
@@ -120,7 +111,7 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
   };
 
   openWizard = (e: any) => {
-    alert('Coming soon!');
+    alert('Coming soon! For now, please try our Zapier beta! You can find a link at the homepage.');
   };
 
   public render() {
