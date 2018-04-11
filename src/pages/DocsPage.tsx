@@ -81,7 +81,7 @@ export default function Docs(props: RouteComponentProps<{}>) {
         You can do anything that can be done using the website through an API instead, using an API key. If you don't yet have an API key, you can <a href='/api-keys/new'>create one here</a>. API keys and especially their secrets should not be shared - these are most appropriate for server-to-server commumnication. The keys permission scopes should  also be restricted to only what you need to avoid accidental misuse.
       </p>
       <p>
-        In order to send a request using the API, include your API key and secret in the request as the content of the <code>X-API-Key</code> and <code>X-API-Secret</code> headers, respectively.
+        In order to send a request using the API, include your API key and secret in the request as the content of the <code>X-API-Key</code> and <code>X-API-Secret</code> headers, respectively. Make sure to send your request to the correct API - API keys will only work on the network for which they were generated. The mainnet API is served over https://api.ethercast.io. Test nets (as they become available) are served over https://{'{'}network-name{'}'}.api.ethercast.io.
       </p>
       <Header as='h4'>Available Routes</Header>
       <ul>
