@@ -59,6 +59,7 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
             </span>
           </StyledMenuItem>
 
+          <NavLink key="docs" to="/docs">Docs</NavLink>
           {
             principal ? [
               <NavLink key="subsciptions" to="/subscriptions">Subscriptions</NavLink>,

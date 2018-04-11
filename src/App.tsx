@@ -15,6 +15,7 @@ import { AppState } from './reducers';
 import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
 import ListApiKeysPage from './pages/ListApiKeysPage';
 import CreateApiKeyPage from './pages/CreateApiKeyPage';
+import DocsPage from './pages/DocsPage';
 
 interface AppProps extends RouteComponentProps<{}> {
   principal: Auth0UserProfile | null;
@@ -64,6 +65,7 @@ export default withRouter(
                 <div style={{ paddingTop: '2em' }}>
                   <Switch>
                     <Route path="/" exact component={HomePage}/>
+                    <Route path="/docs" exact component={DocsPage}/>
                     <Route path="/subscriptions/new" exact component={CreateSubscriptionPage}/>
                     <Route path="/subscriptions" exact component={ListSubscriptionsPage}/>
                     <Route path="/subscriptions/:id" exact component={ViewSubscriptionPage}/>
