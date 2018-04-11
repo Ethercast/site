@@ -113,8 +113,7 @@ export default mustBeLoggedIn(
                 <Message.Header>Work in progress</Message.Header>
                 <Message.Content>
                   This feature is a work in progress.
-                  Currently you cannot see the decoded log or transaction parameters that will be delivered with the
-                  basic log and transaction fields.
+                  The log you actually receive may include decoded log or transaction information under the key <code>ethercast</code>
                 </Message.Content>
               </Message>
               {example ? <FormattedJSON object={example}/> : null}
