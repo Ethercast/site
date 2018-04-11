@@ -33,7 +33,7 @@ export default class MailingFooter extends React.Component<{}, State> {
         <Container textAlign="center">
           <List horizontal inverted style={{ textAlign: 'center' }}>
             <List.Item style={{ fontSize: '1.5rem', textAlign: 'left', verticalAlign: 'middle' }}>
-              <Icon name="announcement"/> We're in open beta! Get an email when we've got news:
+              <Icon name="announcement"/> We're in open beta! Get an email when we've got news.
             </List.Item>
             <List.Item style={{ verticalAlign: 'middle' }}>
               <Button inverted content='Subscribe' onClick={this.subscribe}/>
