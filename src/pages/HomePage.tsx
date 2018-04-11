@@ -153,7 +153,7 @@ export default class HomePage extends React.Component<HomePageProps> {
                 We guarantee 99% of events to be delivered once within 5 minutes of the block
                 timestamp. Around half of the messages will arrive within 1 minute.
               </Feature>
-              <Feature title="API access" icon="key" comingSoon>
+              <Feature title="API access" icon="key">
                 Use API keys to programmatically create subscriptions and integrate
                 with the blockchain without writing any code.
               </Feature>
