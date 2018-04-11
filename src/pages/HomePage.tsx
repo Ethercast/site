@@ -7,6 +7,7 @@ import { SemanticICONS } from 'semantic-ui-react/dist/commonjs';
 import Divider from 'semantic-ui-react/dist/commonjs/elements/Divider/Divider';
 import { AppState } from '../reducers';
 import Auth from '../util/auth-util';
+import MailingFooter from '../components/MailingFooter';
 
 export interface HomePageProps extends RouteComponentProps<{}> {
   loggedIn: boolean;
@@ -191,6 +192,8 @@ export default class HomePage extends React.Component<HomePageProps> {
             </p>
           </Container>
         </Segment>
+
+        <MailingFooter/>
 
       </div>
     );

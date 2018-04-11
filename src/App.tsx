@@ -1,7 +1,6 @@
 import * as React from 'react';
 import AppHeader from './components/AppHeader';
 import AppFooter from './components/AppFooter';
-import MailingFooter from './components/MailingFooter';
 import { connect } from 'react-redux';
 import Auth from './util/auth-util';
 import { Auth0UserProfile } from 'auth0-js';
@@ -72,8 +71,6 @@ export default withRouter(
                   </Switch>
                 </div>
               </div>
-
-              <MailingFooter/>
 
               <AppFooter/>
             </div>
