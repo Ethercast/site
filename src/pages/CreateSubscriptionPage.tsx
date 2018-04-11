@@ -68,10 +68,15 @@ export default mustBeLoggedIn(
 
     handleViewExample = async () => {
       const parsed = _.pick(parseSubscriptionFilters(this.state.subscription), 'type', 'filters');
+
+
       try {
-        const example = await getExamples(parsed as any);
-        this.setState({ example });
+        const promise = getExamples(parsed as any);
+        this.setState({ promise });
+        const example = await promise;
+        this.setState({ example, promise: null });
       } catch (err) {
+        this.setState({ promise: null });
         alert(`Sorry, your subscription is not valid.\n\n${err.message}`);
       }
     };
