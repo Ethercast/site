@@ -56,7 +56,9 @@ export default withRouter(
             <div style={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
               <AppHeader principal={principal} onLogOut={logout}/>
 
-              <ScrollToTop/>
+              <Route>
+                {({ location: { pathname } }) => (<ScrollToTop key={pathname}/>)}
+              </Route>
 
               <div style={{ flexGrow: 1 }}>
                 <div style={{ paddingTop: '2em' }}>

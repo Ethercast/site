@@ -5,7 +5,7 @@ export default class FormattedJSON extends React.PureComponent<{ object: object 
   render() {
     const { object } = this.props;
     return (
-      <Segment secondary>
+      <Segment secondary style={{ overflow: 'auto' }}>
         <pre>{JSON.stringify(object, null, 2)}</pre>
       </Segment>
     );

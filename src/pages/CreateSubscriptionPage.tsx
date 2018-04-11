@@ -69,7 +69,6 @@ export default mustBeLoggedIn(
     handleViewExample = async () => {
       const parsed = _.pick(parseSubscriptionFilters(this.state.subscription), 'type', 'filters');
 
-
       try {
         const promise = getExamples(parsed as any);
         this.setState({ promise });
@@ -112,8 +111,9 @@ export default mustBeLoggedIn(
               <Message warning>
                 <Message.Header>Work in progress</Message.Header>
                 <Message.Content>
-                  This feature is a work in progress.
-                  The log you actually receive may include decoded log or transaction information under the key <code>ethercast</code>
+                  This feature is a work in progress. The log you actually receive may include additional decoded log or
+                  transaction information under the key <code>ethercast</code>. Try adding addresses to your subscription
+                  filters to see a better example.
                 </Message.Content>
               </Message>
               {example ? <FormattedJSON object={example}/> : null}

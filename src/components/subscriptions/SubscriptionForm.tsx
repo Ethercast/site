@@ -145,15 +145,6 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
                   Transactions
                 </Button>
               </Button.Group>
-
-              <Button
-                style={{ marginLeft: 12 }}
-                onClick={this.openWizard}
-                type="button"
-                icon="wizard"
-                content="Easy button"
-                primary
-              />
             </div>
 
             <Divider/>
