@@ -57,7 +57,8 @@ export default class ApiKeyItem extends React.Component<Props, {revealSecret: bo
                 content='Copy Secret' onClick={copy} style={{ width: '12em' }}/>
             </Input>
             <Checkbox toggle checked={revealSecret} label='Reveal Secret'
-              onChange={(e: any, {checked: revealSecret}: any) => this.setState({revealSecret})}/>
+              onChange={(e: any, {checked: revealSecret}: any) => this.setState({revealSecret})}
+              style={{ float: 'right' }}/>
           </Card.Content>
         </Card.Content>
       </Card>
