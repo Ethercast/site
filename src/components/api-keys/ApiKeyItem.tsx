@@ -19,14 +19,21 @@ interface Props {
 
 export default class ApiKeyItem extends React.Component<Props, {revealSecret: boolean}> {
   state = { revealSecret: false };
+  keyInput: HTMLInputElement | null;
+  secretInput: HTMLInputElement | null;
 
   render() {
     const { id, name, scopes, secret } = this.props.apiKey;
     const { revealSecret } = this.state;
 
-    const copy = (e: any) => {
-      e.target.previousElementSibling.select();
-      document.execCommand('Copy');
+    const copy = (input: HTMLInputElement | null) => {
+      if (input !== null) {
+        const type = input.type;
+        input.type = 'text';
+        input.select();
+        document.execCommand('Copy');
+        input.type = type;
+      }
     };
 
     return (
@@ -44,21 +51,24 @@ export default class ApiKeyItem extends React.Component<Props, {revealSecret: bo
           <Card.Content>
             <Input fluid action readOnly labelPosition='right' style={{ marginBottom: '1em' }}
               defaultValue={id}>
-              <Label content="ID" style={{ width: '5em' }}/>
-              <input/>
+              <Label content="Key" style={{ width: '5em' }}/>
+              <input ref={el => this.keyInput = el}/>
               <Button color='teal' labelPosition='right' icon='copy'
-                content='Copy ID' onClick={copy} style={{ width: '12em' }}/>
+                content='Copy Key' onClick={() => copy(this.keyInput)} style={{ width: '12em' }}/>
             </Input>
             <Input fluid action readOnly labelPosition='right' style={{ marginBottom: '1em' }}
               defaultValue={secret} type={revealSecret ? 'text' : 'password'}>
               <Label content='Secret' style={{ width: '5em' }}/>
-              <input/>
-              <Button disabled={!revealSecret} color='pink' labelPosition='right' icon='copy'
-                content='Copy Secret' onClick={copy} style={{ width: '12em' }}/>
+              <input ref={el => this.secretInput = el}/>
+              <Button color='pink' labelPosition='right' icon='copy'
+                content='Copy Secret' onClick={() => copy(this.secretInput)} style={{ width: '12em' }}/>
             </Input>
-            <Checkbox toggle checked={revealSecret} label='Reveal Secret'
-              onChange={(e: any, {checked: revealSecret}: any) => this.setState({revealSecret})}
-              style={{ float: 'right' }}/>
+            <div style={{ float: 'right', width: '12em' }}>
+              Reveal Secret
+              <Checkbox toggle checked={revealSecret}
+                onChange={(e: any, {checked: revealSecret}: any) => this.setState({revealSecret})}
+                style={{ float: 'right' }}/>
+            </div>
           </Card.Content>
         </Card.Content>
       </Card>
