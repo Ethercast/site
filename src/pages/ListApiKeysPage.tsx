@@ -50,6 +50,10 @@ class ListApiKeysPage extends React.Component<RouteComponentProps<{}>, State> {
   };
 
   deleteApiKey = (id: string) => {
+    if (!confirm(`Delete API Key with ID ${id}?`)) {
+      return;
+    }
+
     const { promise } = this.state;
     if (promise) {
       return;
@@ -58,12 +62,12 @@ class ListApiKeysPage extends React.Component<RouteComponentProps<{}>, State> {
     this.setState({
       promise: deleteApiKey(id)
         .then(() => {
-          this.setState({promise: null});
+          this.setState({ promise: null });
           this.fetchApiKeys();
         })
         .catch(error => this.setState({ error: error.message, promise: null }))
     });
-  }
+  };
 
   handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
     const { history } = this.props;
@@ -142,7 +146,7 @@ class ListApiKeysPage extends React.Component<RouteComponentProps<{}>, State> {
                           You have not created any API keys. <Link to="/api-keys/new">Click here</Link> to get started.
                         </Message>
                       )
-                    ) : <ApiKeyList items={items as ApiKey[]} deleteApiKey={this.deleteApiKey.bind(this)}/>
+                    ) : <ApiKeyList items={items as ApiKey[]} deleteApiKey={this.deleteApiKey}/>
                   );
                 }
               }
@@ -151,7 +155,7 @@ class ListApiKeysPage extends React.Component<RouteComponentProps<{}>, State> {
         </div>
 
       </Container>
-    )
+    );
   }
 };
 

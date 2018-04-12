@@ -59,13 +59,13 @@ export default function AppHeader({ principal, onLogOut }: { principal: Auth0Use
             </span>
           </StyledMenuItem>
 
-          <NavLink key="docs" to="/docs">Docs</NavLink>
           {
             principal ? [
               <NavLink key="subsciptions" to="/subscriptions">Subscriptions</NavLink>,
               <NavLink key="api-keys" to="/api-keys">API keys</NavLink>
             ] : null
           }
+          <NavLink key="docs" to="/docs">Docs</NavLink>
 
           <Menu.Menu position="right">
             <Dropdown item text="Networks" style={{ justifyContent: 'center' }}>
