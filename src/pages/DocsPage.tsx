@@ -107,11 +107,14 @@ export default function Docs(props: RouteComponentProps<{}>) {
         The keys permission scopes should also be restricted to only what you need to avoid accidental misuse.
       </p>
       <p>
-        In order to send a request using the API, include your API key and secret in the request as the content of
-        the <code>X-API-Key</code> and <code>X-API-Secret</code> headers, respectively. Make sure to send your request
-        to the correct API - API keys will only work on the network for which they were generated. The mainnet API is
-        served over https://api.ethercast.io. Test nets (as they become available) are served over
-        https://{'{'}network-name{'}'}.api.ethercast.io.
+        Requests sent to the API must include an Authorization header with the api key and secret:
+        <br/>
+        <code>Authorization: api-key API_KEY:API_SECRET</code>
+      </p>
+      <p>
+        Make sure to send your request to the correct API - API keys will only work on the network for which they were generated.
+        <br/>
+        The mainnet API is served over https://api.ethercast.io. Test nets (as they become available) are served over https://{'{'}network-name{'}'}.api.ethercast.io.
       </p>
       <Header as='h4'>Available Routes</Header>
       <Table>
