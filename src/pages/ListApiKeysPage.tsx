@@ -50,7 +50,7 @@ class ListApiKeysPage extends React.Component<RouteComponentProps<{}>, State> {
   };
 
   deleteApiKey = (id: string) => {
-    if (!confirm(`Delete API Key with ID ${id}?`)) {
+    if (!confirm(`Delete API Key ${id}?`)) {
       return;
     }
 
