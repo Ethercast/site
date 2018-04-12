@@ -76,8 +76,8 @@ export default function Docs(props: RouteComponentProps<{}>) {
         you can <Link to="/subscriptions/new">do that here</Link>.
       </p>
       <p>
-        Documentation is been generated from typescript sources to help you use, parse, and validate webhooks and the
-        API. Click on the definitionss or source buttons in any section to see them.
+        Documentation is generated from TypeScript sources to help you use, parse, and validate webhooks and the
+        API. Click on the definitions or source buttons in any section to see them.
       </p>
       <Divider/>
       <Header as='h3'>Webhooks</Header>
