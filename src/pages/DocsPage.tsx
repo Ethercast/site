@@ -70,41 +70,46 @@ export default function Docs(props: RouteComponentProps<{}>) {
       <Header as='h2'>Documentation <BadgeLinks repo="" definitions={false} source/></Header>
       <p>
         Ethercast allows you to set up subscriptions to events or transactions on the Ethereum Blockchain.
+        <br/>
         Subscriptions can be set up throught the website, or using an API Key / Secret pair obtained through the
         website. This documentation covers how to interact with webhooks once you receive them, and how to subscribe to
-        them through the API. If you want to create a subscription through the website,
+        them through the API.
+        <br/>If you want to create a subscription through the website,
         you can <Link to="/subscriptions/new">do that here</Link>.
       </p>
       <p>
-        Documentation is generated from TypeScript sources to help you use, parse, and validate webhooks and the
-        API. Click on the definitions or source buttons in any section to see them.
+        Documentation is generated from TypeScript sources to help you use, parse, and validate webhooks and the API.
+        Click on the definitions or source buttons in any section to see them.
       </p>
       <Divider/>
       <Header as='h3'>Webhooks</Header>
       <Header as='h4'>Parsing <BadgeLinks repo="ethercast-model"/></Header>
       <p>
-        Once you've made a subscription, you'll need to parse the incoming webhooks. Depending on the type of event
-        you've subscribed to, you will either use the <a
+        Once you've made a subscription, you'll need to parse the incoming webhooks.
+        Depending on the type of event you've subscribed to, you will either use the <a
         href='https://docs.ethercast.io/ethercast-model/interfaces/decodedlog.html'>DecodedLog</a> or <a
-        href='https://docs.ethercast.io/ethercast-model/interfaces/decodedtransaction.html'>DecodedTransaction</a> interface.
-        Note that the <code>ethercast</code> property of both contain the decoded ABI of the subscribed type.
+        href='https://docs.ethercast.io/ethercast-model/interfaces/decodedtransaction.html'>DecodedTransaction
+        </a> interface.
+        Note that the <code>ethercast</code> property of either will contain the decoded ABI of the subscribed type.
       </p>
       <p>
         If you subscribed through the website, you should also have been able to see an example of your payload.
       </p>
       <Header as='h4'>Validation <BadgeLinks repo="calculate-signature"/></Header>
       <p>
-        All payloads are signed with a secret particular to each subscription. Payloads can be validated using this
-        signature with the <a
-        href='https://docs.ethercast.io/calculate-signature/globals.html#isvalidsignature'>isValidSignature</a> function.
+        All payloads are signed with a secret unique to each subscription.
+        Payloads can be validated using this signature with the <a
+        href='https://docs.ethercast.io/calculate-signature/globals.html#isvalidsignature'>isValidSignature
+        </a> function.
       </p>
       <Divider/>
       <Header as='h3'>API Keys <BadgeLinks repo="backend-model"/></Header>
       <p>
-        You can do anything that can be done using the website through an API instead, using an API key. If you don't
-        yet have an API key, you can <Link to="/api-keys/new">create one here</Link>. API keys and especially their
-        secrets should not be shared - these are most appropriate for server-to-server commumnication.
-        The keys permission scopes should also be restricted to only what you need to avoid accidental misuse.
+        You can do anything that can be done using the website through an API as well, using an API key.
+        If you don't yet have an API key, you can <Link to="/api-keys/new">create one here</Link>.
+        API keys and especially their secrets should not be shared -
+        these are most appropriate for server-to-server commumnication.
+        Their permission scopes may also be restricted to avoid accidental misuse.
       </p>
       <p>
         Requests sent to the API must include an Authorization header with the api key and secret:
@@ -112,9 +117,12 @@ export default function Docs(props: RouteComponentProps<{}>) {
         <code>Authorization: api-key API_KEY:API_SECRET</code>
       </p>
       <p>
-        Make sure to send your request to the correct API - API keys will only work on the network for which they were generated.
+        Make sure to send your request to the correct API.
+        API keys will only work on the network for which they were generated.
         <br/>
-        The mainnet API is served over https://api.ethercast.io. Test nets (as they become available) are served over https://{'{'}network-name{'}'}.api.ethercast.io.
+        The mainnet API is served over <code>https://api.ethercast.io</code>.
+        Test nets (as they become available) are served over <code>
+        https://{'{'}network-name{'}'}.api.ethercast.io</code>.
       </p>
       <Header as='h4'>Available Routes</Header>
       <Table>
