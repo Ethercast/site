@@ -83,12 +83,12 @@ export default function Docs(props: RouteComponentProps<{}>) {
       </p>
       <Divider/>
       <Header as='h3'>Webhooks</Header>
-      <Header as='h4'>Parsing <BadgeLinks repo="ethercast-model"/></Header>
+      <Header as='h4'>Parsing <BadgeLinks repo="model"/></Header>
       <p>
         Once you've made a subscription, you'll need to parse the incoming webhooks.
         Depending on the type of event you've subscribed to, you will either use the <a
-        href='https://docs.ethercast.io/ethercast-model/interfaces/decodedlog.html'>DecodedLog</a> or <a
-        href='https://docs.ethercast.io/ethercast-model/interfaces/decodedtransaction.html'>DecodedTransaction
+        href='https://docs.ethercast.io/model/interfaces/decodedlog.html'>DecodedLog</a> or <a
+        href='https://docs.ethercast.io/model/interfaces/decodedtransaction.html'>DecodedTransaction
         </a> interface.
         Note that the <code>ethercast</code> property of either will contain the decoded ABI of the subscribed type.
       </p>
