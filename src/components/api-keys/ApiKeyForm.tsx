@@ -2,22 +2,22 @@ import * as _ from 'underscore';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Checkbox, Form, FormProps, Input, Segment } from 'semantic-ui-react';
-import { CreateApiKeyRequest, Scope } from '../../debt/ethercast-backend-model';
+import { EthercastTypes } from '@ethercast/model';
 import FormComponent from '../FormComponent';
 
 export interface ApiKeyFormProps extends FormProps {
-  value: CreateApiKeyRequest;
-  onChange: (apiKey: CreateApiKeyRequest) => void;
+  value: EthercastTypes.CreateApiKeyRequest;
+  onChange: (apiKey: EthercastTypes.CreateApiKeyRequest) => void;
   onSubmit: () => void;
 }
 
-class SubscriptionDetailsForm extends FormComponent<CreateApiKeyRequest> {
+class SubscriptionDetailsForm extends FormComponent<EthercastTypes.CreateApiKeyRequest> {
   scopeChangeHandler = _.memoize(
-    (scope: Scope) => {
+    (scope: EthercastTypes.Scope) => {
       return (e: any, {checked}: any) => {
         const { value, onChange } = this.props;
 
-        let scopes = (value as CreateApiKeyRequest).scopes
+        let scopes = (value as EthercastTypes.CreateApiKeyRequest).scopes
           .filter(name => name !== scope);
         if (checked) {
           scopes.push(scope);
@@ -30,7 +30,7 @@ class SubscriptionDetailsForm extends FormComponent<CreateApiKeyRequest> {
 
   render() {
     const { value } = this.props;
-    const scopes = (value as CreateApiKeyRequest).scopes;
+    const scopes = (value as EthercastTypes.CreateApiKeyRequest).scopes;
 
     return (
       <div>
@@ -47,8 +47,8 @@ class SubscriptionDetailsForm extends FormComponent<CreateApiKeyRequest> {
           />
         </Form.Field>
         <Segment>
-          {Object.keys(Scope).map((scope) => {
-            const checked = scopes.indexOf(Scope[scope]) !== -1;
+          {Object.keys(EthercastTypes.Scope).map((scope) => {
+            const checked = scopes.indexOf(EthercastTypes.Scope[scope]) !== -1;
             // While scopes are simple, labels can be generated dynamically
             const label = scope
               .split('_')
@@ -57,7 +57,7 @@ class SubscriptionDetailsForm extends FormComponent<CreateApiKeyRequest> {
               + 's';
             return (
               <Form.Field control={Checkbox} toggle checked={checked} label={label}
-                onChange={this.scopeChangeHandler(Scope[scope])} key={scope}
+                onChange={this.scopeChangeHandler(EthercastTypes.Scope[scope])} key={scope}
               />
             )
           })}
@@ -68,7 +68,7 @@ class SubscriptionDetailsForm extends FormComponent<CreateApiKeyRequest> {
 }
 
 export default class SubscriptionForm extends React.PureComponent<ApiKeyFormProps> {
-  handleChange = (changes: CreateApiKeyRequest) => {
+  handleChange = (changes: EthercastTypes.CreateApiKeyRequest) => {
     this.props.onChange({ ...this.props.value, ...changes } as any);
   };
 

@@ -1,14 +1,5 @@
 import * as urlJoin from 'url-join';
-import {
-  CreateApiKeyRequest,
-  ApiKey,
-  LogSubscription,
-  LogSubscriptionFilters,
-  SubscriptionType,
-  TransactionSubscription,
-  TransactionSubscriptionFilters,
-  WebhookReceipt
-} from '../debt/ethercast-backend-model';
+import { EthercastTypes } from '@ethercast/model';
 import Auth from './auth-util';
 import { netInfo } from './net-info';
 
@@ -73,11 +64,11 @@ async function fetchWithAuth(method: 'POST' | 'GET' | 'DELETE', path: string, bo
     );
 }
 
-export function createApiKey({name, scopes}: CreateApiKeyRequest): Promise<ApiKey> {
+export function createApiKey({name, scopes}: EthercastTypes.CreateApiKeyRequest): Promise<EthercastTypes.ApiKey> {
   return fetchWithAuth('POST', '/api-keys', {name, scopes});
 }
 
-export function listApiKeys(): Promise<ApiKey[]> {
+export function listApiKeys(): Promise<EthercastTypes.ApiKey[]> {
   return fetchWithAuth('GET', '/api-keys');
 }
 
@@ -85,15 +76,15 @@ export function deleteApiKey(id: string): Promise<void> {
   return fetchWithAuth('DELETE', `/api-keys/${id}`, undefined, false);
 }
 
-export function createSubscription(sub: object): Promise<TransactionSubscription | LogSubscription> {
+export function createSubscription(sub: object): Promise<EthercastTypes.TransactionSubscription | EthercastTypes.LogSubscription> {
   return fetchWithAuth('POST', '/subscriptions', sub);
 }
 
-export function listSubscriptions(): Promise<(LogSubscription | TransactionSubscription)[]> {
+export function listSubscriptions(): Promise<(EthercastTypes.LogSubscription | EthercastTypes.TransactionSubscription)[]> {
   return fetchWithAuth('GET', '/subscriptions');
 }
 
-export function getSubscription(id: string): Promise<(LogSubscription | TransactionSubscription)> {
+export function getSubscription(id: string): Promise<(EthercastTypes.LogSubscription | EthercastTypes.TransactionSubscription)> {
   return fetchWithAuth('GET', `/subscriptions/${id}`);
 }
 
@@ -101,10 +92,10 @@ export async function deactivateSubscription(id: string): Promise<void> {
   await fetchWithAuth('DELETE', `/subscriptions/${id}`);
 }
 
-export function listReceipts(subscriptionId: string): Promise<WebhookReceipt[]> {
+export function listReceipts(subscriptionId: string): Promise<EthercastTypes.WebhookReceipt[]> {
   return fetchWithAuth('GET', `/subscriptions/${subscriptionId}/receipts`);
 }
 
-export function getExamples(request: { type: SubscriptionType, filters: TransactionSubscriptionFilters | LogSubscriptionFilters }): Promise<object> {
+export function getExamples(request: { type: EthercastTypes.SubscriptionType, filters: EthercastTypes.TransactionSubscriptionFilters | EthercastTypes.LogSubscriptionFilters }): Promise<object> {
   return fetchWithAuth('POST', `/get-examples`, request);
 }

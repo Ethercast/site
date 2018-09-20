@@ -8,17 +8,11 @@ import Ellipsis from '../components/Ellipsis';
 import EtherscanLink from '../components/EtherscanLink';
 import Linkify from '../components/Linkify';
 import ReceiptTable from '../components/ReceiptTable';
-import {
-  LogFilterType,
-  LogSubscription,
-  Subscription,
-  TransactionFilterType,
-  TransactionSubscription
-} from '../debt/ethercast-backend-model';
+import { EthercastTypes } from '@ethercast/model';
 import { deactivateSubscription, getSubscription } from '../util/api';
 import { FILTER_TYPE_INFO } from '../util/filter-type-names';
 
-export default class ViewSubscriptionPage extends React.Component<RouteComponentProps<{ id: string }>, { subscription: Subscription | null, promise: Promise<any> | null }> {
+export default class ViewSubscriptionPage extends React.Component<RouteComponentProps<{ id: string }>, { subscription: EthercastTypes.Subscription | null, promise: Promise<any> | null }> {
   state = {
     subscription: null,
     promise: null
@@ -56,7 +50,7 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
       return;
     }
 
-    const { name, id } = subscription as Subscription;
+    const { name, id } = subscription as EthercastTypes.Subscription;
 
     if (!window.confirm(`Delete subscription: ${name}`)) {
       return;
@@ -126,7 +120,7 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
       filters,
       type,
       secret
-    } = subscription as LogSubscription | TransactionSubscription;
+    } = subscription as EthercastTypes.LogSubscription | EthercastTypes.TransactionSubscription;
 
     return (
       <Container>
@@ -207,9 +201,9 @@ export default class ViewSubscriptionPage extends React.Component<RouteComponent
                             <Ellipsis>
                               <em>
                                 {
-                                  type === LogFilterType.address ||
-                                  type === TransactionFilterType.from ||
-                                  type === TransactionFilterType.to
+                                  type === 'address' ||
+                                  type === 'from' ||
+                                  type === 'to'
                                     ? (
                                       <EtherscanLink address={filterValue}/>
                                     ) : filterValue

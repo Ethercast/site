@@ -1,10 +1,10 @@
 import * as auth0 from 'auth0-js';
 import { Auth0DecodedHash, Auth0UserProfile, AuthOptions } from 'auth0-js';
-import { Scope } from '../debt/ethercast-backend-model';
+import { EthercastTypes } from '@ethercast/model';
 import connectStorage from './connect-storage';
 
-const scope = Object.keys(Scope)
-  .map(k => Scope[ k ])
+const scope = Object.keys(EthercastTypes.Scope)
+  .map(k => EthercastTypes.Scope[ k ])
   .concat([ 'openid', 'profile' ])
   .join(' ');
 

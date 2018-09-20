@@ -2,10 +2,10 @@ import * as moment from 'moment';
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Card } from 'semantic-ui-react';
-import { Subscription } from '../../debt/ethercast-backend-model';
+import { EthercastTypes } from '@ethercast/model';
 
 export default withRouter(
-  class extends React.Component<RouteComponentProps<{}> & { subscription: Subscription }> {
+  class extends React.Component<RouteComponentProps<{}> & { subscription: EthercastTypes.Subscription }> {
     render() {
       const { history, subscription: { id, name, status, description, timestamp } } = this.props;
 

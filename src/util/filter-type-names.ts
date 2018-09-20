@@ -1,4 +1,4 @@
-import { LogFilterType, TransactionFilterType } from '../debt/ethercast-backend-model';
+import { EthercastTypes } from '@ethercast/model';
 import {
   ADDRESS_PATTERN,
   SIGNATURE_PATTERN,
@@ -8,7 +8,7 @@ import {
   ZERO_TOPIC
 } from './constants';
 
-export type SubscriptionFilterType = TransactionFilterType | LogFilterType;
+export type SubscriptionFilterType = EthercastTypes.TransactionFilterType | EthercastTypes.LogFilterType;
 
 export interface FilterTypeInfo {
   name: string;

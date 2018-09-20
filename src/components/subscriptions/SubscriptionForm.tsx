@@ -4,25 +4,20 @@ import { Button, Form, FormProps, Header, Input, TextArea } from 'semantic-ui-re
 import Divider from 'semantic-ui-react/dist/commonjs/elements/Divider/Divider';
 import Label from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
 import Segment from 'semantic-ui-react/dist/commonjs/elements/Segment/Segment';
-import {
-  CreateLogSubscriptionRequest,
-  CreateTransactionSubscriptionRequest,
-  Subscription,
-  SubscriptionType
-} from '../../debt/ethercast-backend-model';
+import { EthercastTypes } from '@ethercast/model';
 import FormComponent from '../FormComponent';
 import FiltersInput from './FiltersInput';
 
 export interface SubscriptionFormProps extends FormProps {
-  value: Partial<CreateLogSubscriptionRequest | CreateTransactionSubscriptionRequest>;
-  onChange: (subscription: Partial<CreateLogSubscriptionRequest | CreateTransactionSubscriptionRequest>) => void;
+  value: Partial<EthercastTypes.CreateLogSubscriptionRequest | EthercastTypes.CreateTransactionSubscriptionRequest>;
+  onChange: (subscription: Partial<EthercastTypes.CreateLogSubscriptionRequest | EthercastTypes.CreateTransactionSubscriptionRequest>) => void;
   onSubmit: () => void;
   onViewExample: () => void;
 }
 
 const REQUEST_BIN_HOST = 'https://requestbin.fullcontact.com';
 
-class SubscriptionDetailsForm extends FormComponent<Subscription> {
+class SubscriptionDetailsForm extends FormComponent<EthercastTypes.Subscription> {
   state = {
     generatingUrl: false
   };
@@ -97,7 +92,7 @@ class SubscriptionDetailsForm extends FormComponent<Subscription> {
 }
 
 export default class SubscriptionForm extends React.PureComponent<SubscriptionFormProps> {
-  handleChange = (changes: Partial<CreateLogSubscriptionRequest | CreateTransactionSubscriptionRequest>) => {
+  handleChange = (changes: Partial<EthercastTypes.CreateLogSubscriptionRequest | EthercastTypes.CreateTransactionSubscriptionRequest>) => {
     this.props.onChange({ ...this.props.value, ...changes } as any);
   };
 
@@ -131,16 +126,16 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
               <Button.Group>
                 <Button
                   type="button"
-                  positive={value && value.type === SubscriptionType.log}
-                  onClick={() => this.handleChange({ type: SubscriptionType.log, filters: {} })}
+                  positive={value && value.type === 'log'}
+                  onClick={() => this.handleChange({ type: 'log', filters: {} })}
                 >
                   Logs
                 </Button>
                 <Button.Or/>
                 <Button
                   type="button"
-                  positive={value && value.type === SubscriptionType.transaction}
-                  onClick={() => this.handleChange({ type: SubscriptionType.transaction, filters: {} })}
+                  positive={value && value.type === 'transaction'}
+                  onClick={() => this.handleChange({ type: 'transaction', filters: {} })}
                 >
                   Transactions
                 </Button>
@@ -150,7 +145,7 @@ export default class SubscriptionForm extends React.PureComponent<SubscriptionFo
             <Divider/>
 
             <FiltersInput
-              type={value && value.type ? value.type : SubscriptionType.log}
+              type={value && value.type ? value.type : 'log'}
               value={value.filters}
               onChange={this.handleFiltersChange}
             />

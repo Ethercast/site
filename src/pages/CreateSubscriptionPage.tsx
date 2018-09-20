@@ -8,23 +8,18 @@ import Modal from 'semantic-ui-react/dist/commonjs/modules/Modal/Modal';
 import * as _ from 'underscore';
 import FormattedJSON from '../components/FormattedJSON';
 import SubscriptionForm from '../components/subscriptions/SubscriptionForm';
-import {
-  CreateLogSubscriptionRequest,
-  CreateTransactionSubscriptionRequest,
-  Subscription,
-  SubscriptionType
-} from '../debt/ethercast-backend-model';
+import { EthercastTypes } from '@ethercast/model';
 import { createSubscription, getExamples } from '../util/api';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 
 interface CreateSubscriptionPageState {
-  subscription: Partial<CreateTransactionSubscriptionRequest | CreateLogSubscriptionRequest>;
+  subscription: Partial<EthercastTypes.CreateTransactionSubscriptionRequest | EthercastTypes.CreateLogSubscriptionRequest>;
   error: Error | null;
   promise: Promise<any> | null;
   example: any;
 }
 
-export function parseSubscriptionFilters(subscription: any): Subscription {
+export function parseSubscriptionFilters(subscription: any): EthercastTypes.Subscription {
   return {
     ...subscription,
     filters: _.mapObject(
@@ -56,7 +51,7 @@ export default mustBeLoggedIn(
 
     state = {
       subscription: {
-        type: SubscriptionType.log,
+        type: 'log',
         filters: {}
       } as any,
       promise: null,

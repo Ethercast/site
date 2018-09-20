@@ -3,10 +3,10 @@ import * as React from 'react';
 import * as _ from 'underscore';
 import { listReceipts } from '../util/api';
 import { Dimmer, Icon, Message, Table } from 'semantic-ui-react';
-import { WebhookReceipt } from '../debt/ethercast-backend-model';
+import { EthercastTypes } from '@ethercast/model';
 
 interface State {
-  receipts: WebhookReceipt[];
+  receipts: EthercastTypes.WebhookReceipt[];
   promise: Promise<any> | null;
   error: string | null;
 }
@@ -66,7 +66,7 @@ export default class ReceiptTable extends React.Component<Props, State> {
               ) : null
             }
             {
-              _.sortBy(receipts, ({ timestamp }: WebhookReceipt) => timestamp * -1)
+              _.sortBy(receipts, ({ timestamp }: EthercastTypes.WebhookReceipt) => timestamp * -1)
                 .map(
                   ({ id, timestamp, result: { statusCode, success } }) => (
                     <Table.Row title={id} key={id}>

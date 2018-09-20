@@ -1,14 +1,14 @@
 import * as React from 'react';
 import SubscriptionItem from './SubscriptionItem';
-import { Subscription } from '../../debt/ethercast-backend-model';
+import { EthercastTypes } from '@ethercast/model';
 import { Card } from 'semantic-ui-react';
 
-export default ({ items }: { items: Subscription[] }) => {
+export default ({ items }: { items: EthercastTypes.Subscription[] }) => {
   return (
     <Card.Group itemsPerRow={3} stackable>
       {
         items.map(
-          (subscription: Subscription) => (
+          (subscription: EthercastTypes.Subscription) => (
             <SubscriptionItem key={subscription.id} subscription={subscription}/>
           )
         )

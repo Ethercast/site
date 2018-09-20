@@ -2,12 +2,12 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Container, Dimmer, Header, Loader, Message } from 'semantic-ui-react';
 import ApiKeyForm from '../components/api-keys/ApiKeyForm';
-import { CreateApiKeyRequest, Scope } from '../debt/ethercast-backend-model';
+import { EthercastTypes } from '@ethercast/model';
 import { createApiKey } from '../util/api';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 
 interface State {
-  apiKey: CreateApiKeyRequest,
+  apiKey: EthercastTypes.CreateApiKeyRequest,
   error: Error | null;
   promise: Promise<any> | null;
 }
@@ -32,7 +32,7 @@ class CreateApiKeyPage extends React.Component<RouteComponentProps<{}>, State> {
   state = {
     apiKey: {
       name: '',
-      scopes: [Scope.READ_SUBSCRIPTION]
+      scopes: [EthercastTypes.Scope.READ_SUBSCRIPTION]
     },
     promise: null,
     error: null

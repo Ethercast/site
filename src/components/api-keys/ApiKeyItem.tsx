@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Button, Card, Checkbox, Input, Label } from 'semantic-ui-react';
-import { ApiKey, Scope } from '../../debt/ethercast-backend-model';
+import { EthercastTypes } from '@ethercast/model';
 
-function ScopesList(props: {scopes: Scope[]}) {
+function ScopesList(props: {scopes: EthercastTypes.Scope[]}) {
   return (
     <Card.Group style={{margin: '0.5em'}}>
     {props.scopes.map((scope) => (
@@ -13,7 +13,7 @@ function ScopesList(props: {scopes: Scope[]}) {
 }
 
 interface Props {
-  apiKey: ApiKey;
+  apiKey: EthercastTypes.ApiKey;
   deleteApiKey: (id: string) => void;
 }
 

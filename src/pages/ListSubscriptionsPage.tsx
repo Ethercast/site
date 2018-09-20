@@ -6,7 +6,7 @@ import SubscriptionList from '../components/subscriptions/SubscriptionList';
 import { listSubscriptions } from '../util/api';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
 import { RouteComponentProps } from 'react-router';
-import { Subscription } from '../debt/ethercast-backend-model';
+import { EthercastTypes } from '@ethercast/model';
 import { Button, Container, Dimmer, Header, Icon, Input, Loader, Message } from 'semantic-ui-react';
 import * as _ from 'underscore';
 import ClientPaginated from '../components/ClientPaginated';
@@ -20,7 +20,7 @@ function CreateButton(props: {}) {
 }
 
 interface State {
-  subscriptions: Subscription[] | null;
+  subscriptions: EthercastTypes.Subscription[] | null;
   promise: Promise<any> | null;
   error: string | null;
 }
@@ -64,7 +64,7 @@ class ListSubscriptionsPage extends React.Component<RouteComponentProps<{}>, Sta
 
     const { search } = history.location;
 
-    let filteredSubs: Subscription[] = subscriptions || [];
+    let filteredSubs: EthercastTypes.Subscription[] = subscriptions || [];
 
     let q = '';
     if (search && search.length > 1) {
@@ -72,7 +72,7 @@ class ListSubscriptionsPage extends React.Component<RouteComponentProps<{}>, Sta
 
       filteredSubs = _.filter(
         filteredSubs,
-        ({ name }: Subscription) => !q || name.toLowerCase().indexOf(q) !== -1
+        ({ name }: EthercastTypes.Subscription) => !q || name.toLowerCase().indexOf(q) !== -1
       );
     }
 
@@ -80,7 +80,7 @@ class ListSubscriptionsPage extends React.Component<RouteComponentProps<{}>, Sta
 
     const groupedSorted = _.chain(filteredSubs)
       .groupBy('status')
-      .mapObject(subs => _.sortBy(subs, ({ timestamp }: Subscription) => timestamp * -1))
+      .mapObject(subs => _.sortBy(subs, ({ timestamp }: EthercastTypes.Subscription) => timestamp * -1))
       .value();
 
     const active = groupedSorted['active'] || [];
@@ -135,7 +135,7 @@ class ListSubscriptionsPage extends React.Component<RouteComponentProps<{}>, Sta
                           started.
                         </Message>
                       )
-                    ) : <SubscriptionList items={items as Subscription[]}/>
+                    ) : <SubscriptionList items={items as EthercastTypes.Subscription[]}/>
                   );
                 }
               }

@@ -7,7 +7,7 @@ import { RouteComponentProps } from 'react-router';
 import { Button, Container, Dimmer, Header, Icon, Input, Loader, Message } from 'semantic-ui-react';
 import { deleteApiKey, listApiKeys } from '../util/api';
 import mustBeLoggedIn from '../util/mustBeLoggedIn';
-import { ApiKey } from '../debt/ethercast-backend-model';
+import { EthercastTypes } from '@ethercast/model';
 import ClientPaginated from '../components/ClientPaginated';
 import ApiKeyList from '../components/api-keys/ApiKeyList';
 
@@ -20,7 +20,7 @@ function CreateButton(props: {}) {
 }
 
 interface State {
-  apiKeys: ApiKey[] | null;
+  apiKeys: EthercastTypes.ApiKey[] | null;
   promise: Promise<any> | null;
   error: string | null;
 }
@@ -84,7 +84,7 @@ class ListApiKeysPage extends React.Component<RouteComponentProps<{}>, State> {
 
     const { search } = history.location;
 
-    let filteredKeys: ApiKey[] = apiKeys || [];
+    let filteredKeys: EthercastTypes.ApiKey[] = apiKeys || [];
 
     let q = '';
     if (search && search.length > 1) {
@@ -92,7 +92,7 @@ class ListApiKeysPage extends React.Component<RouteComponentProps<{}>, State> {
 
       filteredKeys = _.filter(
         filteredKeys,
-        ({ name }: ApiKey) => !q || name.toLowerCase().indexOf(q) !== -1
+        ({ name }: EthercastTypes.ApiKey) => !q || name.toLowerCase().indexOf(q) !== -1
       );
     }
 
@@ -146,7 +146,7 @@ class ListApiKeysPage extends React.Component<RouteComponentProps<{}>, State> {
                           You have not created any API keys. <Link to="/api-keys/new">Click here</Link> to get started.
                         </Message>
                       )
-                    ) : <ApiKeyList items={items as ApiKey[]} deleteApiKey={this.deleteApiKey}/>
+                    ) : <ApiKeyList items={items as EthercastTypes.ApiKey[]} deleteApiKey={this.deleteApiKey}/>
                   );
                 }
               }
