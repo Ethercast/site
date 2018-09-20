@@ -10,25 +10,41 @@ enum HTTP {
   DELETE = 'DELETE',
 }
 
-const ModelLink = ({ schemaKey }: { schemaKey: string }) => {
-  const href = `https://docs.ethercast.io/model/interfaces/${schemaKey.toLowerCase()}.html`;
-
+const ModelLink = ({ schemaKeys }: { schemaKeys: string[] }) => {
   return (
-    <a href={href}>{schemaKey}</a>
+    <span>
+      {
+        schemaKeys.map(
+          (schemaKey, ix) => (
+            <span>
+            <a key={schemaKey}
+               href={`https://docs.ethercast.io/model/interfaces/${schemaKey.toLowerCase()}.html`}>
+              {schemaKey}
+            </a>{
+              ix === schemaKeys.length - 1 ? '' : ' | '
+            }
+            </span>
+          )
+        )
+      }
+    </span>
   );
 };
 
-const APIRouteRow = ({ verb, path, schemaKey }: { verb: HTTP, path: string, schemaKey?: string }) => {
+const APIRouteRow = ({ name, verb, path, schemaKeys }: { name: string, verb: HTTP, path: string, schemaKeys?: string[] }) => {
   return (
     <Table.Row>
       <Table.Cell>
-        <code><b>{verb}</b></code>
+        <strong>{name}</strong>
+      </Table.Cell>
+      <Table.Cell>
+        <code>{verb}</code>
       </Table.Cell>
       <Table.Cell>
         <code>{path}</code>
       </Table.Cell>
       <Table.Cell>
-        {schemaKey ? <ModelLink schemaKey={schemaKey}/> : null}
+        {schemaKeys ? <ModelLink schemaKeys={schemaKeys}/> : null}
       </Table.Cell>
     </Table.Row>
   );
@@ -98,31 +114,36 @@ export default function Docs(props: RouteComponentProps<{}>) {
         Test nets (as they become available) are served over <code>
         https://{'{'}network-name{'}'}.api.ethercast.io</code>.
       </p>
-      <Header as='h4'>Available Routes</Header>
+      <Header as='h3'>API Endpoints</Header>
       <Table>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
-              <code><b>VERB</b></code>
+              Operation
             </Table.HeaderCell>
             <Table.HeaderCell>
-              <code>path</code>
+              HTTP Method
             </Table.HeaderCell>
             <Table.HeaderCell>
-              Expected body
+              Path
+            </Table.HeaderCell>
+            <Table.HeaderCell>
+              Request Body
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          <APIRouteRow verb={HTTP.POST} path="api-keys" schemaKey="CreateApiKeyRequest"/>
-          <APIRouteRow verb={HTTP.GET} path="api-keys"/>
-          <APIRouteRow verb={HTTP.DELETE} path="api-keys/{id}"/>
-          <APIRouteRow verb={HTTP.POST} path="subscriptions" schemaKey="CreateSubscriptionRequest"/>
-          <APIRouteRow verb={HTTP.GET} path="subscriptions"/>
-          <APIRouteRow verb={HTTP.GET} path="subscriptions/{id}"/>
-          <APIRouteRow verb={HTTP.GET} path="subscriptions/{id}/receipts"/>
-          <APIRouteRow verb={HTTP.DELETE} path="subscriptions/{id}"/>
-          <APIRouteRow verb={HTTP.POST} path="get-examples" schemaKey="GetExampleRequest"/>
+          <APIRouteRow name="List API Keys" verb={HTTP.GET} path="api-keys"/>
+          <APIRouteRow name="Create API Key" verb={HTTP.POST} path="api-keys" schemaKeys={['CreateApiKeyRequest']}/>
+          <APIRouteRow name="Get API Key by ID" verb={HTTP.DELETE} path="api-keys/{id}"/>
+          <APIRouteRow name="List Subscriptions" verb={HTTP.GET} path="subscriptions"/>
+          <APIRouteRow name="Create Subscription" verb={HTTP.POST} path="subscriptions"
+                       schemaKeys={['CreateTransactionSubscriptionRequest', 'CreateLogSubscriptionRequest']}/>
+          <APIRouteRow name="Get Subscription by ID" verb={HTTP.GET} path="subscriptions/{id}"/>
+          <APIRouteRow name="Deactivate Subscription" verb={HTTP.DELETE} path="subscriptions/{id}"/>
+          <APIRouteRow name="List Subscription Receipts" verb={HTTP.GET} path="subscriptions/{id}/receipts"/>
+          <APIRouteRow name="Get Example Webhook" verb={HTTP.POST} path="get-examples"
+                       schemaKeys={['GetExampleTransactionRequest', 'GetExampleLogRequest']}/>
         </Table.Body>
       </Table>
 
