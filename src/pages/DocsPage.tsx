@@ -179,6 +179,26 @@ export default function Docs(props: RouteComponentProps<{}>) {
           </Table.Row>
           <Table.Row>
             <Table.Cell>
+              <a href="https://unpkg.com/@ethercast/model@latest/build/ethercast-api-types-schema.json">
+                Ethercast JSON Schema
+              </a>
+            </Table.Cell>
+            <Table.Cell>
+              This JSON schema describes the models used by the API
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>
+              <a href="https://unpkg.com/@ethercast/model@latest/build/ethereum-types-schema.json">
+                Ethereum JSON Schema
+              </a>
+            </Table.Cell>
+            <Table.Cell>
+              This JSON schema describes the models delivered to your Webhook
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>
               <a href="mailto:hello@ethercast.io">E-mail us!</a>
             </Table.Cell>
             <Table.Cell>
